@@ -1,0 +1,39 @@
+{
+	"name": "perminder-klair/kato",
+	"description": "Kato CMS Based on Yii2",
+	"keywords": ["kato", "cms", "content management", "web application"],
+	"homepage": "http://www.getkato.com/",
+	"type": "project",
+	"license": "MIT",
+	"support": {
+		"issues": "https://github.com/perminder-klair/kato/issues",
+		"wiki": "https://github.com/perminder-klair/kato/wiki",
+		"source": "https://github.com/perminder-klair/kato"
+	},
+	"minimum-stability": "dev",
+	"require": {
+		"php": ">=5.4.0",
+		"yiisoft/yii2": "dev-master",
+		"yiisoft/yii2-swiftmailer": "dev-master",
+		"yiisoft/yii2-bootstrap": "dev-master",
+		"yiisoft/yii2-debug": "dev-master",
+		"yiisoft/yii2-gii": "dev-master"
+	},
+	"scripts": {
+		"post-create-project-cmd": [
+			"yii\\composer\\Installer::setPermission"
+		]
+	},
+	"extra": {
+		"writable": [
+			"backend/runtime",
+			"backend/web/assets",
+
+			"console/runtime",
+			"console/migrations",
+
+			"frontend/runtime",
+			"frontend/web/assets"
+		]
+	}
+}
