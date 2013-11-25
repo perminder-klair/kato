@@ -1,125 +1,37 @@
-Yii 2 Advanced Application Template
-===================================
+# Kato CMS
+Thank you for choosing Kato - a PHP CMS based on Yii2 Framework.
 
-**NOTE** Yii 2 and the relevant applications and extensions are still under heavy
-development. We may make significant changes without prior notices. Please do not
-use them for production. Please consider using [Yii v1.1](https://github.com/yiisoft/yii)
-if you have a project to be deployed for production soon.
+To get started, check out [http://getkato.com](http://getkato.com)!
 
+** Kato is not ready for production yet **
 
-Thank you for using Yii 2 Advanced Application Template - an application template
-that works out-of-box and can be easily customized to fit for your needs.
+## Documentation
+Read the [Documentation](docs/index.md) for information like installation, usage, examples and more.
 
-Yii 2 Advanced Application Template is best suitable for large projects requiring frontend and backend separation,
-deployment in different environments, configuration nesting etc.
+## Admin Access
+Login to Admin Panel by visiting: www.yoursite.com/admin
+Login using: `admin / admin`
 
+## Requirements
+The minimum requirement is that your Web server supports PHP 5.4 and Yii2 Framework.
 
-DIRECTORY STRUCTURE
--------------------
+## Extensions included in Kato
+* [yii-easyimage](https://github.com/zhdanovartur/yii-easyimage)
+* [efeed](https://github.com/2amigos/efeed)
+* [Imperavi Redactor WYSIWYG](https://github.com/yiiext/imperavi-redactor-widget)
+* [YiiMailer](https://github.com/vernes/YiiMailer)
 
-```
-common
-	config/             contains shared configurations
-	models/             contains model classes used in both backend and frontend
-console
-	config/             contains console configurations
-	controllers/        contains console controllers (commands)
-	migrations/         contains database migrations
-	models/             contains console-specific model classes
-	runtime/            contains files generated during runtime
-backend
-	assets/             contains application assets such as JavaScript and CSS
-	config/             contains backend configurations
-	controllers/        contains Web controller classes
-	models/             contains backend-specific model classes
-	runtime/            contains files generated during runtime
-	views/              contains view files for the Web application
-	web/                contains the entry script and Web resources
-frontend
-	assets/             contains application assets such as JavaScript and CSS
-	config/             contains frontend configurations
-	controllers/        contains Web controller classes
-	models/             contains frontend-specific model classes
-	runtime/            contains files generated during runtime
-	views/              contains view files for the Web application
-	web/                contains the entry script and Web resources
-vendor/                 contains dependent 3rd-party packages
-environments/                contains environment-based overrides
-```
+## Bug tracker and feature requests
+If you find any bugs or have a feature request?, please create an issue at [issue tracker for project Github repository](https://github.com/perminder-klair/kato/issues).
 
+## Known Issues
+Visit [Security page](docs/security.md) for more information.
 
+## License
+This work is licensed under a MIT license. Full text is included in the `LICENSE` file in the root of codebase.
 
-REQUIREMENTS
-------------
+## Authors
+**Parminder Klair**
 
-The minimum requirement by Yii is that your Web server supports PHP 5.4.0.
-
-In order for captcha to work you need either GD2 extension or ImageMagick PHP extension.
-
-INSTALLATION
-------------
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may download it from
-[http://getcomposer.org/](http://getcomposer.org/) or run the following command on Linux/Unix/MacOS:
-
-~~~
-curl -s http://getcomposer.org/installer | php
-~~~
-
-You can then install the application using the following command:
-
-~~~
-php composer.phar create-project --stability=dev yiisoft/yii2-app-advanced yii-advanced
-~~~
-
-Note that in order to install some dependencies you must have `php_openssl` extension enabled.
-
-After the application is installed, switch to the project folder and run the following command
-to initialize the application:
-
-~~~
-./init         (init on Windows)
-~~~
-
-
-### Install from an Archive File
-
-This is not currently available. We will provide it when Yii 2 is formally released.
-
-
-### Install from development repository
-
-If you've cloned the [Yii 2 framework main development repository](https://github.com/yiisoft/yii2) you
-can bootstrap your application with:
-
-~~~
-cd yii2/apps/advanced
-php composer.phar create-project
-~~~
-
-*Note: If the above command fails with `[RuntimeException] Not enough arguments.` run
-`php composer.phar self-update` to obtain an updated version of composer which supports creating projects
-from local packages.*
-
-
-GETTING STARTED
----------------
-
-After you install the application, you have to conduct the following steps to initialize
-the installed application. You only need to do these once for all.
-
-1. Execute the `init` command and select `dev` as environment. Alternatively you can execute it as `init --env=Development`
-or `init --env=Production`.
-2. Create a new database. It is assumed that MySQL InnoDB is used. If not, adjust `console/migrations/m130524_201442_init.php`.
-3. In `common/config/params.php` set your database details in `components.db` values.
-4. Apply migrations with `yii migrate`.
-
-Now you should be able to access:
-
-- the frontend using the URL `http://localhost/yii-advanced/frontend/web/`
-- the backend using the URL `http://localhost/yii-advanced/backend/web/`
-
-assuming `yii-advanced` is directly under the document root of your Web server.
-
++ [http://twitter.com/pinku1](http://twitter.com/pinku1)
++ [https://github.com/perminder-klair](https://github.com/perminder-klair)
