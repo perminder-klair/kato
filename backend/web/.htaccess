@@ -1,0 +1,15 @@
+<ifModule mod_rewrite.c>
+    RewriteEngine on
+
+    # If a directory or a file exists, use it directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Otherwise forward it to index.php
+    RewriteRule . index.php
+    #RewriteRule ^(.*)$ index.php
+
+    # uncomment to redirect mywebsite.com to www.mywebsite.com
+    #RewriteCond %{HTTP_HOST} !^(www\.|$) [NC]
+    #RewriteRule ^ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</ifModule>
