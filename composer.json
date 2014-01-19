@@ -11,19 +11,22 @@
 		"source": "https://github.com/perminder-klair/kato"
 	},
 	"minimum-stability": "dev",
-	"require": {
-		"php": ">=5.4.0",
-		"yiisoft/yii2": "dev-master",
-		"yiisoft/yii2-swiftmailer": "dev-master",
-		"yiisoft/yii2-bootstrap": "dev-master",
-		"yiisoft/yii2-debug": "dev-master",
-		"yiisoft/yii2-gii": "dev-master"
-	},
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*",
+        "yiisoft/yii2-swiftmailer": "*"
+    },
+    "require-dev": {
+    },
 	"scripts": {
 		"post-create-project-cmd": [
 			"yii\\composer\\Installer::setPermission"
 		]
 	},
+    "config": {
+        "process-timeout": 1800
+    },
 	"extra": {
 		"writable": [
 			"backend/runtime",
