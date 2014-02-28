@@ -1,96 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="df6447f8-5892-446b-97db-f2deb6d41eb4" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\backend\controllers\BlogController.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\backend\views\blog\_form.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\backend\views\blog\_search.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\backend\views\blog\create.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\backend\views\blog\index.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\backend\views\blog\update.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\backend\views\blog\view.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\backend\web\.htaccess" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\common\models\Blog.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\common\models\Tag.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\common\models\search\BlogSearch.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\frontend\controllers\BlogController.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\frontend\views\blog\_search.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\frontend\views\blog\index.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\frontend\views\blog\view.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files (x86)\Ampps\www\scripts\kato\frontend\views\emails\passwordResetToken.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.phar" afterPath="$PROJECT_DIR$/composer.phar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/config/.gitignore" afterPath="$PROJECT_DIR$/backend/config/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/runtime/.gitignore" afterPath="$PROJECT_DIR$/backend/runtime/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/web/assets/.gitignore" afterPath="$PROJECT_DIR$/backend/web/assets/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/config/.gitignore" afterPath="$PROJECT_DIR$/console/config/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/runtime/.gitignore" afterPath="$PROJECT_DIR$/console/runtime/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/config/.gitignore" afterPath="$PROJECT_DIR$/frontend/config/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/runtime/.gitignore" afterPath="$PROJECT_DIR$/frontend/runtime/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/web/assets/.gitignore" afterPath="$PROJECT_DIR$/frontend/web/assets/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/.gitignore" afterPath="$PROJECT_DIR$/vendor/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/models/.gitkeep" afterPath="$PROJECT_DIR$/backend/models/.gitkeep" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/models/.gitkeep" afterPath="$PROJECT_DIR$/console/models/.gitkeep" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/widgets/Alert.php" afterPath="$PROJECT_DIR$/frontend/widgets/Alert.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/assets/AppAsset.php" afterPath="$PROJECT_DIR$/backend/assets/AppAsset.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/assets/AppAsset.php" afterPath="$PROJECT_DIR$/frontend/assets/AppAsset.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/models/ContactForm.php" afterPath="$PROJECT_DIR$/frontend/models/ContactForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/models/LoginForm.php" afterPath="$PROJECT_DIR$/common/models/LoginForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/controllers/SiteController.php" afterPath="$PROJECT_DIR$/backend/controllers/SiteController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/controllers/SiteController.php" afterPath="$PROJECT_DIR$/frontend/controllers/SiteController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/models/User.php" afterPath="$PROJECT_DIR$/common/models/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/views/site/about.php" afterPath="$PROJECT_DIR$/frontend/views/site/about.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/views/site/contact.php" afterPath="$PROJECT_DIR$/frontend/views/site/contact.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/views/site/error.php" afterPath="$PROJECT_DIR$/backend/views/site/error.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/views/site/error.php" afterPath="$PROJECT_DIR$/frontend/views/site/error.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/views/site/index.php" afterPath="$PROJECT_DIR$/backend/views/site/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/index.php" afterPath="$PROJECT_DIR$/environments/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/dev/backend/web/index.php" afterPath="$PROJECT_DIR$/environments/dev/backend/web/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/dev/frontend/web/index.php" afterPath="$PROJECT_DIR$/environments/dev/frontend/web/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/prod/backend/web/index.php" afterPath="$PROJECT_DIR$/environments/prod/backend/web/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/prod/frontend/web/index.php" afterPath="$PROJECT_DIR$/environments/prod/frontend/web/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/views/site/index.php" afterPath="$PROJECT_DIR$/frontend/views/site/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/init.bat" afterPath="$PROJECT_DIR$/init.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/init" afterPath="$PROJECT_DIR$/init" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/views/site/login.php" afterPath="$PROJECT_DIR$/backend/views/site/login.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/views/site/login.php" afterPath="$PROJECT_DIR$/frontend/views/site/login.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/migrations/m130524_201442_init.php" afterPath="$PROJECT_DIR$/console/migrations/m130524_201442_init.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/dev/backend/config/main-local.php" afterPath="$PROJECT_DIR$/environments/dev/backend/config/main-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/dev/console/config/main-local.php" afterPath="$PROJECT_DIR$/environments/dev/console/config/main-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/dev/frontend/config/main-local.php" afterPath="$PROJECT_DIR$/environments/dev/frontend/config/main-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/prod/backend/config/main-local.php" afterPath="$PROJECT_DIR$/environments/prod/backend/config/main-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/prod/console/config/main-local.php" afterPath="$PROJECT_DIR$/environments/prod/console/config/main-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/prod/frontend/config/main-local.php" afterPath="$PROJECT_DIR$/environments/prod/frontend/config/main-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/config/main.php" afterPath="$PROJECT_DIR$/backend/config/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/views/layouts/main.php" afterPath="$PROJECT_DIR$/backend/views/layouts/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/config/main.php" afterPath="$PROJECT_DIR$/console/config/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/config/main.php" afterPath="$PROJECT_DIR$/frontend/config/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/views/layouts/main.php" afterPath="$PROJECT_DIR$/frontend/views/layouts/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/dev/backend/config/params-local.php" afterPath="$PROJECT_DIR$/environments/dev/backend/config/params-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/dev/common/config/params-local.php" afterPath="$PROJECT_DIR$/environments/dev/common/config/params-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/dev/console/config/params-local.php" afterPath="$PROJECT_DIR$/environments/dev/console/config/params-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/dev/frontend/config/params-local.php" afterPath="$PROJECT_DIR$/environments/dev/frontend/config/params-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/prod/backend/config/params-local.php" afterPath="$PROJECT_DIR$/environments/prod/backend/config/params-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/prod/common/config/params-local.php" afterPath="$PROJECT_DIR$/environments/prod/common/config/params-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/prod/console/config/params-local.php" afterPath="$PROJECT_DIR$/environments/prod/console/config/params-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/prod/frontend/config/params-local.php" afterPath="$PROJECT_DIR$/environments/prod/frontend/config/params-local.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/config/params.php" afterPath="$PROJECT_DIR$/backend/config/params.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/config/params.php" afterPath="$PROJECT_DIR$/common/config/params.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/config/params.php" afterPath="$PROJECT_DIR$/console/config/params.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/config/params.php" afterPath="$PROJECT_DIR$/frontend/config/params.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/views/site/requestPasswordResetToken.php" afterPath="$PROJECT_DIR$/frontend/views/site/requestPasswordResetToken.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.php" afterPath="$PROJECT_DIR$/requirements.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/views/site/resetPassword.php" afterPath="$PROJECT_DIR$/frontend/views/site/resetPassword.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/views/site/signup.php" afterPath="$PROJECT_DIR$/frontend/views/site/signup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/web/css/site.css" afterPath="$PROJECT_DIR$/backend/web/css/site.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/web/css/site.css" afterPath="$PROJECT_DIR$/frontend/web/css/site.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yii.bat" afterPath="$PROJECT_DIR$/yii.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/dev/yii" afterPath="$PROJECT_DIR$/environments/dev/yii" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/environments/prod/yii" afterPath="$PROJECT_DIR$/environments/prod/yii" />
-    </list>
+    <list default="true" id="df6447f8-5892-446b-97db-f2deb6d41eb4" name="Default" comment="" />
     <ignored path="kato.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -111,55 +22,7 @@
     <favorites_list name="kato" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="SiteController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/controllers/SiteController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="45" selection-start="817" selection-end="817" vertical-scroll-proportion="-19.961538" vertical-offset="314" max-vertical-offset="1190">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginForm.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/models/LoginForm.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="33" selection-start="756" selection-end="756" vertical-scroll-proportion="-19.615385" vertical-offset="136" max-vertical-offset="1292">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/models/User.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="117" column="38" selection-start="2707" selection-end="2707" vertical-scroll-proportion="-23.653847" vertical-offset="1374" max-vertical-offset="2550">
-              <folding>
-                <element signature="e#32#56#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="kato2_2014-01-19.sql" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/kato2_2014-01-19.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5015">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/old/common/models/User.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="39.23077" vertical-offset="1020" max-vertical-offset="2516">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -282,15 +145,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="334" y="-8" width="1594" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="334" y="-8" width="1594" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -531,13 +394,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/controllers/SiteController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="45" selection-start="817" selection-end="817" vertical-scroll-proportion="-19.961538" vertical-offset="314" max-vertical-offset="1190">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/old/common/models/User.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="39.23077" vertical-offset="1020" max-vertical-offset="2516">
@@ -552,13 +408,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/models/LoginForm.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="33" selection-start="756" selection-end="756" vertical-scroll-proportion="-19.615385" vertical-offset="136" max-vertical-offset="1292">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/old/vendor/yiisoft/yii2/helpers/BaseSecurity.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="292" column="27" selection-start="10142" selection-end="10142" vertical-scroll-proportion="0.34246576" vertical-offset="4545" max-vertical-offset="6086">
@@ -566,18 +415,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/kato2_2014-01-19.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5015">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/common/models/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="38" selection-start="2707" selection-end="2707" vertical-scroll-proportion="-23.653847" vertical-offset="1374" max-vertical-offset="2550">
+        <state line="117" column="38" selection-start="2707" selection-end="2707" vertical-scroll-proportion="0.7036613" vertical-offset="1374" max-vertical-offset="2550">
           <folding>
             <element signature="e#32#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kato2_2014-01-19.sql">
+    <entry file="file://$PROJECT_DIR$/common/models/LoginForm.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5015">
+        <state line="39" column="33" selection-start="756" selection-end="756" vertical-scroll-proportion="0.58352405" vertical-offset="136" max-vertical-offset="1292">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/SiteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="45" selection-start="817" selection-end="817" vertical-scroll-proportion="0.5938215" vertical-offset="314" max-vertical-offset="1190">
           <folding />
         </state>
       </provider>
