@@ -22,29 +22,13 @@ use yii\widgets\ActiveForm;
 
 		<?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-		<?= $form->field($model, 'content_html')->textarea(['rows' => 6]) ?>
-
 		<?= $form->field($model, 'tags')->textarea(['rows' => 6]) ?>
 
-		<?= $form->field($model, 'create_time')->textInput() ?>
-
-		<?= $form->field($model, 'created_by')->textInput(['maxlength' => 11]) ?>
-
-		<?= $form->field($model, 'update_time')->textInput() ?>
-
 		<?= $form->field($model, 'publish_time')->textInput() ?>
-
-		<?= $form->field($model, 'updated_by')->textInput() ?>
-
-		<?= $form->field($model, 'published_by')->textInput(['maxlength' => 11]) ?>
-
-		<?= $form->field($model, 'is_revision')->textInput() ?>
 
 		<?= $form->field($model, 'parent_id')->textInput() ?>
 
 		<?= $form->field($model, 'status')->textInput() ?>
-
-		<?= $form->field($model, 'deleted')->textInput() ?>
 
 		<div class="form-group">
 			<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

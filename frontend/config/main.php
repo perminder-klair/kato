@@ -9,7 +9,7 @@ $params = array_merge(
 );
 
 return [
-	'id' => 'app-frontend',
+	'id' => 'kato-frontend',
 	'basePath' => dirname(__DIR__),
 	'vendorPath' => $rootDir . '/vendor',
 	'controllerNamespace' => 'frontend\controllers',

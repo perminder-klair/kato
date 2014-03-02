@@ -29,56 +29,58 @@ class Blog extends \yii\db\ActiveRecord
     const NOT_REVISION = 0;
     const STATUS_NOT_PUBLISHED = 0;
     const STATUS_PUBLISHED = 1;
+    const IS_NOT_DELETED = 0;
+    const IS_DELETED = 1;
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function tableName()
-	{
-		return 'kato_blog';
-	}
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'kato_blog';
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules()
-	{
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
             [['title'], 'required'],
-			[['content', 'content_html', 'tags'], 'string'],
-			[['create_time', 'created_by', 'update_time', 'publish_time'], 'required'],
-			[['create_time', 'update_time', 'publish_time'], 'safe'],
-			[['created_by', 'updated_by', 'published_by', 'is_revision', 'parent_id', 'status', 'deleted'], 'integer'],
-			[['title', 'slug'], 'string', 'max' => 70],
-			[['short_desc'], 'string', 'max' => 160]
-		];
-	}
+            [['content', 'content_html', 'tags'], 'string'],
+            [['create_time', 'created_by', 'update_time', 'publish_time'], 'required'],
+            [['create_time', 'update_time', 'publish_time'], 'safe'],
+            [['created_by', 'updated_by', 'published_by', 'is_revision', 'parent_id', 'status', 'deleted'], 'integer'],
+            [['title', 'slug'], 'string', 'max' => 70],
+            [['short_desc'], 'string', 'max' => 160]
+        ];
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function attributeLabels()
-	{
-		return [
-			'id' => 'ID',
-			'title' => 'Title',
-			'short_desc' => 'Short Desc',
-			'content' => 'Content',
-			'content_html' => 'Content Html',
-			'slug' => 'Slug',
-			'tags' => 'Tags',
-			'create_time' => 'Create Time',
-			'created_by' => 'Created By',
-			'update_time' => 'Update Time',
-			'updated_by' => 'Updated By',
-			'publish_time' => 'Publish Time',
-			'published_by' => 'Published By',
-			'is_revision' => 'Is Revision',
-			'parent_id' => 'Parent ID',
-			'status' => 'Status',
-			'deleted' => 'Deleted',
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'title' => 'Title',
+            'short_desc' => 'Short Desc',
+            'content' => 'Content',
+            'content_html' => 'Content Html',
+            'slug' => 'Slug',
+            'tags' => 'Tags',
+            'create_time' => 'Create Time',
+            'created_by' => 'Created By',
+            'update_time' => 'Update Time',
+            'updated_by' => 'Updated By',
+            'publish_time' => 'Publish Time',
+            'published_by' => 'Published By',
+            'is_revision' => 'Is Revision',
+            'parent_id' => 'Parent ID',
+            'status' => 'Status',
+            'deleted' => 'Deleted',
+        ];
+    }
 
     /**
      * Actions to be taken before saving the record.
@@ -88,39 +90,74 @@ class Blog extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+            $datetime = date('Y-m-d H:i:s');
+
             if ($this->isNewRecord) {
                 $this->title = $this->newPostTitle;
-                $this->created_by = Yii::$app->user->identity->id;
+                $this->created_by = \Yii::$app->user->id;;
                 $this->is_revision = self::NOT_REVISION;
                 $this->parent_id = 0;
                 $this->status = self::STATUS_NOT_PUBLISHED;
+                $this->create_time = $datetime;
+                $this->update_time = $datetime;
+                $this->publish_time = $datetime;
+                $this->deleted = self::IS_NOT_DELETED;
             } else {
-                $this->updated_by = Yii::$app->user->identity->id;
+                $this->updated_by = \Yii::$app->user->id;;
                 $this->slug = $this->createSlug();
                 $this->content_html = $this->renderBody();
-                $this->short_desc = KatoHelper::genShortDesc($this->content_html, 'p' , '20');
+                $this->update_time = $datetime;
+                //$this->short_desc = \KatoHelper::genShortDesc($this->content_html, 'p' , '20');
             }
             return true;
         }
         return false;
     }
 
-    /**
-     * Returns New Post's Title
-     * @return string
-     */
-    protected function getNewPostTitle()
+    public function beforeDelete()
     {
-        return 'New Post ' . $this->getLastRow()->id;
+        if (!parent::beforeDelete()) {
+            return false;
+        }
+
+        return true;
     }
 
-    /**
-     * Convert title to clean url friendly slug
-     * @return mixed|string
-     */
-    protected function createSlug()
+    public function getUser()
     {
-        return KatoHelper::toAscii($this->title);
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    public function getNewerLink()
+    {
+        if (!$model = $this->findNewerOne())
+            return null;
+
+        return Html::a(Html::encode($model->title), ['post/view', 'id' => $model->id]);
+    }
+
+    public function findNewerOne()
+    {
+        return static::find()
+            ->where('id > :id', [':id' => $this->id])
+            ->orderBy('id asc')
+            ->one();
+    }
+
+    public function getOlderLink()
+    {
+        if (!$model = $this->findOlderOne())
+            return null;
+
+        return Html::a(Html::encode($model->title), ['post/view', 'id' => $model->id]);
+    }
+
+    public function findOlderOne()
+    {
+        return static::find()
+            ->where('id < :id', [':id' => $this->id])
+            ->orderBy('id desc')
+            ->one();
     }
 
     /**
@@ -130,5 +167,23 @@ class Blog extends \yii\db\ActiveRecord
     public function renderBody()
     {
         return \common\kato\PhpMarkdown::defaultTransform($this->content);
+    }
+
+    /**
+     * Returns New Post's Title
+     * @return string
+     */
+    protected function getNewPostTitle()
+    {
+        return 'New Post '; // . $this->getLastRow()->id;
+    }
+
+    /**
+     * Convert title to clean url friendly slug
+     * @return mixed|string
+     */
+    protected function createSlug()
+    {
+        return KatoHelper::toAscii($this->title);
     }
 }

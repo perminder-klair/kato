@@ -60,13 +60,8 @@ class BlogController extends Controller
 	public function actionCreate()
 	{
 		$model = new Blog;
-
-		if ($model->load($_POST) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
-		} else {
-			return $this->render('create', [
-				'model' => $model,
-			]);
+		if ($model->save(false)) {
+			return $this->redirect(['update', 'id' => $model->id]);
 		}
 	}
 
@@ -97,23 +92,33 @@ class BlogController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
 		return $this->redirect(['index']);
 	}
 
-	/**
-	 * Finds the Blog model based on its primary key value.
-	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param string $id
-	 * @return Blog the loaded model
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	protected function findModel($id)
-	{
-		if (($model = Blog::find($id)) !== null) {
-			return $model;
-		} else {
-			throw new NotFoundHttpException('The requested page does not exist.');
-		}
-	}
+    /**
+     * Finds the Post model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Blog the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id, $withList = [])
+    {
+        $query = Blog::find()
+            ->where(['id' => $id])
+            ->with('user');
+
+        foreach ($withList as $with) {
+            $query->with($with);
+        }
+
+        $model = $query->one();
+
+        if ($model === null)
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        return $model;
+    }
 }

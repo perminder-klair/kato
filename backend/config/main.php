@@ -9,7 +9,7 @@ $params = array_merge(
 );
 
 return [
-	'id' => 'app-backend',
+	'id' => 'kato-backend',
 	'basePath' => dirname(__DIR__),
 	'vendorPath' => $rootDir . '/vendor',
 	'preload' => ['log'],
@@ -37,6 +37,14 @@ return [
 		'errorHandler' => [
 			'errorAction' => 'site/error',
 		],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                '<action:(login|logout|about)>' => 'site/<action>',
+                'post/<id:[0-9]+>' => 'post/view'
+            ]
+        ],
 	],
 	'params' => $params,
 ];
