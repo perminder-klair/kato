@@ -65,7 +65,7 @@ class BlogSearch extends Model
 
 	public function search($params)
 	{
-		$query = Blog::find();
+		$query = Blog::find()->where(['deleted' => 0]);
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);

@@ -16,6 +16,17 @@ class BlogController extends Controller
 	public function behaviors()
 	{
 		return [
+            'access' => [
+                'class' => \yii\web\AccessControl::className(),
+                'only' => ['create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
 			'verbs' => [
 				'class' => VerbFilter::className(),
 				'actions' => [
@@ -76,7 +87,7 @@ class BlogController extends Controller
 		$model = $this->findModel($id);
 
 		if ($model->load($_POST) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
 			return $this->render('update', [
 				'model' => $model,
@@ -100,9 +111,10 @@ class BlogController extends Controller
     /**
      * Finds the Post model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Blog the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @param array $withList
+     * @return mixed
+     * @throws \yii\web\NotFoundHttpException
      */
     protected function findModel($id, $withList = [])
     {

@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\helpers\Html;
+
 /**
  * This is the model class for table "kato_blog".
  *
@@ -23,14 +25,12 @@ namespace common\models;
  * @property integer $status
  * @property integer $deleted
  */
-class Blog extends \yii\db\ActiveRecord
+class Blog extends \common\kato\ActiveRecord
 {
     const IS_REVISION = 1;
     const NOT_REVISION = 0;
     const STATUS_NOT_PUBLISHED = 0;
     const STATUS_PUBLISHED = 1;
-    const IS_NOT_DELETED = 0;
-    const IS_DELETED = 1;
 
     /**
      * @inheritdoc
@@ -90,7 +90,6 @@ class Blog extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $datetime = date('Y-m-d H:i:s');
 
             if ($this->isNewRecord) {
                 $this->title = $this->newPostTitle;
@@ -98,29 +97,15 @@ class Blog extends \yii\db\ActiveRecord
                 $this->is_revision = self::NOT_REVISION;
                 $this->parent_id = 0;
                 $this->status = self::STATUS_NOT_PUBLISHED;
-                $this->create_time = $datetime;
-                $this->update_time = $datetime;
-                $this->publish_time = $datetime;
-                $this->deleted = self::IS_NOT_DELETED;
             } else {
                 $this->updated_by = \Yii::$app->user->id;;
                 $this->slug = $this->createSlug();
                 $this->content_html = $this->renderBody();
-                $this->update_time = $datetime;
-                //$this->short_desc = \KatoHelper::genShortDesc($this->content_html, 'p' , '20');
+                $this->short_desc = \common\kato\KatoHelper::genShortDesc($this->content_html, 'p' , '20');
             }
             return true;
         }
         return false;
-    }
-
-    public function beforeDelete()
-    {
-        if (!parent::beforeDelete()) {
-            return false;
-        }
-
-        return true;
     }
 
     public function getUser()
@@ -175,7 +160,7 @@ class Blog extends \yii\db\ActiveRecord
      */
     protected function getNewPostTitle()
     {
-        return 'New Post '; // . $this->getLastRow()->id;
+        return 'New Post ' . $this->getLastRow()->id;
     }
 
     /**
@@ -184,6 +169,6 @@ class Blog extends \yii\db\ActiveRecord
      */
     protected function createSlug()
     {
-        return KatoHelper::toAscii($this->title);
+        return \common\kato\KatoHelper::toAscii($this->title);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace common\kato;
 
+use yii\behaviors\AutoTimestamp;
+
 class ActiveRecord extends \yii\db\ActiveRecord
 {
     const IS_DELETED = 1;
@@ -21,10 +23,10 @@ class ActiveRecord extends \yii\db\ActiveRecord
             if ($this->isNewRecord) {
 
                 // We are creating a new record.
-                if ($this->hasAttribute('created'))
+                if ($this->hasAttribute('create_time'))
                     $this->create_time = $now;
 
-                if ($this->hasAttribute('updated'))
+                if ($this->hasAttribute('update_time'))
                     $this->update_time = $now;
 
                 if ($this->hasAttribute('deleted'))
@@ -35,7 +37,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
 
             } else {
                 // We are updating an existing record.
-                if ($this->hasAttribute('updated'))
+                if ($this->hasAttribute('update_time'))
                     $this->update_time = $now;
             }
             return true;

@@ -16,10 +16,6 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
 
-        <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
-
-        <?= $form->field($model, 'short_desc')->textInput(['maxlength' => 160]) ?>
-
 		<?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
 		<?= $form->field($model, 'tags')->textarea(['rows' => 6]) ?>
