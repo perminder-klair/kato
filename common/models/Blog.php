@@ -92,13 +92,10 @@ class Blog extends \common\kato\ActiveRecord
         if (parent::beforeSave($insert)) {
 
             if ($this->isNewRecord) {
-                $this->title = $this->newPostTitle;
-                $this->created_by = \Yii::$app->user->id;;
                 $this->is_revision = self::NOT_REVISION;
                 $this->parent_id = 0;
                 $this->status = self::STATUS_NOT_PUBLISHED;
             } else {
-                $this->updated_by = \Yii::$app->user->id;;
                 $this->slug = $this->createSlug();
                 $this->content_html = $this->renderBody();
                 $this->short_desc = \common\kato\KatoHelper::genShortDesc($this->content_html, 'p' , '20');
@@ -152,15 +149,6 @@ class Blog extends \common\kato\ActiveRecord
     public function renderBody()
     {
         return \common\kato\PhpMarkdown::defaultTransform($this->content);
-    }
-
-    /**
-     * Returns New Post's Title
-     * @return string
-     */
-    protected function getNewPostTitle()
-    {
-        return 'New Post ' . $this->getLastRow()->id;
     }
 
     /**

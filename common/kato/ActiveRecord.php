@@ -19,6 +19,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
         if (parent::beforeSave($insert)) {
 
             $now = date('Y-m-d H:i:s', time());
+            $user_id = \Yii::$app->user->id;
 
             if ($this->isNewRecord) {
 
@@ -35,10 +36,19 @@ class ActiveRecord extends \yii\db\ActiveRecord
                 if ($this->hasAttribute('publish_time'))
                     $this->publish_time = $now;
 
+                if ($this->hasAttribute('created_by'))
+                    $this->created_by = $user_id;
+
+                if ($this->hasAttribute('title'))
+                    $this->title = $this->newPostTitle;
+
             } else {
                 // We are updating an existing record.
                 if ($this->hasAttribute('update_time'))
                     $this->update_time = $now;
+
+                if ($this->hasAttribute('updated_by'))
+                    $this->updated_by = $user_id;
             }
             return true;
         }
@@ -87,5 +97,15 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return static::find()
             ->orderBy('id DESC')
             ->one();
+    }
+
+    /**
+     * Returns New Post's Title
+     * @return string
+     */
+    protected function getNewPostTitle()
+    {
+        $id = $this->getLastRow()->id + 1;
+        return 'New ' . $id;
     }
 }
