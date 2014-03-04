@@ -32,7 +32,7 @@ use yii\widgets\Breadcrumbs;
                 <!-- If you do not want a link in the header, instead of .header-title-link you can use a div with the class .header-section -->
                 <a href="" class="header-title-link">
                     <h1>
-                        <i class="glyphicon-brush animation-expandUp"></i>Blank<br><small>A clean page to help you start!</small>
+                        <i class="fa fa-coffee animation-expandUp"></i>Dashboard<br><small>A clean page to help you start!</small>
                     </h1>
                 </a>
             </div>
@@ -40,7 +40,7 @@ use yii\widgets\Breadcrumbs;
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 'options' => ['class' => 'breadcrumb breadcrumb-top'],
                 'encodeLabels' => false,
-                'homeLink' => ['label' => '<i class="fa fa-file-o"></i>'],
+                'homeLink' => ['label' => '<i class="fa fa-coffee"></i>'],
             ]) ?>
             <!-- END Blank Header -->
 
