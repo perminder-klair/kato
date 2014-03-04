@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle
         'js/vendor/bootstrap.min.js',
         'js/plugins.js',
         'js/main.js',
+        'js/vendor/modernizr-2.6.2-respond-1.3.0.min.js',
     ];
 	public $depends = [
 		'yii\web\YiiAsset',
