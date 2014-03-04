@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\helpers\Html;
+
 /**
  * This is the model class for table "kato_blog".
  *
@@ -23,62 +25,62 @@ namespace common\models;
  * @property integer $status
  * @property integer $deleted
  */
-class Blog extends \yii\db\ActiveRecord
+class Blog extends \common\kato\ActiveRecord
 {
     const IS_REVISION = 1;
     const NOT_REVISION = 0;
     const STATUS_NOT_PUBLISHED = 0;
     const STATUS_PUBLISHED = 1;
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function tableName()
-	{
-		return 'kato_blog';
-	}
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'kato_blog';
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules()
-	{
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
             [['title'], 'required'],
-			[['content', 'content_html', 'tags'], 'string'],
-			[['create_time', 'created_by', 'update_time', 'publish_time'], 'required'],
-			[['create_time', 'update_time', 'publish_time'], 'safe'],
-			[['created_by', 'updated_by', 'published_by', 'is_revision', 'parent_id', 'status', 'deleted'], 'integer'],
-			[['title', 'slug'], 'string', 'max' => 70],
-			[['short_desc'], 'string', 'max' => 160]
-		];
-	}
+            [['content', 'content_html', 'tags'], 'string'],
+            [['create_time', 'created_by', 'update_time', 'publish_time'], 'required'],
+            [['create_time', 'update_time', 'publish_time'], 'safe'],
+            [['created_by', 'updated_by', 'published_by', 'is_revision', 'parent_id', 'status', 'deleted'], 'integer'],
+            [['title', 'slug'], 'string', 'max' => 70],
+            [['short_desc'], 'string', 'max' => 160]
+        ];
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function attributeLabels()
-	{
-		return [
-			'id' => 'ID',
-			'title' => 'Title',
-			'short_desc' => 'Short Desc',
-			'content' => 'Content',
-			'content_html' => 'Content Html',
-			'slug' => 'Slug',
-			'tags' => 'Tags',
-			'create_time' => 'Create Time',
-			'created_by' => 'Created By',
-			'update_time' => 'Update Time',
-			'updated_by' => 'Updated By',
-			'publish_time' => 'Publish Time',
-			'published_by' => 'Published By',
-			'is_revision' => 'Is Revision',
-			'parent_id' => 'Parent ID',
-			'status' => 'Status',
-			'deleted' => 'Deleted',
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'title' => 'Title',
+            'short_desc' => 'Short Desc',
+            'content' => 'Content',
+            'content_html' => 'Content Html',
+            'slug' => 'Slug',
+            'tags' => 'Tags',
+            'create_time' => 'Create Time',
+            'created_by' => 'Created By',
+            'update_time' => 'Update Time',
+            'updated_by' => 'Updated By',
+            'publish_time' => 'Publish Time',
+            'published_by' => 'Published By',
+            'is_revision' => 'Is Revision',
+            'parent_id' => 'Parent ID',
+            'status' => 'Status',
+            'deleted' => 'Deleted',
+        ];
+    }
 
     /**
      * Actions to be taken before saving the record.
@@ -88,39 +90,56 @@ class Blog extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+
             if ($this->isNewRecord) {
-                $this->title = $this->newPostTitle;
-                $this->created_by = Yii::$app->user->identity->id;
                 $this->is_revision = self::NOT_REVISION;
                 $this->parent_id = 0;
                 $this->status = self::STATUS_NOT_PUBLISHED;
             } else {
-                $this->updated_by = Yii::$app->user->identity->id;
                 $this->slug = $this->createSlug();
                 $this->content_html = $this->renderBody();
-                $this->short_desc = KatoHelper::genShortDesc($this->content_html, 'p' , '20');
+                $this->short_desc = \common\kato\KatoHelper::genShortDesc($this->content_html, 'p' , '20');
             }
             return true;
         }
         return false;
     }
 
-    /**
-     * Returns New Post's Title
-     * @return string
-     */
-    protected function getNewPostTitle()
+    public function getUser()
     {
-        return 'New Post ' . $this->getLastRow()->id;
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
-    /**
-     * Convert title to clean url friendly slug
-     * @return mixed|string
-     */
-    protected function createSlug()
+    public function getNewerLink()
     {
-        return KatoHelper::toAscii($this->title);
+        if (!$model = $this->findNewerOne())
+            return null;
+
+        return Html::a(Html::encode($model->title), ['post/view', 'id' => $model->id]);
+    }
+
+    public function findNewerOne()
+    {
+        return static::find()
+            ->where('id > :id', [':id' => $this->id])
+            ->orderBy('id asc')
+            ->one();
+    }
+
+    public function getOlderLink()
+    {
+        if (!$model = $this->findOlderOne())
+            return null;
+
+        return Html::a(Html::encode($model->title), ['post/view', 'id' => $model->id]);
+    }
+
+    public function findOlderOne()
+    {
+        return static::find()
+            ->where('id < :id', [':id' => $this->id])
+            ->orderBy('id desc')
+            ->one();
     }
 
     /**
@@ -130,5 +149,14 @@ class Blog extends \yii\db\ActiveRecord
     public function renderBody()
     {
         return \common\kato\PhpMarkdown::defaultTransform($this->content);
+    }
+
+    /**
+     * Convert title to clean url friendly slug
+     * @return mixed|string
+     */
+    protected function createSlug()
+    {
+        return \common\kato\KatoHelper::toAscii($this->title);
     }
 }

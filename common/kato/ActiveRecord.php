@@ -2,6 +2,8 @@
 
 namespace common\kato;
 
+use yii\behaviors\AutoTimestamp;
+
 class ActiveRecord extends \yii\db\ActiveRecord
 {
     const IS_DELETED = 1;
@@ -17,14 +19,15 @@ class ActiveRecord extends \yii\db\ActiveRecord
         if (parent::beforeSave($insert)) {
 
             $now = date('Y-m-d H:i:s', time());
+            $user_id = \Yii::$app->user->id;
 
             if ($this->isNewRecord) {
 
                 // We are creating a new record.
-                if ($this->hasAttribute('created'))
+                if ($this->hasAttribute('create_time'))
                     $this->create_time = $now;
 
-                if ($this->hasAttribute('updated'))
+                if ($this->hasAttribute('update_time'))
                     $this->update_time = $now;
 
                 if ($this->hasAttribute('deleted'))
@@ -33,10 +36,19 @@ class ActiveRecord extends \yii\db\ActiveRecord
                 if ($this->hasAttribute('publish_time'))
                     $this->publish_time = $now;
 
+                if ($this->hasAttribute('created_by'))
+                    $this->created_by = $user_id;
+
+                if ($this->hasAttribute('title'))
+                    $this->title = $this->newPostTitle;
+
             } else {
                 // We are updating an existing record.
-                if ($this->hasAttribute('updated'))
+                if ($this->hasAttribute('update_time'))
                     $this->update_time = $now;
+
+                if ($this->hasAttribute('updated_by'))
+                    $this->updated_by = $user_id;
             }
             return true;
         }
@@ -85,5 +97,15 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return static::find()
             ->orderBy('id DESC')
             ->one();
+    }
+
+    /**
+     * Returns New Post's Title
+     * @return string
+     */
+    protected function getNewPostTitle()
+    {
+        $id = $this->getLastRow()->id + 1;
+        return 'New ' . $id;
     }
 }

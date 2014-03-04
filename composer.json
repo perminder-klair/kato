@@ -19,7 +19,8 @@
 		"yiisoft/yii2-swiftmailer": "*",
 		"yiisoft/yii2-bootstrap": "*",
 		"yiisoft/yii2-debug": "*",
-		"yiisoft/yii2-gii": "*"
+		"yiisoft/yii2-gii": "*",
+        "Michelf/php-markdown": "*"
 	},
 	"scripts": {
 		"post-create-project-cmd": [

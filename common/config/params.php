@@ -17,12 +17,4 @@ return [
 		'class' => 'yii\swiftmailer\Mailer',
 		'viewPath' => '@common/mails',
 	],
-
-	'components.db' => [
-		'class' => 'yii\db\Connection',
-		'dsn' => 'mysql:host=localhost;dbname=kato2',
-		'username' => 'root',
-		'password' => 'root',
-		'charset' => 'utf8',
-	],
 ];

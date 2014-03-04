@@ -9,13 +9,13 @@ $params = array_merge(
 );
 
 return [
-	'id' => 'app-backend',
+	'id' => 'kato-backend',
 	'basePath' => dirname(__DIR__),
 	'vendorPath' => $rootDir . '/vendor',
 	'preload' => ['log'],
 	'controllerNamespace' => 'backend\controllers',
 	'modules' => [
-        'gii' => 'yii\gii\Module'
+        'gii' => 'yii\gii\Module',
     ],
 	'extensions' => require($rootDir . '/vendor/yiisoft/extensions.php'),
 	'components' => [
@@ -37,6 +37,20 @@ return [
 		'errorHandler' => [
 			'errorAction' => 'site/error',
 		],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                '<action:(login|logout|about)>' => 'site/<action>',
+                'post/<id:[0-9]+>' => 'post/view'
+            ]
+        ],
+        'view' => [
+            'theme' => [
+                'pathMap' => ['@app/views' => '@webroot/themes/basic'],
+                'baseUrl' => '@web/themes/basic',
+            ],
+        ],
 	],
 	'params' => $params,
 ];

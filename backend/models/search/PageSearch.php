@@ -1,15 +1,15 @@
 <?php
 
-namespace common\models\search;
+namespace app\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Blog;
+use app\models\Page;
 
 /**
- * BlogSearch represents the model behind the search form about Blog.
+ * PageSearch represents the model behind the search form about Page.
  */
-class BlogSearch extends Model
+class PageSearch extends Model
 {
 	public $id;
 	public $title;
@@ -17,23 +17,23 @@ class BlogSearch extends Model
 	public $content;
 	public $content_html;
 	public $slug;
-	public $tags;
 	public $create_time;
 	public $created_by;
 	public $update_time;
 	public $updated_by;
-	public $publish_time;
-	public $published_by;
-	public $is_revision;
+	public $level;
+	public $layout;
 	public $parent_id;
+	public $type;
 	public $status;
 	public $deleted;
 
 	public function rules()
 	{
 		return [
-			[['id', 'created_by', 'updated_by', 'published_by', 'is_revision', 'parent_id', 'status', 'deleted'], 'integer'],
-			[['title', 'short_desc', 'content', 'content_html', 'slug', 'tags', 'create_time', 'update_time', 'publish_time'], 'safe'],
+			[['id', 'created_by', 'updated_by', 'level', 'parent_id', 'type'], 'integer'],
+			[['title', 'short_desc', 'content', 'content_html', 'slug', 'create_time', 'update_time', 'layout'], 'safe'],
+			[['status', 'deleted'], 'boolean'],
 		];
 	}
 
@@ -49,15 +49,14 @@ class BlogSearch extends Model
 			'content' => 'Content',
 			'content_html' => 'Content Html',
 			'slug' => 'Slug',
-			'tags' => 'Tags',
 			'create_time' => 'Create Time',
 			'created_by' => 'Created By',
 			'update_time' => 'Update Time',
 			'updated_by' => 'Updated By',
-			'publish_time' => 'Publish Time',
-			'published_by' => 'Published By',
-			'is_revision' => 'Is Revision',
+			'level' => 'Level',
+			'layout' => 'Layout',
 			'parent_id' => 'Parent ID',
+			'type' => 'Type',
 			'status' => 'Status',
 			'deleted' => 'Deleted',
 		];
@@ -65,7 +64,7 @@ class BlogSearch extends Model
 
 	public function search($params)
 	{
-		$query = Blog::find()->where(['deleted' => 0]);
+		$query = Page::find();
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);
@@ -84,8 +83,8 @@ class BlogSearch extends Model
 		$this->addCondition($query, 'content_html', true);
 		$this->addCondition($query, 'slug');
 		$this->addCondition($query, 'slug', true);
-		$this->addCondition($query, 'tags');
-		$this->addCondition($query, 'tags', true);
+		$this->addCondition($query, 'layout');
+		$this->addCondition($query, 'layout', true);
 		return $dataProvider;
 	}
 
