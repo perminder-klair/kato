@@ -16,10 +16,7 @@ Login using: `admin / admin`
 The minimum requirement is that your Web server supports PHP 5.4 and Yii2 Framework.
 
 ## Extensions included in Kato
-* [yii-easyimage](https://github.com/zhdanovartur/yii-easyimage)
-* [efeed](https://github.com/2amigos/efeed)
-* [Imperavi Redactor WYSIWYG](https://github.com/yiiext/imperavi-redactor-widget)
-* [YiiMailer](https://github.com/vernes/YiiMailer)
+* [Imperavi Redactor WYSIWYG](https://github.com/asofter/yii2-imperavi-redactor)
 
 ## Bug tracker and feature requests
 If you find any bugs or have a feature request?, please create an issue at [issue tracker for project Github repository](https://github.com/perminder-klair/kato/issues).

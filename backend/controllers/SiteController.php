@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use yii\web\Controller;
 use common\models\LoginForm;
+use yii\rbac\DbManager;
 
 class SiteController extends Controller
 {
@@ -17,11 +18,12 @@ class SiteController extends Controller
 					[
 						'actions' => ['login', 'error'],
 						'allow' => true,
+                        'roles' => ['?'],
 					],
 					[
-						'actions' => ['logout', 'index'],
+						'actions' => ['logout', 'index', 'login', 'error', 'makeadmin'],
 						'allow' => true,
-						'roles' => ['@'],
+						'roles' => ['admin'],
 					],
 				],
 			],
@@ -63,4 +65,14 @@ class SiteController extends Controller
 		Yii::$app->user->logout();
 		return $this->goHome();
 	}
+
+    public function actionMakeadmin()
+    {
+        $r=new DbManager;
+        $r->init();
+        $r->createRole("admin","Administrator");
+        $r->save();
+
+        $r->assign('1','admin');
+    }
 }

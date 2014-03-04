@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 28, 2014 at 05:16 PM
+-- Generation Time: Mar 04, 2014 at 04:31 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.4.25
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `kato_blog` (
   `short_desc` varchar(160) DEFAULT NULL,
   `content` text,
   `content_html` text,
-  `slug` varchar(70) NOT NULL DEFAULT '',
+  `slug` varchar(70) DEFAULT NULL,
   `tags` text,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` int(11) unsigned NOT NULL,
@@ -76,18 +76,19 @@ CREATE TABLE IF NOT EXISTS `kato_blog` (
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `kato_blog`
 --
 
 INSERT INTO `kato_blog` (`id`, `title`, `short_desc`, `content`, `content_html`, `slug`, `tags`, `create_time`, `created_by`, `update_time`, `updated_by`, `publish_time`, `published_by`, `is_revision`, `parent_id`, `status`, `deleted`) VALUES
-(6, 'test', '', 'test', '', '', '', '2013-11-25 20:55:24', 1, '2013-11-25 20:55:24', NULL, '2013-11-25 20:55:24', NULL, 0, 0, 0, 0),
+(6, 'test test test 33', '...', '<p>\r\n	   **test**\r\n</p>\r\n<p>\r\n	<span style="background-color: rgb(255, 255, 255);"></span>\r\n</p>\r\n<ul>\r\n	<li>dsf</li>\r\n	<li>asdfs</li>\r\n	<li>asdfsf</li>\r\n</ul>\r\n<p>\r\n	   # hello #\r\n</p>\r\n<p>\r\n	   *test test*\r\n</p>\r\n<h1></h1>', '<p>\n       **test**\n</p>\n\n<p>\n    <span style="background-color: rgb(255, 255, 255);"></span>\n</p>\n\n<ul>\n    <li>dsf</li>\n    <li>asdfs</li>\n    <li>asdfsf</li>\n</ul>\n\n<p>\n       # hello #\n</p>\n\n<p>\n       *test test*\n</p>\n\n<h1></h1>\n', 'test-test-test-33', '', '2013-11-25 20:55:24', 1, '2014-03-04 16:26:06', 1, '2013-11-25 20:55:24', NULL, 0, 0, 0, 0),
 (7, 'test', '', '', NULL, '', '', '2013-11-25 21:24:30', 1, '2013-11-25 21:24:30', NULL, '2013-11-25 21:24:30', NULL, 0, 0, 0, 0),
 (8, 'test', '', '', NULL, '', '', '2013-11-25 21:28:49', 1, '2013-11-25 21:28:49', NULL, '2013-11-25 21:28:49', NULL, 0, 0, 0, 0),
 (9, 'New Post', 'test test test s...', 'test test test s', '<p>test test test s</p>\n', 'new-post', '', '2013-11-25 21:33:47', 1, '2013-11-25 21:51:51', 1, '2013-11-25 21:33:47', NULL, 0, 0, 0, 0),
-(10, 'New Post 9', '', '', NULL, '', '', '2013-11-25 21:58:05', 1, '2013-11-25 21:58:05', NULL, '2013-11-25 21:58:05', NULL, 0, 0, 0, 0);
+(10, 'New Post 9', '', '', NULL, '', '', '2013-11-25 21:58:05', 1, '2013-11-25 21:58:05', NULL, '2013-11-25 21:58:05', NULL, 0, 0, 0, 0),
+(11, 'My last blog', '...', '', '', 'my-last-blog', '', '2014-03-04 16:29:37', 1, '2014-03-04 16:30:00', 1, '2014-03-04 16:29:37', NULL, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -134,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `kato_page` (
   `short_desc` varchar(160) DEFAULT NULL,
   `content` text,
   `content_html` text,
-  `slug` varchar(70) NOT NULL DEFAULT '',
+  `slug` varchar(70) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` int(11) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -212,6 +213,63 @@ INSERT INTO `kato_tag` (`id`, `name`, `frequency`, `tag_type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_auth_assignment`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_auth_assignment` (
+  `item_name` varchar(64) NOT NULL,
+  `user_id` varchar(64) NOT NULL,
+  `biz_rule` text,
+  `data` text,
+  PRIMARY KEY (`item_name`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_auth_assignment`
+--
+
+INSERT INTO `tbl_auth_assignment` (`item_name`, `user_id`, `biz_rule`, `data`) VALUES
+('admin', '1', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_auth_item`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_auth_item` (
+  `name` varchar(64) NOT NULL,
+  `type` int(11) NOT NULL,
+  `description` text,
+  `biz_rule` text,
+  `data` text,
+  PRIMARY KEY (`name`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_auth_item`
+--
+
+INSERT INTO `tbl_auth_item` (`name`, `type`, `description`, `biz_rule`, `data`) VALUES
+('admin', 2, 'Administrator', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_auth_item_child`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_auth_item_child` (
+  `parent` varchar(64) NOT NULL,
+  `child` varchar(64) NOT NULL,
+  PRIMARY KEY (`parent`,`child`),
+  KEY `child` (`child`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_migration`
 --
 
@@ -255,6 +313,23 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
 
 INSERT INTO `tbl_user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `role`, `status`, `create_time`, `update_time`) VALUES
 (1, 'admin', 'CCIwu98zZwmGrJRarrUinrdKtfrfO1_E', '$2y$13$91cNAK1OdvUPExikkwnplOO1IvjBld.x2UQcIJfuvm2eGuACJrvdS', NULL, 'perminder.klair@gmail.com', 10, 10, 1393605836, 1393605836);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_auth_assignment`
+--
+ALTER TABLE `tbl_auth_assignment`
+  ADD CONSTRAINT `tbl_auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `tbl_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_auth_item_child`
+--
+ALTER TABLE `tbl_auth_item_child`
+  ADD CONSTRAINT `tbl_auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `tbl_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `tbl_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

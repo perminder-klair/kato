@@ -32,7 +32,7 @@ class User extends ActiveRecord implements IdentityInterface
 
 	const ROLE_USER = 10;
 
-	public function behaviors()
+	/*public function behaviors()
 	{
 		return [
 			'timestamp' => [
@@ -43,7 +43,7 @@ class User extends ActiveRecord implements IdentityInterface
 				],
 			],
 		];
-	}
+	}*/
 
 	/**
 	 * Finds an identity by the given ID.

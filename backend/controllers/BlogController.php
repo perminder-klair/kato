@@ -18,12 +18,16 @@ class BlogController extends Controller
 		return [
             'access' => [
                 'class' => \yii\web\AccessControl::className(),
-                'only' => ['create', 'update', 'delete'],
+                //'only' => ['index', 'create', 'update', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['create', 'update', 'delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
+                        'actions' => ['index', 'create', 'update', 'delete'], // Define specific actions
+                        'allow' => true, // Has access
+                        'roles' => ['admin'], // '@' All logged in users / or your access role e.g. 'admin', 'user'
+                    ],
+                    [
+                        'allow' => false, // Do not have access
+                        'roles'=>['?'], // Guests '?'
                     ],
                 ],
             ],
@@ -48,18 +52,6 @@ class BlogController extends Controller
 		return $this->render('index', [
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
-		]);
-	}
-
-	/**
-	 * Displays a single Blog model.
-	 * @param string $id
-	 * @return mixed
-	 */
-	public function actionView($id)
-	{
-		return $this->render('view', [
-			'model' => $this->findModel($id),
 		]);
 	}
 
