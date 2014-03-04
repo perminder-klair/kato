@@ -2,10 +2,10 @@
 
 namespace frontend\controllers;
 
-use yii\web\Controller;
+use common\kato\KatoController;
 use backend\models\Page;
 
-class PageController extends Controller
+class PageController extends KatoController
 {
     /**
      * Displays a single Page model.

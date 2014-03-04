@@ -3,11 +3,11 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\web\Controller;
+use common\kato\KatoController;
 use common\models\LoginForm;
 use yii\rbac\DbManager;
 
-class SiteController extends Controller
+class SiteController extends KatoController
 {
 	public function behaviors()
 	{

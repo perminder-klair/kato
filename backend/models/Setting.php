@@ -2,6 +2,8 @@
 
 namespace backend\models;
 
+use common\kato\ActiveRecord;
+
 /**
  * This is the model class for table "kato_setting".
  *
@@ -9,7 +11,7 @@ namespace backend\models;
  * @property string $define
  * @property string $value
  */
-class Setting extends \yii\db\ActiveRecord
+class Setting extends ActiveRecord
 {
 	/**
 	 * @inheritdoc

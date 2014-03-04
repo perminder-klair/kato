@@ -3,14 +3,14 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\web\Controller;
+use common\kato\KatoController;
 use common\models\LoginForm;
 use frontend\models\ContactForm;
 use common\models\User;
 use yii\web\BadRequestHttpException;
 use yii\helpers\Security;
 
-class SiteController extends Controller
+class SiteController extends KatoController
 {
 	public function behaviors()
 	{

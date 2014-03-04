@@ -4,14 +4,14 @@ namespace backend\controllers;
 
 use app\models\Page;
 use app\models\search\PageSearch;
-use yii\web\Controller;
+use common\kato\KatoController;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
 
 /**
  * PageController implements the CRUD actions for Page model.
  */
-class PageController extends Controller
+class PageController extends KatoController
 {
 	public function behaviors()
 	{

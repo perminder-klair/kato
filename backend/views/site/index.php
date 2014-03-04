@@ -2,7 +2,7 @@
 /**
  * @var yii\web\View $this
  */
-$this->title = 'Kato';
+$this->title = common\kato\helpers\KatoHtml::setting('site_name');
 ?>
 <div id="page-container">
 

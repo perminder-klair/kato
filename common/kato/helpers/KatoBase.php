@@ -1,8 +1,8 @@
 <?php
 
-namespace common\kato;
+namespace common\kato\helpers;
 
-class KatoHelper extends \yii\base\Object
+class KatoBase extends \yii\base\Object
 {
     /**
      * Converts to money format

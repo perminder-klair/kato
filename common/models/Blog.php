@@ -4,8 +4,9 @@ namespace common\models;
 
 use yii\helpers\Html;
 use kartik\markdown\Markdown;
-use common\kato\KatoHelper;
+use common\kato\helpers\KatoBase;
 use common\kato\behaviors\Slug;
+use common\kato\ActiveRecord;
 
 /**
  * This is the model class for table "kato_blog".
@@ -28,7 +29,7 @@ use common\kato\behaviors\Slug;
  * @property integer $status
  * @property integer $deleted
  */
-class Blog extends \common\kato\ActiveRecord
+class Blog extends ActiveRecord
 {
     const IS_REVISION = 1;
     const NOT_REVISION = 0;
@@ -121,7 +122,7 @@ class Blog extends \common\kato\ActiveRecord
                 $this->slug = null;
             } else {
                 $this->content_html = Markdown::convert($this->content);
-                $this->short_desc = KatoHelper::genShortDesc($this->content_html, 'p' , '20');
+                $this->short_desc = KatoBase::genShortDesc($this->content_html, 'p' , '20');
             }
             return true;
         }
