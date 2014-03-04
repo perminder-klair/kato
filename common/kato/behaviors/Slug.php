@@ -1,6 +1,6 @@
 <?php
 
-namespace common\kato;
+namespace common\kato\behaviors;
 
 use yii\base\Behavior;
 use yii\base\Exception;

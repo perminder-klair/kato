@@ -4,7 +4,7 @@ namespace app\models;
 
 use kartik\markdown\Markdown;
 use common\kato\KatoHelper;
-use common\kato\Slug;
+use common\kato\behaviors\Slug;
 
 /**
  * This is the model class for table "kato_page".
@@ -92,6 +92,11 @@ class Page extends \common\kato\ActiveRecord
                 'replacement' => '-', // The replacement to use for spaces in the slug
                 'lowercase' => true, // Whether to return the string in lowercase or not
                 'unique' => true, // Check if the slug value is unique, add number if not
+            ],
+            'softDelete' => [
+                'class' => 'common\kato\behaviors\SoftDelete',
+                'attribute' => 'deleted',
+                'safeMode' => true,
             ],
         ];
     }
