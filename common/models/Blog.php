@@ -143,4 +143,12 @@ class Blog extends \common\kato\ActiveRecord
             ->orderBy('id desc')
             ->one();
     }
+
+    public function listStatus()
+    {
+        return [
+            self::STATUS_NOT_PUBLISHED => 'Not Published',
+            self::STATUS_PUBLISHED => 'Published',
+        ];
+    }
 }

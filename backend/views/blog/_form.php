@@ -1,8 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\widgets\ActiveForm;
 use kartik\markdown\MarkdownEditor;
+use kartik\widgets\Select2;
+use kartik\widgets\DatePicker;
 
 /**
  * @var yii\web\View $this
@@ -22,13 +24,30 @@ use kartik\markdown\MarkdownEditor;
             'attribute' => 'content',
         ]); ?>
 
-		<?= $form->field($model, 'tags')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'tags')->widget(Select2::classname(), [
+            'language' => 'en',
+            'options' => [
+                'multiple' => true,
+                'placeholder' => 'Select a state ...'
+            ],
+            'pluginOptions' => [
+                'allowClear' => true,
+                'tags' => ["red", "green", "blue"],
+            ],
+        ]); ?>
 
-		<?= $form->field($model, 'publish_time')->textInput() ?>
+        <?= '<label>Publist Date</label>'; ?>
+        <?= DatePicker::widget([
+            'name' => 'publish_time',
+            'value' => date('d-M-Y', strtotime('+2 days')),
+            'options' => ['placeholder' => 'Select issue date ...'],
+            'pluginOptions' => [
+                'format' => 'dd-M-yyyy',
+                'todayHighlight' => true
+            ]
+        ]);; ?>
 
-		<?= $form->field($model, 'parent_id')->textInput() ?>
-
-		<?= $form->field($model, 'status')->textInput() ?>
+        <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 
 		<div class="form-group">
 			<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
