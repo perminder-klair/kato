@@ -56,12 +56,6 @@ return [
                 'post/<id:[0-9]+>' => 'post/view'
             ]
         ],
-        'view' => [
-            'theme' => [
-                'pathMap' => ['@app/views' => '@webroot/themes/basic'],
-                'baseUrl' => '@web/themes/basic',
-            ],
-        ],
 	],
 	'params' => $params,
 ];

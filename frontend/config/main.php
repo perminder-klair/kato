@@ -36,6 +36,20 @@ return [
 		'errorHandler' => [
 			'errorAction' => 'site/error',
 		],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                '<action:(login|logout|about)>' => 'site/<action>',
+                'blog/<id:[0-9]+>/<title>' => 'blog/view'
+            ]
+        ],
+        'view' => [
+            'theme' => [
+                'pathMap' => ['@app/views' => '@webroot/themes/basic'],
+                'baseUrl' => '@web/themes/basic',
+            ],
+        ],
 	],
 	'params' => $params,
 ];
