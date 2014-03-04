@@ -5,6 +5,7 @@ namespace common\models;
 use yii\helpers\Html;
 use kartik\markdown\Markdown;
 use common\kato\KatoHelper;
+use common\kato\Slug;
 
 /**
  * This is the model class for table "kato_blog".
@@ -84,6 +85,21 @@ class Blog extends \common\kato\ActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => Slug::className(),
+                // These parameters are optional, default values presented here:
+                'sourceAttributeName' => 'title', // If you want to make a slug from another attribute, set it here
+                'slugAttributeName' => 'slug', // Name of the attribute containing a slug
+                'replacement' => '-', // The replacement to use for spaces in the slug
+                'lowercase' => true, // Whether to return the string in lowercase or not
+                'unique' => true, // Check if the slug value is unique, add number if not
+            ],
+        ];
+    }
+
     /**
      * Actions to be taken before saving the record.
      * @param bool $insert
@@ -97,8 +113,8 @@ class Blog extends \common\kato\ActiveRecord
                 $this->is_revision = self::NOT_REVISION;
                 $this->parent_id = 0;
                 $this->status = self::STATUS_NOT_PUBLISHED;
+                $this->slug = null;
             } else {
-                $this->slug = KatoHelper::toAscii($this->title);
                 $this->content_html = Markdown::convert($this->content);
                 $this->short_desc = KatoHelper::genShortDesc($this->content_html, 'p' , '20');
             }
