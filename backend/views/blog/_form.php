@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
-use kartik\markdown\MarkdownEditor;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 
@@ -19,10 +18,23 @@ use kartik\widgets\DatePicker;
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
 
-		<?= MarkdownEditor::widget([
+		<?= kartik\markdown\MarkdownEditor::widget([
             'model' => $model,
             'attribute' => 'content',
         ]); ?>
+
+        <? /*yii\imperavi\Widget::widget([
+            'model' => $model,
+            'attribute' => 'content',
+            // Some options, see http://imperavi.com/redactor/docs/
+            'options' => [
+                'toolbar' => true,
+                //'css' => 'wym.css',
+            ],
+            'plugins' => [
+                'fullscreen',
+            ]
+        ]);*/ ?>
 
         <?= $form->field($model, 'tags')->widget(Select2::classname(), [
             'language' => 'en',
