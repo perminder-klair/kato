@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use kartik\markdown\Markdown;
 use common\kato\KatoHelper;

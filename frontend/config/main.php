@@ -41,7 +41,8 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '<action:(login|logout|about)>' => 'site/<action>',
-                'blog/<id:[0-9]+>/<title>' => 'blog/view'
+                'blog/<id:[0-9]+>/<title>' => 'blog/view',
+                'p/<slug>' => 'page/view',
             ]
         ],
         'view' => [
