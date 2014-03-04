@@ -3,6 +3,8 @@
 namespace common\models;
 
 use yii\helpers\Html;
+use kartik\markdown\Markdown;
+use common\kato\KatoHelper;
 
 /**
  * This is the model class for table "kato_blog".
@@ -96,9 +98,9 @@ class Blog extends \common\kato\ActiveRecord
                 $this->parent_id = 0;
                 $this->status = self::STATUS_NOT_PUBLISHED;
             } else {
-                $this->slug = $this->createSlug();
-                $this->content_html = $this->renderBody();
-                $this->short_desc = \common\kato\KatoHelper::genShortDesc($this->content_html, 'p' , '20');
+                $this->slug = KatoHelper::toAscii($this->title);
+                $this->content_html = Markdown::convert($this->content);
+                $this->short_desc = KatoHelper::genShortDesc($this->content_html, 'p' , '20');
             }
             return true;
         }
@@ -140,23 +142,5 @@ class Blog extends \common\kato\ActiveRecord
             ->where('id < :id', [':id' => $this->id])
             ->orderBy('id desc')
             ->one();
-    }
-
-    /**
-     * Converts Markdown to HTML
-     * @return mixed
-     */
-    public function renderBody()
-    {
-        return \common\kato\PhpMarkdown::defaultTransform($this->content);
-    }
-
-    /**
-     * Convert title to clean url friendly slug
-     * @return mixed|string
-     */
-    protected function createSlug()
-    {
-        return \common\kato\KatoHelper::toAscii($this->title);
     }
 }

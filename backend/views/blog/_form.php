@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\markdown\MarkdownEditor;
 
 /**
  * @var yii\web\View $this
@@ -16,7 +17,10 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
 
-		<?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+		<?= MarkdownEditor::widget([
+            'model' => $model,
+            'attribute' => 'content',
+        ]); ?>
 
 		<?= $form->field($model, 'tags')->textarea(['rows' => 6]) ?>
 

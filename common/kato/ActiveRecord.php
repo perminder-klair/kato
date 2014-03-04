@@ -2,7 +2,7 @@
 
 namespace common\kato;
 
-use yii\behaviors\AutoTimestamp;
+//use yii\behaviors\AutoTimestamp;
 
 class ActiveRecord extends \yii\db\ActiveRecord
 {

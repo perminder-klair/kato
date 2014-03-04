@@ -15,7 +15,18 @@ return [
 	'preload' => ['log'],
 	'controllerNamespace' => 'backend\controllers',
 	'modules' => [
-        'gii' => 'yii\gii\Module',
+        'markdown' => [
+            // the module class
+            'class' => 'kartik\markdown\Module',
+            // the controller action route used for markdown editor preview
+            'previewAction' => '/markdown/parse/preview',
+            // the list of custom conversion patterns for post processing
+            'customConversion' => [
+                '<table>' => '<table class="table table-bordered table-striped">'
+            ],
+            // whether to use PHP SmartyPantsTypographer to process Markdown output
+            'smartyPants' => false
+        ]
     ],
 	'extensions' => require($rootDir . '/vendor/yiisoft/extensions.php'),
 	'components' => [
