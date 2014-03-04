@@ -21,8 +21,7 @@
 		"yiisoft/yii2-debug": "dev-master",
 		"yiisoft/yii2-gii": "dev-master",
         "kartik-v/yii2-markdown": "dev-master",
-		"kartik-v/yii2-widgets": "dev-master",
-        "asofter/yii2-imperavi-redactor": "*"
+		"kartik-v/yii2-widgets": "dev-master"
 	},
 	"scripts": {
 		"post-create-project-cmd": [

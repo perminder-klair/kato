@@ -23,19 +23,6 @@ use kartik\widgets\DatePicker;
             'attribute' => 'content',
         ]); ?>
 
-        <? /*yii\imperavi\Widget::widget([
-            'model' => $model,
-            'attribute' => 'content',
-            // Some options, see http://imperavi.com/redactor/docs/
-            'options' => [
-                'toolbar' => true,
-                //'css' => 'wym.css',
-            ],
-            'plugins' => [
-                'fullscreen',
-            ]
-        ]);*/ ?>
-
         <?= $form->field($model, 'tags')->widget(Select2::classname(), [
             'language' => 'en',
             'options' => [

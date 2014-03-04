@@ -18,12 +18,16 @@ class BlogController extends Controller
 		return [
             'access' => [
                 'class' => \yii\web\AccessControl::className(),
-                'only' => ['index', 'create', 'update', 'delete'],
+                //'only' => ['index', 'create', 'update', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'create', 'update', 'delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
+                        'actions' => ['index', 'create', 'update', 'delete'], // Define specific actions
+                        'allow' => true, // Has access
+                        'roles' => ['admin'], // '@' All logged in users / or your access role e.g. 'admin', 'user'
+                    ],
+                    [
+                        'allow' => false, // Do not have access
+                        'roles'=>['?'], // Guests '?'
                     ],
                 ],
             ],

@@ -26,7 +26,8 @@ return [
             ],
             // whether to use PHP SmartyPantsTypographer to process Markdown output
             'smartyPants' => false
-        ]
+        ],
+        'redactor' =>  'sim2github\imperavi\Module',
     ],
 	'extensions' => require($rootDir . '/vendor/yiisoft/extensions.php'),
 	'components' => [
@@ -55,6 +56,10 @@ return [
                 '<action:(login|logout|about)>' => 'site/<action>',
                 'post/<id:[0-9]+>' => 'post/view'
             ]
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest'],
         ],
 	],
 	'params' => $params,
