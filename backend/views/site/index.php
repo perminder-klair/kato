@@ -3,6 +3,9 @@
  * @var yii\web\View $this
  */
 $this->title = common\kato\helpers\KatoHtml::setting('site_name');
+$this->params['breadcrumbs'][] = $this->title;
+
+use yii\widgets\Breadcrumbs;
 ?>
 <div id="page-container">
 
@@ -33,11 +36,12 @@ $this->title = common\kato\helpers\KatoHtml::setting('site_name');
                     </h1>
                 </a>
             </div>
-            <ul class="breadcrumb breadcrumb-top">
-                <li><i class="fa fa-file-o"></i></li>
-                <li>Pages</li>
-                <li><a href="">Blank</a></li>
-            </ul>
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                'options' => ['class' => 'breadcrumb breadcrumb-top'],
+                'encodeLabels' => false,
+                'homeLink' => ['label' => '<i class="fa fa-file-o"></i>'],
+            ]) ?>
             <!-- END Blank Header -->
 
             <!-- Blank Content -->
