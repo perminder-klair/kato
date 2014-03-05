@@ -16,6 +16,8 @@ Login using: `admin / admin`
 The minimum requirement is that your Web server supports PHP 5.4 and Yii2 Framework.
 
 ## Dependencies
+* [yii2](https://github.com/yiisoft/yii2)
+* [kato-core](https://github.com/perminder-klair/kato-core)
 * [yii2-imperavi-redactor](https://github.com/asofter/yii2-imperavi-redactor)
 * [kartik-v/yii2-markdown](https://github.com/kartik-v/yii2-markdown)
 * [kartik-v/yii2-widgets](https://github.com/kartik-v/yii2-widgets)

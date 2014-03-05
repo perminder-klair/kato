@@ -33,7 +33,7 @@ AppAsset::register($this);
 		$menuItems = [
 			['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Blog', 'url' => ['/blog/index']],
-			['label' => 'About', 'url' => ['/site/about']],
+			['label' => 'About', 'url' => \kato\helpers\KatoHtml::page('about-us'), 'active' => Yii::$app->kato->pageSlug()==='about-us'?true:false],
 			['label' => 'Contact', 'url' => ['/site/contact']],
 		];
 		if (Yii::$app->user->isGuest) {

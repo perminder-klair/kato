@@ -87,11 +87,6 @@ class SiteController extends KatoController
 		}
 	}
 
-	public function actionAbout()
-	{
-		return $this->render('about');
-	}
-
 	public function actionSignup()
 	{
 		$model = new User();

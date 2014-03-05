@@ -40,9 +40,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<action:(login|logout|about)>' => 'site/<action>',
+                '<action>' => 'site/<action>',
                 'blog/<id:[0-9]+>/<title>' => 'blog/view',
-                'p/<slug>' => 'page/view',
+                'static/<slug>' => 'page/view',
             ]
         ],
         'view' => [
