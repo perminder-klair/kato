@@ -2,33 +2,29 @@
 
 namespace backend\models;
 
-use kartik\markdown\Markdown;
-use kato\helpers\KatoBase;
+use kato\ActiveRecord;
 use kato\behaviors\Slug;
 use kato\behaviors\SoftDelete;
-use kato\ActiveRecord;
+use kartik\markdown\Markdown;
 
 /**
- * This is the model class for table "kato_page".
+ * This is the model class for table "kato_block".
  *
- * @property integer $id
+ * @property string $id
  * @property string $title
- * @property string $short_desc
+ * @property string $slug
  * @property string $content
  * @property string $content_html
- * @property string $slug
  * @property string $create_time
  * @property integer $created_by
  * @property string $update_time
  * @property integer $updated_by
- * @property integer $level
- * @property string $layout
- * @property integer $parent_id
- * @property integer $type
- * @property boolean $status
- * @property boolean $deleted
+ * @property string $parent
+ * @property integer $listing_order
+ * @property integer $status
+ * @property integer $deleted
  */
-class Page extends ActiveRecord
+class Block extends ActiveRecord
 {
     const STATUS_NOT_PUBLISHED = 0;
     const STATUS_PUBLISHED = 1;
@@ -38,7 +34,7 @@ class Page extends ActiveRecord
 	 */
 	public static function tableName()
 	{
-		return 'kato_page';
+		return 'kato_block';
 	}
 
 	/**
@@ -48,13 +44,10 @@ class Page extends ActiveRecord
 	{
 		return [
 			[['content', 'content_html'], 'string'],
-			[['create_time', 'created_by', 'update_time'], 'required'],
+			[['create_time', 'created_by', 'update_time', 'updated_by'], 'required'],
 			[['create_time', 'update_time'], 'safe'],
-			[['created_by', 'updated_by', 'level', 'parent_id', 'type'], 'integer'],
-			[['status', 'deleted'], 'boolean'],
-			[['title', 'slug'], 'string', 'max' => 70],
-			[['short_desc'], 'string', 'max' => 160],
-			[['layout'], 'string', 'max' => 25]
+			[['created_by', 'updated_by', 'listing_order', 'status', 'deleted'], 'integer'],
+			[['title', 'slug', 'parent'], 'string', 'max' => 70]
 		];
 	}
 
@@ -66,28 +59,19 @@ class Page extends ActiveRecord
 		return [
 			'id' => 'ID',
 			'title' => 'Title',
-			'short_desc' => 'Short Desc',
+			'slug' => 'Slug',
 			'content' => 'Content',
 			'content_html' => 'Content Html',
-			'slug' => 'Slug',
 			'create_time' => 'Create Time',
 			'created_by' => 'Created By',
 			'update_time' => 'Update Time',
 			'updated_by' => 'Updated By',
-			'level' => 'Level',
-			'layout' => 'Layout',
-			'parent_id' => 'Parent ID',
-			'type' => 'Type',
+			'parent' => 'Parent',
+			'listing_order' => 'Listing Order',
 			'status' => 'Status',
 			'deleted' => 'Deleted',
 		];
 	}
-
-    public function getBlocks()
-    {
-        // Page has_many Block via Block.parent -> slug
-        return $this->hasMany(Block::className(), ['parent' => 'slug']);
-    }
 
     public function behaviors()
     {
@@ -119,13 +103,14 @@ class Page extends ActiveRecord
         if (parent::beforeSave($insert)) {
 
             if ($this->isNewRecord) {
-                $this->parent_id = 0;
                 $this->status = self::STATUS_NOT_PUBLISHED;
                 $this->slug = null;
             } else {
                 $this->content_html = Markdown::convert($this->content);
-                $this->short_desc = KatoBase::genShortDesc($this->content_html, 'p' , '20');
             }
+
+            $this->parent = strtolower($this->parent);
+
             return true;
         }
         return false;
