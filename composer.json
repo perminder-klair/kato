@@ -1,16 +1,22 @@
 {
-	"name": "yiisoft/yii2-app-advanced",
-	"description": "Yii 2 Advanced Application Template",
-	"keywords": ["yii", "framework", "advanced", "application template"],
-	"homepage": "http://www.yiiframework.com/",
+	"name": "perminder-klair/kato",
+	"description": "Kato CMS based on Yii 2",
+	"keywords": ["yii", "framework", "kato", "kato application"],
+	"homepage": "https://github.com/perminder-klair/kato",
 	"type": "project",
 	"license": "The MIT License",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Parminder Klair",
+            "email": "perminder.klair@gmail.com",
+            "homepage": "http://www.webonise.co.uk/"
+        }
+    ],
 	"support": {
-		"issues": "https://github.com/yiisoft/yii2/issues?state=open",
-		"forum": "http://www.yiiframework.com/forum/",
-		"wiki": "http://www.yiiframework.com/wiki/",
-		"irc": "irc://irc.freenode.net/yii",
-		"source": "https://github.com/yiisoft/yii2"
+		"issues": "https://github.com/perminder-klair/kato/issues?state=open",
+		"wiki": "https://github.com/perminder-klair/kato/wiki",
+		"source": "https://github.com/perminder-klair/kato"
 	},
 	"minimum-stability": "dev",
 	"require": {

@@ -17,7 +17,6 @@ Grab database from:
     /kato2.sql
 
 
-
 ## GETTING STARTED
 
 After you install the application, you have to conduct the following steps to initialize
