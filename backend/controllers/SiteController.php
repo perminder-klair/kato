@@ -3,11 +3,11 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\web\Controller;
+use common\kato\KatoController;
 use common\models\LoginForm;
 use yii\rbac\DbManager;
 
-class SiteController extends Controller
+class SiteController extends KatoController
 {
 	public function behaviors()
 	{
@@ -41,6 +41,9 @@ class SiteController extends Controller
 
 	public function actionIndex()
 	{
+        //\Yii::$app->view->theme->baseUrl;
+        //\Yii::$app->urlManager->baseUrl;
+
 		return $this->render('index');
 	}
 
