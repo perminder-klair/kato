@@ -1,5 +1,9 @@
 #Pages
 
+To get page link
+
+    \kato\helpers\KatoHtml::page('page-slug');
+
 To get a block of a system (non static) page
 
     $this->getPageBlock('block-name')

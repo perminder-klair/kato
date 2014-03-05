@@ -5,6 +5,7 @@ namespace backend\models;
 use kartik\markdown\Markdown;
 use kato\helpers\KatoBase;
 use kato\behaviors\Slug;
+use kato\behaviors\SoftDelete;
 use kato\ActiveRecord;
 
 /**
@@ -95,7 +96,7 @@ class Page extends ActiveRecord
                 'unique' => true, // Check if the slug value is unique, add number if not
             ],
             'softDelete' => [
-                'class' => 'common\kato\behaviors\SoftDelete',
+                'class' => SoftDelete::className(),
                 'attribute' => 'deleted',
                 'safeMode' => true,
             ],
