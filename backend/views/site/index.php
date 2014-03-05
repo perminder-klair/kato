@@ -2,7 +2,7 @@
 /**
  * @var yii\web\View $this
  */
-$this->title = kato\helpers\KatoHtml::setting('site_name');
+$this->title = \Yii::$app->kato->setting('site_name');
 $this->params['breadcrumbs'][] = $this->title;
 
 use yii\widgets\Breadcrumbs;
