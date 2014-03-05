@@ -14,7 +14,6 @@ return [
 	'vendorPath' => $rootDir . '/vendor',
 	'controllerNamespace' => 'frontend\controllers',
 	'modules' => [
-		'gii' => 'yii\gii\Module'
 	],
 	'extensions' => require($rootDir . '/vendor/yiisoft/extensions.php'),
 	'components' => [

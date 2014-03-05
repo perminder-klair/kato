@@ -27,7 +27,6 @@ return [
             // whether to use PHP SmartyPantsTypographer to process Markdown output
             'smartyPants' => false
         ],
-        'redactor' =>  'sim2github\imperavi\Module',
     ],
 	'extensions' => require($rootDir . '/vendor/yiisoft/extensions.php'),
 	'components' => [
