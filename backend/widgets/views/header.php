@@ -27,7 +27,7 @@
     <!-- Header Brand -->
     <a href="<?= \Yii::$app->urlManager->createAbsoluteUrl('site/index'); ?>" class="navbar-brand">
         <img src="<?= \Yii::$app->urlManager->baseUrl; ?>/img/template/drop.png" alt="FreshUI">
-        <span><?= kato\helpers\KatoHtml::setting('site_name'); ?></span>
+        <span><?= \Yii::$app->kato->setting('site_name'); ?></span>
     </a>
     <!-- END Header Brand -->
 </header>

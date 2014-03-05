@@ -18,6 +18,7 @@ return [
 	],
 	'extensions' => require($rootDir . '/vendor/yiisoft/extensions.php'),
 	'components' => [
+        'kato' => 'kato\components\Kato',
 		'db' => $params['components.db'],
 		'cache' => $params['components.cache'],
 		'mail' => $params['components.mail'],

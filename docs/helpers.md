@@ -10,4 +10,4 @@ Link to theme base
 
 Return site settings
 
-    kato\helpers\KatoHtml::setting('site_name')
+    \Yii::$app->kato->setting('site_name')
