@@ -1,10 +1,10 @@
 {
-	"name": "perminder-klair/kato",
-	"description": "Kato CMS based on Yii 2",
-	"keywords": ["yii", "framework", "kato", "kato application"],
-	"homepage": "https://github.com/perminder-klair/kato",
-	"type": "project",
-	"license": "The MIT License",
+    "name": "perminder-klair/kato",
+    "description": "Kato CMS based on Yii 2",
+    "keywords": ["yii", "framework", "kato", "kato application"],
+    "homepage": "https://github.com/perminder-klair/kato",
+    "type": "project",
+    "license": "The MIT License",
     "version": "0.1.0",
     "authors": [
         {
@@ -13,39 +13,39 @@
             "homepage": "http://www.webonise.co.uk/"
         }
     ],
-	"support": {
-		"issues": "https://github.com/perminder-klair/kato/issues?state=open",
-		"wiki": "https://github.com/perminder-klair/kato/wiki",
-		"source": "https://github.com/perminder-klair/kato"
-	},
-	"minimum-stability": "dev",
-	"require": {
-		"php": ">=5.4.0",
-		"yiisoft/yii2": "dev-master",
-		"yiisoft/yii2-swiftmailer": "dev-master",
-		"yiisoft/yii2-bootstrap": "dev-master",
-		"yiisoft/yii2-debug": "dev-master",
-		"yiisoft/yii2-gii": "2.0.0-alpha",
+    "support": {
+        "issues": "https://github.com/perminder-klair/kato/issues?state=open",
+        "wiki": "https://github.com/perminder-klair/kato/wiki",
+        "source": "https://github.com/perminder-klair/kato"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "dev-master",
+        "yiisoft/yii2-swiftmailer": "dev-master",
+        "yiisoft/yii2-bootstrap": "dev-master",
+        "yiisoft/yii2-debug": "dev-master",
+        "yiisoft/yii2-gii": "2.0.0-alpha",
         "perminder-klair/kato-core": "dev-master",
         "kartik-v/yii2-markdown": "dev-master",
-		"kartik-v/yii2-widgets": "dev-master"
+        "kartik-v/yii2-widgets": "dev-master"
 
-	},
-	"scripts": {
-		"post-create-project-cmd": [
-			"yii\\composer\\Installer::setPermission"
-		]
-	},
-	"extra": {
-		"writable": [
-			"backend/runtime",
-			"backend/web/assets",
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::setPermission"
+        ]
+    },
+    "extra": {
+        "writable": [
+            "backend/runtime",
+            "backend/web/assets",
 
-			"console/runtime",
-			"console/migrations",
+            "console/runtime",
+            "console/migrations",
 
-			"frontend/runtime",
-			"frontend/web/assets"
-		]
-	}
+            "frontend/runtime",
+            "frontend/web/assets"
+        ]
+    }
 }
