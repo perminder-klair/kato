@@ -20,11 +20,11 @@ class PageController extends KatoController
             throw new BadRequestHttpException('Page slug not set.');
         }
         $model = Page::find()
-            ->where(['slug' => HtmlPurifier::process($_GET['slug'])])
+            ->where('slug = :slug', [':slug' => HtmlPurifier::process($_GET['slug'])])
             ->one();
 
-        if (!$model) {
-            throw new BadRequestHttpException('Page not found!');
+        if (is_null($model)) {
+            throw new BadRequestHttpException('Requested Page does not found.');
         }
 
         return $this->render('view', [
