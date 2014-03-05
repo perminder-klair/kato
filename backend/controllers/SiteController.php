@@ -41,9 +41,6 @@ class SiteController extends KatoController
 
 	public function actionIndex()
 	{
-        //\Yii::$app->view->theme->baseUrl;
-        //\Yii::$app->urlManager->baseUrl;
-
 		return $this->render('index');
 	}
 

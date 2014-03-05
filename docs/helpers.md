@@ -1,13 +1,11 @@
 #Helpers
 
-Format Date as set in config file
+Link to site base
+    \Yii::$app->urlManager->baseUrl;
 
-    formatDate('any-format-date')
+Link to theme base
+    \Yii::$app->view->theme->baseUrl;
 
 Return site settings
 
-    katoSetting('settings-key')
-
-Link to Theme Base Directory
-
-    themeBase()
+    kato\helpers\KatoHtml::setting('site_name')
