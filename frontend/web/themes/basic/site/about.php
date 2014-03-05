@@ -14,5 +14,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<code><?= __FILE__ ?></code>
 
-    <?php echo Html::a('My Page', \kato\helpers\KatoHtml::page('page-slug'), array('class' => 'btn btn-primary pull-right')); ?>
+    <?php echo Html::a('My Page', \kato\helpers\KatoHtml::page('about-us'), array('class' => 'btn btn-primary pull-right')); ?>
 </div>
