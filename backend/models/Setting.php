@@ -2,7 +2,7 @@
 
 namespace backend\models;
 
-use common\kato\ActiveRecord;
+use kato\ActiveRecord;
 
 /**
  * This is the model class for table "kato_setting".

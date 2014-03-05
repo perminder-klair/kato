@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use common\models\Blog;
 use common\models\search\BlogSearch;
-use common\kato\KatoController;
+use kato\KatoController;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
 

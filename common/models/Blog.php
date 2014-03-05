@@ -4,9 +4,10 @@ namespace common\models;
 
 use yii\helpers\Html;
 use kartik\markdown\Markdown;
-use common\kato\helpers\KatoBase;
-use common\kato\behaviors\Slug;
-use common\kato\ActiveRecord;
+use kato\helpers\KatoBase;
+use kato\behaviors\Slug;
+use kato\behaviors\SoftDelete;
+use kato\ActiveRecord;
 
 /**
  * This is the model class for table "kato_blog".
@@ -99,7 +100,7 @@ class Blog extends ActiveRecord
                 'unique' => true, // Check if the slug value is unique, add number if not
             ],
             'softDelete' => [
-               'class' => 'common\kato\behaviors\SoftDelete',
+               'class' => SoftDelete::className(),
                'attribute' => 'deleted',
                'safeMode' => true,
             ],

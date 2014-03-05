@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use app\models\Page;
 use app\models\search\PageSearch;
-use common\kato\KatoController;
+use kato\KatoController;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
 

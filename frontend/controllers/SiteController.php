@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\kato\KatoController;
+use kato\KatoController;
 use common\models\LoginForm;
 use frontend\models\ContactForm;
 use common\models\User;

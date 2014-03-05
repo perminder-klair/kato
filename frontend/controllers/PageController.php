@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use common\kato\KatoController;
+use kato\KatoController;
 use backend\models\Page;
 
 class PageController extends KatoController

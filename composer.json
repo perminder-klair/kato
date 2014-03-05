@@ -4,7 +4,7 @@
 	"keywords": ["yii", "framework", "advanced", "application template"],
 	"homepage": "http://www.yiiframework.com/",
 	"type": "project",
-	"license": "BSD-3-Clause",
+	"license": "The MIT License",
 	"support": {
 		"issues": "https://github.com/yiisoft/yii2/issues?state=open",
 		"forum": "http://www.yiiframework.com/forum/",
@@ -20,8 +20,10 @@
 		"yiisoft/yii2-bootstrap": "dev-master",
 		"yiisoft/yii2-debug": "dev-master",
 		"yiisoft/yii2-gii": "2.0.0-alpha",
+        "perminder-klair/kato-core": "dev-master",
         "kartik-v/yii2-markdown": "dev-master",
 		"kartik-v/yii2-widgets": "dev-master"
+
 	},
 	"scripts": {
 		"post-create-project-cmd": [

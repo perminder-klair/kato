@@ -3,9 +3,9 @@
 namespace backend\models;
 
 use kartik\markdown\Markdown;
-use common\kato\helpers\KatoBase;
-use common\kato\behaviors\Slug;
-use common\kato\ActiveRecord;
+use kato\helpers\KatoBase;
+use kato\behaviors\Slug;
+use kato\ActiveRecord;
 
 /**
  * This is the model class for table "kato_page".

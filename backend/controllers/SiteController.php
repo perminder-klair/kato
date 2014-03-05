@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use common\kato\KatoController;
+use kato\KatoController;
 use common\models\LoginForm;
 use yii\rbac\DbManager;
 
