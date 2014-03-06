@@ -1,17 +1,14 @@
 <?php
-$rootDir = dirname(dirname(__DIR__));
-
 $params = array_merge(
-	require($rootDir . '/common/config/params.php'),
-	require($rootDir . '/common/config/params-local.php'),
-	require(__DIR__ . '/params.php'),
-	require(__DIR__ . '/params-local.php')
+    require(__DIR__ . '/../../common/config/params.php'),
+    require(__DIR__ . '/../../common/config/params-local.php'),
+    require(__DIR__ . '/params.php'),
+    require(__DIR__ . '/params-local.php')
 );
 
 return [
 	'id' => 'kato-backend',
 	'basePath' => dirname(__DIR__),
-	'vendorPath' => $rootDir . '/vendor',
 	'preload' => ['log'],
 	'controllerNamespace' => 'backend\controllers',
 	'modules' => [
@@ -28,12 +25,8 @@ return [
             'smartyPants' => false
         ],
     ],
-	'extensions' => require($rootDir . '/vendor/yiisoft/extensions.php'),
 	'components' => [
         'kato' => 'kato\components\Kato',
-		'db' => $params['components.db'],
-		'cache' => $params['components.cache'],
-		'mail' => $params['components.mail'],
 		'user' => [
 			'identityClass' => 'common\models\User',
 		],
