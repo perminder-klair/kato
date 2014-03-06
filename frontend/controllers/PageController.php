@@ -2,12 +2,11 @@
 
 namespace frontend\controllers;
 
-use kato\KatoController;
 use backend\models\Page;
 use yii\web\BadRequestHttpException;
 use yii\helpers\HtmlPurifier;
 
-class PageController extends KatoController
+class PageController extends \yii\web\Controller
 {
     /**
      * Displays a single Page model.

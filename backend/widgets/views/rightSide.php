@@ -4,7 +4,7 @@
         <!-- User Info -->
         <div class="user-info">
             <div class="user-details"><a href="page_special_user_profile.html">pixelcave</a><br><em>Web Designer</em></div>
-            <img src="img/template/avatar.png" alt="Avatar">
+            <img src="<?= \Yii::$app->urlManager->baseUrl; ?>/img/template/avatar.png" alt="Avatar">
         </div>
         <!-- END User Info -->
 

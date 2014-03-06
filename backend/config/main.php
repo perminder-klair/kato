@@ -61,6 +61,9 @@ return [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest'],
         ],
+        'view' => [
+            'class' => 'backend\components\View',
+        ],
 	],
 	'params' => $params,
 ];

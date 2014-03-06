@@ -4,15 +4,17 @@ namespace backend\controllers;
 
 use common\models\Blog;
 use common\models\search\BlogSearch;
-use kato\KatoController;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
 
 /**
  * BlogController implements the CRUD actions for Blog model.
  */
-class BlogController extends KatoController
+class BlogController extends \yii\web\Controller
 {
+    public $pageTitle = 'Blog';
+    public $pageIcon = 'fa fa-book';
+
 	public function behaviors()
 	{
 		return [
@@ -49,7 +51,12 @@ class BlogController extends KatoController
 		$searchModel = new BlogSearch;
 		$dataProvider = $searchModel->search($_GET);
 
-		return $this->render('index', [
+        $meta['title'] = $this->pageTitle;
+        $meta['description'] = 'List all posts';
+        $meta['pageIcon'] = $this->pageIcon;
+
+		return $this->render('/global/index', [
+            'meta' => $meta,
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
 		]);
@@ -66,6 +73,8 @@ class BlogController extends KatoController
 		if ($model->save(false)) {
 			return $this->redirect(['update', 'id' => $model->id]);
 		}
+
+        return false;
 	}
 
 	/**

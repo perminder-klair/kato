@@ -4,12 +4,11 @@ namespace frontend\controllers;
 
 use common\models\Blog;
 use common\models\search\BlogSearch;
-use kato\KatoController;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
 use yii\data\ActiveDataProvider;
 
-class BlogController extends KatoController
+class BlogController extends \yii\web\Controller
 {
     public function behaviors()
     {

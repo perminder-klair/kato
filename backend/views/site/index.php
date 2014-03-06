@@ -11,19 +11,6 @@ use yii\widgets\Breadcrumbs;
 
     <?= backend\widgets\Header::widget(); ?>
 
-    <!-- FX Container -->
-    <!-- In the PHP version you can set the following options from the config file -->
-    <!--
-        All effects apply in resolutions larger than 1200px width
-        Add one of the following classes to #fx-container for setting an effect to main content when one of the sidebars are opened
-        'fx-none'           remove all effects (better website performance)
-        'fx-opacity'        opacity effect
-        'fx-move'           move effect
-        'fx-push'           push effect
-        'fx-rotate'         rotate effect
-        'fx-push-move'      push-move effect
-        'fx-push-rotate'    push-rotate effect
-    -->
     <div id="fx-container" class="fx-opacity">
         <!-- Page content -->
         <div id="page-content" class="block">
