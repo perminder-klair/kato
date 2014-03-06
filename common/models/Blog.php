@@ -174,4 +174,17 @@ class Blog extends ActiveRecord
             self::STATUS_PUBLISHED => 'Published',
         ];
     }
+
+    public function getStatusLabel()
+    {
+        if ($status =$this->listStatus()) {
+            return $status[$this->status];
+        }
+        return false;
+    }
+
+    public function getAuthorName()
+    {
+        return $this->user->username;
+    }
 }

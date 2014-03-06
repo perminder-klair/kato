@@ -6,6 +6,7 @@ use common\models\Blog;
 use common\models\search\BlogSearch;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
+use yii\grid\DataColumn;
 
 /**
  * BlogController implements the CRUD actions for Blog model.
@@ -55,10 +56,31 @@ class BlogController extends \yii\web\Controller
         $meta['description'] = 'List all posts';
         $meta['pageIcon'] = $this->pageIcon;
 
+        $getColumns = [
+            ['class' => 'yii\grid\SerialColumn'],
+            'title',
+            [
+                'class' => DataColumn::className(),
+                'attribute' => 'authorName',
+                'format' => 'text',
+                'label' => 'Author',
+            ],
+            'update_time',
+            'publish_time',
+            [
+                'class' => DataColumn::className(),
+                'attribute' => 'statusLabel',
+                'format' => 'text',
+                'label' => 'Status',
+            ],
+            ['class' => 'backend\components\ActionColumn'],
+        ];
+
 		return $this->render('/global/index', [
             'meta' => $meta,
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
+            'getColumns' => $getColumns,
 		]);
 	}
 
