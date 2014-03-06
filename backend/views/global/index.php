@@ -1,9 +1,9 @@
 <?php
 /**
  * @var backend\components\View $this
+ * @var yii\data\ActiveDataProvider $dataProvider
+ * @var common\models\search\BlogSearch $searchModel
  * @var $meta ;
- * @var $dataProvider ;
- * @var $searchModel ;
  * @var $getColumns;
  */
 $this->title = $meta['title'];
@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 use yii\widgets\Breadcrumbs;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 ?>
 <div id="page-container">
@@ -27,8 +28,8 @@ use yii\grid\GridView;
                 <!-- If you do not want a link in the header, instead of .header-title-link you can use a div with the class .header-section -->
                 <a href="" class="header-title-link">
                     <h1>
-                        <i class="<?= $this->pageIcon; ?> animation-expandUp"></i><?= $this->title; ?><br>
-                        <small><?= $this->description; ?></small>
+                        <i class="<?= Html::encode($this->pageIcon) ?> animation-expandUp"></i><?= Html::encode($this->title) ?><br>
+                        <small><?= Html::encode($this->description) ?></small>
                     </h1>
                 </a>
             </div>
@@ -37,14 +38,18 @@ use yii\grid\GridView;
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 'options' => ['class' => 'breadcrumb breadcrumb-top'],
                 'encodeLabels' => false,
-                'homeLink' => ['label' => '<i class="' . $this->pageIcon . '"></i>'],
+                'homeLink' => ['label' => '<i class="' . Html::encode($this->pageIcon) . '"></i>'],
             ]) ?>
             <!-- END Blank Header -->
 
             <!-- Blank Content -->
             <div class="block">
+
+                <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                <? // Html::a('Create Blog', ['create'], ['class' => 'btn btn-success']) ?>
+
                 <div class="block-title">
-                    <h2><?= $this->title; ?></h2>
+                    <h2><?= Html::encode($this->title) ?></h2>
                 </div>
                 <?php echo GridView::widget([
                     'options' => ['class' => 'table-responsive'],
