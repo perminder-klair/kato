@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\LoginForm;
-use yii\rbac\DbManager;
+use yii\web\VerbFilter;
 
 class SiteController extends \yii\web\Controller
 {
@@ -26,6 +26,12 @@ class SiteController extends \yii\web\Controller
 					],
 				],
 			],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
 		];
 	}
 
@@ -43,27 +49,27 @@ class SiteController extends \yii\web\Controller
 		return $this->render('index');
 	}
 
-	public function actionLogin()
-	{
-		if (!\Yii::$app->user->isGuest) {
-			$this->goHome();
-		}
+    public function actionLogin()
+    {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
 
-		$model = new LoginForm();
-		if ($model->load($_POST) && $model->login()) {
-			return $this->goBack();
-		} else {
-			return $this->render('login', [
-				'model' => $model,
-			]);
-		}
-	}
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        } else {
+            return $this->render('login', [
+                'model' => $model,
+            ]);
+        }
+    }
 
-	public function actionLogout()
-	{
-		Yii::$app->user->logout();
-		return $this->goHome();
-	}
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+        return $this->goHome();
+    }
 
     public function actionMakeadmin()
     {
