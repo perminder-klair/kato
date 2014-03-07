@@ -3,8 +3,8 @@
  * @var backend\components\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var common\models\search\BlogSearch $searchModel
- * @var $meta ;
- * @var $getColumns;
+ * @var $meta
+ * @var $getColumns
  */
 $this->title = $meta['title'];
 $this->description = $meta['description'];
