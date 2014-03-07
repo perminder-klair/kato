@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 04, 2014 at 04:31 PM
+-- Generation Time: Mar 07, 2014 at 09:26 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.4.25
 
@@ -19,6 +19,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `kato2`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `demo`
+--
+
+CREATE TABLE IF NOT EXISTS `demo` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `create_time` timestamp NULL DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL,
+  `listing_order` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -49,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `kato_block` (
 
 INSERT INTO `kato_block` (`id`, `title`, `slug`, `content`, `content_html`, `create_time`, `created_by`, `update_time`, `updated_by`, `parent`, `listing_order`, `status`, `deleted`) VALUES
 (1, 'Contact Intro', 'contact-intro', 'Please fill the following:', '<p>test content</p>\n', '2013-10-27 18:14:48', 0, '2013-10-27 18:51:39', 1, 'contact', NULL, 1, 0),
-(2, 'test', 'test', 'test test test', '<p>test test test</p>\n', '2013-10-27 18:49:35', 0, '2013-10-27 19:18:35', 1, '', NULL, 1, 0);
+(2, 'test', 'test', 'test test test', '<p>test test test</p>\n', '2013-10-27 18:49:35', 0, '2014-03-05 17:29:25', 1, 'about-us', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -83,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `kato_blog` (
 --
 
 INSERT INTO `kato_blog` (`id`, `title`, `short_desc`, `content`, `content_html`, `slug`, `tags`, `create_time`, `created_by`, `update_time`, `updated_by`, `publish_time`, `published_by`, `is_revision`, `parent_id`, `status`, `deleted`) VALUES
-(6, 'test test test 33', '...', '<p>\r\n	   **test**\r\n</p>\r\n<p>\r\n	<span style="background-color: rgb(255, 255, 255);"></span>\r\n</p>\r\n<ul>\r\n	<li>dsf</li>\r\n	<li>asdfs</li>\r\n	<li>asdfsf</li>\r\n</ul>\r\n<p>\r\n	   # hello #\r\n</p>\r\n<p>\r\n	   *test test*\r\n</p>\r\n<h1></h1>', '<p>\n       **test**\n</p>\n\n<p>\n    <span style="background-color: rgb(255, 255, 255);"></span>\n</p>\n\n<ul>\n    <li>dsf</li>\n    <li>asdfs</li>\n    <li>asdfsf</li>\n</ul>\n\n<p>\n       # hello #\n</p>\n\n<p>\n       *test test*\n</p>\n\n<h1></h1>\n', 'test-test-test-33', '', '2013-11-25 20:55:24', 1, '2014-03-04 16:26:06', 1, '2013-11-25 20:55:24', NULL, 0, 0, 0, 0),
+(6, 'test test test 33', '...', '<p>\r\n	   **test**\r\n</p>\r\n<p>\r\n	<span style="background-color: rgb(255, 255, 255);"></span>\r\n</p>\r\n<ul>\r\n	<li>dsf</li>\r\n	<li>asdfs</li>\r\n	<li>asdfsf</li>\r\n</ul>\r\n<p>\r\n	   # hello #\r\n</p>\r\n<p>\r\n	   *test test*\r\n</p>\r\n<h1></h1>', '<p>\n       **test**\n</p>\n\n<p>\n    <span style="background-color: rgb(255, 255, 255);"></span>\n</p>\n\n<ul>\n    <li>dsf</li>\n    <li>asdfs</li>\n    <li>asdfsf</li>\n</ul>\n\n<p>\n       # hello #\n</p>\n\n<p>\n       *test test*\n</p>\n\n<h1></h1>\n', 'test-test-test-33', '', '2013-11-25 20:55:24', 1, '2014-03-04 16:48:09', 1, '2013-11-25 20:55:24', NULL, 0, 0, 0, 1),
 (7, 'test', '', '', NULL, '', '', '2013-11-25 21:24:30', 1, '2013-11-25 21:24:30', NULL, '2013-11-25 21:24:30', NULL, 0, 0, 0, 0),
 (8, 'test', '', '', NULL, '', '', '2013-11-25 21:28:49', 1, '2013-11-25 21:28:49', NULL, '2013-11-25 21:28:49', NULL, 0, 0, 0, 0),
 (9, 'New Post', 'test test test s...', 'test test test s', '<p>test test test s</p>\n', 'new-post', '', '2013-11-25 21:33:47', 1, '2013-11-25 21:51:51', 1, '2013-11-25 21:33:47', NULL, 0, 0, 0, 0),
@@ -114,14 +131,7 @@ CREATE TABLE IF NOT EXISTS `kato_media` (
 --
 
 INSERT INTO `kato_media` (`id`, `filename`, `source`, `create_time`, `extension`, `mimeType`, `byteSize`, `media_type`, `published`) VALUES
-(17, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '2013-10-29 23:27:15', 'jpg', 'image/jpeg', 102804, NULL, 1),
-(18, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '2013-10-29 23:29:20', 'jpg', 'image/jpeg', 102804, NULL, 1),
-(19, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '2013-10-29 23:30:17', 'jpg', 'image/jpeg', 102804, NULL, 1),
-(20, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '2013-10-29 23:30:35', 'jpg', 'image/jpeg', 102804, NULL, 1),
-(21, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '2013-10-29 23:31:25', 'jpg', 'image/jpeg', 102804, NULL, 1),
-(22, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '2013-10-29 23:31:38', 'jpg', 'image/jpeg', 102804, NULL, 1),
-(23, 'BHVicYICMAAdHGv.jpg', 'files/2013-11-45/BHVicYICMAAdHGv.jpg', '2013-11-06 18:54:49', 'jpg', 'image/jpeg', 102804, NULL, 1),
-(24, 'BHVicYICMAAdHGv.jpg', 'files/2013-11-45/BHVicYICMAAdHGv.jpg', '2013-11-06 18:54:54', 'jpg', 'image/jpeg', 102804, NULL, 1);
+(17, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '2013-10-29 23:27:15', 'jpg', 'image/jpeg', 102804, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -204,10 +214,6 @@ CREATE TABLE IF NOT EXISTS `kato_tag` (
 --
 
 INSERT INTO `kato_tag` (`id`, `name`, `frequency`, `tag_type`) VALUES
-(36, 'tag2', 6, 'blog2'),
-(37, 'tag', 2, 'blog2'),
-(38, 'tag2', 3, 'blog'),
-(40, 'test', 1, NULL),
 (41, 'blog', 1, 'blog');
 
 -- --------------------------------------------------------
