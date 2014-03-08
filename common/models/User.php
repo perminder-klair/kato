@@ -5,6 +5,7 @@ namespace common\models;
 use yii\db\ActiveRecord;
 use yii\helpers\Security;
 use yii\web\IdentityInterface;
+use yii\base\NotSupportedException;
 
 /**
  * Class User
@@ -20,6 +21,7 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $create_time
  * @property integer $update_time
+ * @property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -118,6 +120,7 @@ class User extends ActiveRecord implements IdentityInterface
 
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
+            ['username', 'unique'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
@@ -127,16 +130,16 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-	public function scenarios()
+	/*public function scenarios()
 	{
 		return [
 			'signup' => ['username', 'email', 'password'],
 			'resetPassword' => ['password'],
 			'requestPasswordResetToken' => ['email'],
 		];
-	}
+	}*/
 
-	public function beforeSave($insert)
+	/*public function beforeSave($insert)
 	{
 		if (parent::beforeSave($insert)) {
 			if (($this->isNewRecord || $this->getScenario() === 'resetPassword') && !empty($this->password)) {
@@ -148,7 +151,7 @@ class User extends ActiveRecord implements IdentityInterface
 			return true;
 		}
 		return false;
-	}
+	}*/
 
     /**
      * Creates a new user
