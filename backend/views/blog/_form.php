@@ -35,7 +35,7 @@ use kartik\widgets\DatePicker;
         ],
         'pluginOptions' => [
             'allowClear' => true,
-            'tags' => ["red", "green", "blue"],
+            'tags' => \backend\models\Tag::listTags(),
         ],
     ]); ?>
 

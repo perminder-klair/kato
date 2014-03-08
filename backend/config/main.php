@@ -57,6 +57,11 @@ return [
         'view' => [
             'class' => 'backend\components\View',
         ],
+        'request'=>[
+            //TODO enable this
+            'enableCsrfValidation'=>false,
+            'enableCookieValidation'=>true,
+        ],
 	],
 	'params' => $params,
 ];
