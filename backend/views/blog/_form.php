@@ -39,16 +39,15 @@ use kartik\widgets\DatePicker;
         ],
     ]); ?>
 
-    <?= Html::activeLabel($model, 'publish_time') ?>
-    <?= DatePicker::widget([
-        'name' => 'publish_time',
-        'value' => date('d-M-Y', strtotime('+2 days')),
-        'options' => ['placeholder' => 'Select issue date ...'],
+    <?= $form->field($model, 'publish_time')->widget(DatePicker::classname(), [
+        'options' => [
+            'placeholder' => 'Select issue date ...',
+        ],
         'pluginOptions' => [
-            'format' => 'dd-M-yyyy',
+            'format' => 'yyyy-mm-dd',
             'todayHighlight' => true
-        ]
-    ]);; ?>
+        ],
+    ]); ?>
 
     <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 

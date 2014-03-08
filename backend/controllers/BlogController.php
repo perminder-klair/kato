@@ -52,10 +52,6 @@ class BlogController extends \yii\web\Controller
 		$searchModel = new BlogSearch;
 		$dataProvider = $searchModel->search($_GET);
 
-        $meta['title'] = $this->pageTitle;
-        $meta['description'] = 'List all posts';
-        $meta['pageIcon'] = $this->pageIcon;
-
         $getColumns = [
             ['class' => 'yii\grid\SerialColumn'],
             'title',
@@ -76,10 +72,14 @@ class BlogController extends \yii\web\Controller
             ['class' => 'backend\components\ActionColumn'],
         ];
 
+        $meta['title'] = $this->pageTitle;
+        $meta['description'] = 'List all posts';
+        $meta['pageIcon'] = $this->pageIcon;
+
 		return $this->render('/global/index', [
-            'meta' => $meta,
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
+            'meta' => $meta,
             'getColumns' => $getColumns,
 		]);
 	}

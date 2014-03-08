@@ -2,16 +2,20 @@
 
 namespace backend\controllers;
 
-use app\models\Page;
-use app\models\search\PageSearch;
+use backend\models\Page;
+use backend\models\search\PageSearch;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
+use yii\grid\DataColumn;
 
 /**
  * PageController implements the CRUD actions for Page model.
  */
 class PageController extends \yii\web\Controller
 {
+    public $pageTitle = 'Pages';
+    public $pageIcon = 'fa fa-th';
+
 	public function behaviors()
 	{
 		return [
@@ -46,11 +50,26 @@ class PageController extends \yii\web\Controller
 	public function actionIndex()
 	{
 		$searchModel = new PageSearch;
-		$dataProvider = $searchModel->search($_GET);
+		$dataProvider = $searchModel->search($_GET);$meta['title'] = $this->pageTitle;
 
-		return $this->render('index', [
+        $getColumns = [
+            ['class' => 'yii\grid\SerialColumn'],
+            'title',
+            'slug',
+            'update_time',
+            'status:boolean',
+            ['class' => 'backend\components\ActionColumn'],
+        ];
+
+        $meta['title'] = $this->pageTitle;
+        $meta['description'] = 'List all pages';
+        $meta['pageIcon'] = $this->pageIcon;
+
+		return $this->render('/global/index', [
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
+            'meta' => $meta,
+            'getColumns' => $getColumns,
 		]);
 	}
 

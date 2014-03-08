@@ -115,7 +115,6 @@ class Blog extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-
             if ($this->isNewRecord) {
                 $this->is_revision = self::NOT_REVISION;
                 $this->parent_id = 0;
