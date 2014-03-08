@@ -79,7 +79,6 @@ class Tag extends \yii\db\ActiveRecord
                 $return[] = $tag->name;
             }
         }
-
         return $return;
     }
 }

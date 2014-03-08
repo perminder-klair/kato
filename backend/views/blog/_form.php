@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
+use backend\models\Tag;
 
 /**
  * @var yii\web\View $this
@@ -35,7 +36,7 @@ use kartik\widgets\DatePicker;
         ],
         'pluginOptions' => [
             'allowClear' => true,
-            'tags' => \backend\models\Tag::listTags(),
+            'tags' => Tag::listTags(),
         ],
     ]); ?>
 
