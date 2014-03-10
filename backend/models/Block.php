@@ -123,19 +123,23 @@ class Block extends ActiveRecord
      */
     public function listParents()
     {
-        /*$pages = Yii::app()->getModule('pages')->nonStaticPages;
-
-        $array = array();
-        foreach ($pages as $key => $value) {
-            $array[strtolower($value)] = $value;
-        }
-
-        return $array;*/
-
         $help = new \yii\console\controllers\HelpController('', '');
         $actions = $help->getActions(new \frontend\controllers\SiteController('', ''));
 
-        print_r($actions);
-        exit;
+        $data = [];
+        foreach ($actions as $key => $value) {
+            $data[$value] = ucwords($value);
+        }
+
+        return $data;
+    }
+
+    public function renderParent()
+    {
+        if (!is_null($this->parent)) {
+            return ucwords($this->parent);
+        }
+
+        return '-';
     }
 }
