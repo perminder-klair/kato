@@ -7,6 +7,7 @@ use kartik\markdown\Markdown;
 use kato\helpers\KatoBase;
 use kato\behaviors\Slug;
 use kato\behaviors\SoftDelete;
+use kato\behaviors\NormalizeTags;
 use kato\ActiveRecord;
 
 /**
@@ -57,7 +58,13 @@ class Blog extends ActiveRecord
             [['create_time', 'update_time', 'publish_time'], 'safe'],
             [['created_by', 'updated_by', 'published_by', 'is_revision', 'parent_id', 'status', 'deleted'], 'integer'],
             [['title', 'slug'], 'string', 'max' => 70],
-            [['short_desc'], 'string', 'max' => 160]
+            [['short_desc'], 'string', 'max' => 160],
+            ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
+            ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
+            ['parent_id', 'default', 'value' => 0],
+            ['slug', 'default', 'value' => null],
+            ['is_revision', 'default', 'value' => self::NOT_REVISION],
+            ['is_revision', 'in', 'range' => [self::IS_REVISION, self::NOT_REVISION]],
         ];
     }
 
@@ -104,6 +111,12 @@ class Blog extends ActiveRecord
                'attribute' => 'deleted',
                'safeMode' => true,
             ],
+            'normalizeTags' => [
+                'class' => NormalizeTags::className(),
+                'attribute' => 'tags',
+                'updateTags' => true,
+                'tagType' => 'blog',
+            ],
         ];
     }
 
@@ -115,15 +128,9 @@ class Blog extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            if ($this->isNewRecord) {
-                $this->is_revision = self::NOT_REVISION;
-                $this->parent_id = 0;
-                $this->status = self::STATUS_NOT_PUBLISHED;
-                $this->slug = null;
-            } else {
-                $this->content_html = Markdown::convert($this->content);
-                $this->short_desc = KatoBase::genShortDesc($this->content_html, 'p' , '20');
-            }
+            $this->content_html = Markdown::convert($this->content);
+            $this->short_desc = KatoBase::genShortDesc($this->content_html, 'p' , '20');
+
             return true;
         }
         return false;
@@ -185,5 +192,19 @@ class Blog extends ActiveRecord
     public function getAuthorName()
     {
         return $this->user->username;
+    }
+
+    /**
+     * @return string the URL that shows the detail of the post
+     */
+    public function getPermalink()
+    {
+        if(!empty($this->slug)) {
+            $title = $this->slug;
+        } else {
+            $title = $this->title;
+        }
+
+        return Html::url(['blog/view', 'id' => $this->id, 'title' => Html::encode($title)]);
     }
 }

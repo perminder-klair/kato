@@ -12,5 +12,6 @@
 #Usage
 
 - [User Management](users.md)
+- [Blog](blog.md)
 - [Pages](pages.md)
 - [Helpers](helpers.md)
