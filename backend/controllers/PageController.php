@@ -97,11 +97,16 @@ class PageController extends \yii\web\Controller
 	{
 		$model = $this->findModel($id);
 
+        $meta['title'] = $this->pageTitle;
+        $meta['description'] = 'Update page';
+        $meta['pageIcon'] = $this->pageIcon;
+
 		if ($model->load($_POST) && $model->save()) {
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
-			return $this->render('update', [
+			return $this->render('/global/update', [
 				'model' => $model,
+                'meta' => $meta,
 			]);
 		}
 	}

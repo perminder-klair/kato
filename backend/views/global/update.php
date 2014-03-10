@@ -12,7 +12,7 @@ use yii\widgets\Breadcrumbs;
 $this->description = $meta['description'];
 $this->pageIcon = $meta['pageIcon'];
 $this->title = 'Update ' . $meta['title'] . ': ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Blogs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $meta['title'], 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
