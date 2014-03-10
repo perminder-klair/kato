@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use backend\controllers\SiteController;
 use kato\ActiveRecord;
 use kato\behaviors\Slug;
 use kato\behaviors\SoftDelete;
@@ -114,5 +115,27 @@ class Block extends ActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * List all actions in site controller
+     * @return array
+     */
+    public function listParents()
+    {
+        /*$pages = Yii::app()->getModule('pages')->nonStaticPages;
+
+        $array = array();
+        foreach ($pages as $key => $value) {
+            $array[strtolower($value)] = $value;
+        }
+
+        return $array;*/
+
+        $help = new \yii\console\controllers\HelpController('', '');
+        $actions = $help->getActions(new \frontend\controllers\SiteController('', ''));
+
+        print_r($actions);
+        exit;
     }
 }
