@@ -43,3 +43,5 @@ use yii\widgets\Breadcrumbs;
     <!-- END FX Container -->
 </div>
 <!-- END Page Container -->
+
+<?= \kato\DropZone::widget(); ?>

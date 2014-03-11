@@ -27,6 +27,7 @@
         "yiisoft/yii2-debug": "dev-master",
         "yiisoft/yii2-gii": "dev-master",
         "perminder-klair/kato-core": "dev-master",
+        "perminder-klair/yii2-dropzone": "dev-master",
         "kartik-v/yii2-markdown": "dev-master",
         "kartik-v/yii2-widgets": "dev-master"
 
