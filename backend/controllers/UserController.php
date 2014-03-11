@@ -2,38 +2,24 @@
 
 namespace backend\controllers;
 
-use backend\models\Page;
-use backend\models\search\PageSearch;
+use Yii;
+use common\models\User;
+use common\models\search\User as UserSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
-use yii\grid\DataColumn;
 
 /**
- * PageController implements the CRUD actions for Page model.
+ * UserController implements the CRUD actions for User model.
  */
-class PageController extends \yii\web\Controller
+class UserController extends Controller
 {
-    public $pageTitle = 'Pages';
-    public $pageIcon = 'fa fa-th';
+    public $pageTitle = 'User';
+    public $pageIcon = 'fa fa-user';
 
 	public function behaviors()
 	{
 		return [
-            'access' => [
-                'class' => \yii\web\AccessControl::className(),
-                //'only' => ['index', 'create', 'update', 'delete'],
-                'rules' => [
-                    [
-                        'actions' => ['index', 'create', 'update', 'delete'], // Define specific actions
-                        'allow' => true, // Has access
-                        'roles' => ['admin'], // '@' All logged in users / or your access role e.g. 'admin', 'user'
-                    ],
-                    [
-                        'allow' => false, // Do not have access
-                        'roles'=>['?'], // Guests '?'
-                    ],
-                ],
-            ],
 			'verbs' => [
 				'class' => VerbFilter::className(),
 				'actions' => [
@@ -44,25 +30,24 @@ class PageController extends \yii\web\Controller
 	}
 
 	/**
-	 * Lists all Page models.
+	 * Lists all User models.
 	 * @return mixed
 	 */
 	public function actionIndex()
 	{
-		$searchModel = new PageSearch;
-		$dataProvider = $searchModel->search($_GET);$meta['title'] = $this->pageTitle;
+		$searchModel = new UserSearch;
+		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         $getColumns = [
             ['class' => 'yii\grid\SerialColumn'],
-            'title',
-            'slug',
-            'update_time',
-            'status:boolean',
+            'username',
+            'email',
+            'create_time',
             ['class' => 'backend\components\ActionColumn'],
         ];
 
         $meta['title'] = $this->pageTitle;
-        $meta['description'] = 'List all pages';
+        $meta['description'] = 'List all posts';
         $meta['pageIcon'] = $this->pageIcon;
 
 		return $this->render('/global/index', [
@@ -74,21 +59,23 @@ class PageController extends \yii\web\Controller
 	}
 
 	/**
-	 * Creates a new Page model.
+	 * Creates a new User model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
 	public function actionCreate()
 	{
-		$model = new Page;
+		$model = new User;
 
-		if ($model->save(false)) {
-			return $this->redirect(['update', 'id' => $model->id]);
-		}
+        if ($model->save(false)) {
+            return $this->redirect(['update', 'id' => $model->id]);
+        }
+
+        return false;
 	}
 
 	/**
-	 * Updates an existing Page model.
+	 * Updates an existing User model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id
 	 * @return mixed
@@ -98,13 +85,14 @@ class PageController extends \yii\web\Controller
 		$model = $this->findModel($id);
 
         $meta['title'] = $this->pageTitle;
-        $meta['description'] = 'Update page';
+        $meta['description'] = 'Update user';
         $meta['pageIcon'] = $this->pageIcon;
 
-		if ($model->load($_POST) && $model->save()) {
-			return $this->redirect(['update', 'id' => $model->id]);
+//User::create($this->attributes);
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->id]);
 		} else {
-			return $this->render('/global/update', [
+			return $this->render('update', [
 				'model' => $model,
                 'meta' => $meta,
 			]);
@@ -112,7 +100,7 @@ class PageController extends \yii\web\Controller
 	}
 
 	/**
-	 * Deletes an existing Page model.
+	 * Deletes an existing User model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id
 	 * @return mixed
@@ -124,15 +112,15 @@ class PageController extends \yii\web\Controller
 	}
 
 	/**
-	 * Finds the Page model based on its primary key value.
+	 * Finds the User model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
 	 * @param integer $id
-	 * @return Page the loaded model
+	 * @return User the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	protected function findModel($id)
 	{
-		if (($model = Page::find($id)) !== null) {
+		if ($id !== null && ($model = User::find($id)) !== null) {
 			return $model;
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');

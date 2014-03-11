@@ -3,8 +3,6 @@
 namespace backend\models;
 
 use kato\ActiveRecord;
-use kato\behaviors\Slug;
-use kato\behaviors\SoftDelete;
 use kartik\markdown\Markdown;
 
 /**
@@ -47,7 +45,10 @@ class Block extends ActiveRecord
 			[['create_time', 'created_by', 'update_time', 'updated_by'], 'required'],
 			[['create_time', 'update_time'], 'safe'],
 			[['created_by', 'updated_by', 'listing_order', 'status', 'deleted'], 'integer'],
-			[['title', 'slug', 'parent'], 'string', 'max' => 70]
+			[['title', 'slug', 'parent'], 'string', 'max' => 70],
+            ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
+            ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
+            ['slug', 'default', 'value' => null],
 		];
 	}
 
@@ -76,8 +77,15 @@ class Block extends ActiveRecord
     public function behaviors()
     {
         return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time', 'publish_time'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
             'slug' => [
-                'class' => Slug::className(),
+                'class' => 'kato\behaviors\Slug',
                 // These parameters are optional, default values presented here:
                 'sourceAttributeName' => 'title', // If you want to make a slug from another attribute, set it here
                 'slugAttributeName' => 'slug', // Name of the attribute containing a slug
@@ -86,7 +94,7 @@ class Block extends ActiveRecord
                 'unique' => true, // Check if the slug value is unique, add number if not
             ],
             'softDelete' => [
-                'class' => SoftDelete::className(),
+                'class' => 'kato\behaviors\SoftDelete',
                 'attribute' => 'deleted',
                 'safeMode' => true,
             ],
@@ -101,18 +109,53 @@ class Block extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-
-            if ($this->isNewRecord) {
-                $this->status = self::STATUS_NOT_PUBLISHED;
-                $this->slug = null;
-            } else {
-                $this->content_html = Markdown::convert($this->content);
-            }
-
+            $this->content_html = Markdown::convert($this->content);
             $this->parent = strtolower($this->parent);
 
             return true;
         }
         return false;
+    }
+
+    public function listStatus()
+    {
+        return [
+            self::STATUS_NOT_PUBLISHED => 'Not Published',
+            self::STATUS_PUBLISHED => 'Published',
+        ];
+    }
+
+    public function getStatusLabel()
+    {
+        if ($status =$this->listStatus()) {
+            return $status[$this->status];
+        }
+        return false;
+    }
+
+    /**
+     * List all actions in site controller
+     * @return array
+     */
+    public function listParents()
+    {
+        $help = new \yii\console\controllers\HelpController('', '');
+        $actions = $help->getActions(new \frontend\controllers\SiteController('', ''));
+
+        $data = [];
+        foreach ($actions as $key => $value) {
+            $data[$value] = ucwords($value);
+        }
+
+        return $data;
+    }
+
+    public function renderParent()
+    {
+        if (!is_null($this->parent)) {
+            return ucwords($this->parent);
+        }
+
+        return '-';
     }
 }

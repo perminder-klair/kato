@@ -7,6 +7,7 @@ use kato\helpers\KatoBase;
 use kato\behaviors\Slug;
 use kato\behaviors\SoftDelete;
 use kato\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "kato_page".
@@ -32,6 +33,8 @@ class Page extends ActiveRecord
 {
     const STATUS_NOT_PUBLISHED = 0;
     const STATUS_PUBLISHED = 1;
+    const TYPE_STATIC = 0;
+    const TYPE_NON_STATIC = 1;
 
 	/**
 	 * @inheritdoc
@@ -54,7 +57,13 @@ class Page extends ActiveRecord
 			[['status', 'deleted'], 'boolean'],
 			[['title', 'slug'], 'string', 'max' => 70],
 			[['short_desc'], 'string', 'max' => 160],
-			[['layout'], 'string', 'max' => 25]
+			[['layout'], 'string', 'max' => 25],
+            ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
+            ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
+            ['type', 'default', 'value' => self::TYPE_NON_STATIC],
+            ['type', 'in', 'range' => [self::TYPE_STATIC, self::TYPE_NON_STATIC]],
+            ['parent_id', 'default', 'value' => 0],
+            ['slug', 'default', 'value' => null],
 		];
 	}
 
@@ -76,7 +85,7 @@ class Page extends ActiveRecord
 			'updated_by' => 'Updated By',
 			'level' => 'Level',
 			'layout' => 'Layout',
-			'parent_id' => 'Parent ID',
+			'parent_id' => 'Parent',
 			'type' => 'Type',
 			'status' => 'Status',
 			'deleted' => 'Deleted',
@@ -92,6 +101,13 @@ class Page extends ActiveRecord
     public function behaviors()
     {
         return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time', 'publish_time'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
             'slug' => [
                 'class' => Slug::className(),
                 // These parameters are optional, default values presented here:
@@ -117,17 +133,47 @@ class Page extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+            $this->content_html = Markdown::convert($this->content);
+            $this->short_desc = KatoBase::genShortDesc($this->content_html, 'p' , '20');
 
-            if ($this->isNewRecord) {
-                $this->parent_id = 0;
-                $this->status = self::STATUS_NOT_PUBLISHED;
-                $this->slug = null;
-            } else {
-                $this->content_html = Markdown::convert($this->content);
-                $this->short_desc = KatoBase::genShortDesc($this->content_html, 'p' , '20');
-            }
             return true;
         }
         return false;
+    }
+
+    public function listStatus()
+    {
+        return [
+            self::STATUS_NOT_PUBLISHED => 'Not Published',
+            self::STATUS_PUBLISHED => 'Published',
+        ];
+    }
+
+    public function getStatusLabel()
+    {
+        if ($status =$this->listStatus()) {
+            return $status[$this->status];
+        }
+        return false;
+    }
+
+    /**
+     * Returns id, title of all parents
+     * @return array
+     */
+    public function listParents()
+    {
+        $parents = self::find()
+            ->where('id != ' . $this->id)
+            ->all();
+
+        return ArrayHelper::map($parents, 'id', 'title');
+    }
+
+    public function listLayouts()
+    {
+        return [
+            'default' => 'default',
+        ];
     }
 }

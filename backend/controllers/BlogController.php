@@ -92,6 +92,7 @@ class BlogController extends \yii\web\Controller
 	public function actionCreate()
 	{
 		$model = new Blog;
+
 		if ($model->save(false)) {
 			return $this->redirect(['update', 'id' => $model->id]);
 		}

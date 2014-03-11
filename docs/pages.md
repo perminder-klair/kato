@@ -4,13 +4,9 @@ To get page link
 
     \kato\helpers\KatoHtml::page('page-slug');
 
-To get a block of a system (non static) page
+To get a block (non static) page
 
-    $this->getPageBlock('block-name')
-
-To get a block of no parent, that can be echoed anywhere in site
-
-    $this->getPageBlock('block-name', false)
+    \Yii::$app->kato->block('block_slug');
 
 To get all blocks of a system (non static) page
 

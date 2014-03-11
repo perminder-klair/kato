@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2014 at 09:26 AM
+-- Generation Time: Mar 11, 2014 at 05:24 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.4.25
 
@@ -35,7 +35,64 @@ CREATE TABLE IF NOT EXISTS `demo` (
   `active` tinyint(4) DEFAULT NULL,
   `deleted` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kato_auth_assignment`
+--
+
+CREATE TABLE IF NOT EXISTS `kato_auth_assignment` (
+  `item_name` varchar(64) NOT NULL,
+  `user_id` varchar(64) NOT NULL,
+  `biz_rule` text,
+  `data` text,
+  PRIMARY KEY (`item_name`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kato_auth_assignment`
+--
+
+INSERT INTO `kato_auth_assignment` (`item_name`, `user_id`, `biz_rule`, `data`) VALUES
+('admin', '1', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kato_auth_item`
+--
+
+CREATE TABLE IF NOT EXISTS `kato_auth_item` (
+  `name` varchar(64) NOT NULL,
+  `type` int(11) NOT NULL,
+  `description` text,
+  `biz_rule` text,
+  `data` text,
+  PRIMARY KEY (`name`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kato_auth_item`
+--
+
+INSERT INTO `kato_auth_item` (`name`, `type`, `description`, `biz_rule`, `data`) VALUES
+('admin', 2, 'Administrator', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kato_auth_item_child`
+--
+
+CREATE TABLE IF NOT EXISTS `kato_auth_item_child` (
+  `parent` varchar(64) NOT NULL,
+  `child` varchar(64) NOT NULL,
+  PRIMARY KEY (`parent`,`child`),
+  KEY `child` (`child`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -65,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `kato_block` (
 --
 
 INSERT INTO `kato_block` (`id`, `title`, `slug`, `content`, `content_html`, `create_time`, `created_by`, `update_time`, `updated_by`, `parent`, `listing_order`, `status`, `deleted`) VALUES
-(1, 'Contact Intro', 'contact-intro', 'Please fill the following:', '<p>test content</p>\n', '2013-10-27 18:14:48', 0, '2013-10-27 18:51:39', 1, 'contact', NULL, 1, 0),
+(1, 'Contact Intro', 'contact-intro', 'If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.', '<p>If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.</p>\r\n', '2013-10-27 18:14:48', 0, '2014-03-11 12:50:15', 1, 'contact', NULL, 1, 0),
 (2, 'test', 'test', 'test test test', '<p>test test test</p>\n', '2013-10-27 18:49:35', 0, '2014-03-05 17:29:25', 1, 'about-us', NULL, 1, 0);
 
 -- --------------------------------------------------------
@@ -101,8 +158,8 @@ CREATE TABLE IF NOT EXISTS `kato_blog` (
 
 INSERT INTO `kato_blog` (`id`, `title`, `short_desc`, `content`, `content_html`, `slug`, `tags`, `create_time`, `created_by`, `update_time`, `updated_by`, `publish_time`, `published_by`, `is_revision`, `parent_id`, `status`, `deleted`) VALUES
 (6, 'test test test 33', '...', '<p>\r\n	   **test**\r\n</p>\r\n<p>\r\n	<span style="background-color: rgb(255, 255, 255);"></span>\r\n</p>\r\n<ul>\r\n	<li>dsf</li>\r\n	<li>asdfs</li>\r\n	<li>asdfsf</li>\r\n</ul>\r\n<p>\r\n	   # hello #\r\n</p>\r\n<p>\r\n	   *test test*\r\n</p>\r\n<h1></h1>', '<p>\n       **test**\n</p>\n\n<p>\n    <span style="background-color: rgb(255, 255, 255);"></span>\n</p>\n\n<ul>\n    <li>dsf</li>\n    <li>asdfs</li>\n    <li>asdfsf</li>\n</ul>\n\n<p>\n       # hello #\n</p>\n\n<p>\n       *test test*\n</p>\n\n<h1></h1>\n', 'test-test-test-33', '', '2013-11-25 20:55:24', 1, '2014-03-04 16:48:09', 1, '2013-11-25 20:55:24', NULL, 0, 0, 0, 1),
-(7, 'test', '', '', NULL, '', '', '2013-11-25 21:24:30', 1, '2013-11-25 21:24:30', NULL, '2013-11-25 21:24:30', NULL, 0, 0, 0, 0),
-(8, 'test', '', '', NULL, '', '', '2013-11-25 21:28:49', 1, '2013-11-25 21:28:49', NULL, '2013-11-25 21:28:49', NULL, 0, 0, 0, 0),
+(7, 'test', '...', '', '', 'test', 'test67567', '2013-11-25 21:24:30', 1, '2014-03-10 16:14:40', 1, '2013-11-25 21:24:30', NULL, 0, 0, 0, 0),
+(8, 'test', '...', '', '', 'test-2', 'test67567', '2013-11-25 21:28:49', 1, '2014-03-10 16:31:42', 1, '2013-11-25 21:28:49', NULL, 0, 0, 0, 0),
 (9, 'New Post', 'test test test s...', 'test test test s', '<p>test test test s</p>\n', 'new-post', '', '2013-11-25 21:33:47', 1, '2013-11-25 21:51:51', 1, '2013-11-25 21:33:47', NULL, 0, 0, 0, 0),
 (10, 'New Post 9', '', '', NULL, '', '', '2013-11-25 21:58:05', 1, '2013-11-25 21:58:05', NULL, '2013-11-25 21:58:05', NULL, 0, 0, 0, 0),
 (11, 'My last blog', '...', '', '', 'my-last-blog', '', '2014-03-04 16:29:37', 1, '2014-03-04 16:30:00', 1, '2014-03-04 16:29:37', NULL, 0, 0, 0, 0);
@@ -117,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `kato_media` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) DEFAULT NULL,
+  `source_location` varchar(255) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `extension` varchar(50) DEFAULT '',
   `mimeType` varchar(50) DEFAULT '',
@@ -124,14 +182,14 @@ CREATE TABLE IF NOT EXISTS `kato_media` (
   `media_type` tinyint(4) DEFAULT NULL,
   `published` tinyint(5) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `kato_media`
 --
 
-INSERT INTO `kato_media` (`id`, `filename`, `source`, `create_time`, `extension`, `mimeType`, `byteSize`, `media_type`, `published`) VALUES
-(17, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '2013-10-29 23:27:15', 'jpg', 'image/jpeg', 102804, NULL, 1);
+INSERT INTO `kato_media` (`id`, `filename`, `source`, `source_location`, `create_time`, `extension`, `mimeType`, `byteSize`, `media_type`, `published`) VALUES
+(17, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '', '2013-10-29 23:27:15', 'jpg', 'image/jpeg', 102804, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -164,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `kato_page` (
 --
 
 INSERT INTO `kato_page` (`id`, `title`, `short_desc`, `content`, `content_html`, `slug`, `create_time`, `created_by`, `update_time`, `updated_by`, `level`, `layout`, `parent_id`, `type`, `status`, `deleted`) VALUES
-(1, 'About Us', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa...', '## Information About Us\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa eget vulputate luctus, nulla tellus ultrices tellus, ac elementum nibh lorem non nulla. Nulla ut sagittis erat. Curabitur posuere eleifend porta. Duis dignissim eleifend lobortis. Mauris vulputate gravida elementum. Vestibulum non sagittis elit. Nulla eu adipiscing sem. Phasellus in volutpat sapien. Donec ut pretium ligula. Phasellus non accumsan ligula.', '<h2>Information About Us</h2>\n\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa eget vulputate luctus, nulla tellus ultrices tellus, ac elementum nibh lorem non nulla. Nulla ut sagittis erat. Curabitur posuere eleifend porta. Duis dignissim eleifend lobortis. Mauris vulputate gravida elementum. Vestibulum non sagittis elit. Nulla eu adipiscing sem. Phasellus in volutpat sapien. Donec ut pretium ligula. Phasellus non accumsan ligula.</p>\n', 'about-us', '2013-10-27 09:48:13', 0, '2013-10-27 16:10:24', 1, 1, 'default', 0, NULL, 1, 0),
+(1, 'About Us', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa...', '## Information About Us\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa eget vulputate luctus, nulla tellus ultrices tellus, ac elementum nibh lorem non nulla. Nulla ut sagittis erat. Curabitur posuere eleifend porta. Duis dignissim eleifend lobortis. Mauris vulputate gravida elementum. Vestibulum non sagittis elit. Nulla eu adipiscing sem. Phasellus in volutpat sapien. Donec ut pretium ligula. Phasellus non accumsan ligula.', '<h2>Information About Us</h2>\n\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa eget vulputate luctus, nulla tellus ultrices tellus, ac elementum nibh lorem non nulla. Nulla ut sagittis erat. Curabitur posuere eleifend porta. Duis dignissim eleifend lobortis. Mauris vulputate gravida elementum. Vestibulum non sagittis elit. Nulla eu adipiscing sem. Phasellus in volutpat sapien. Donec ut pretium ligula. Phasellus non accumsan ligula.</p>\n', 'about-us', '2013-10-27 09:48:13', 0, '2014-03-10 17:11:18', 1, 1, 'default', 2, 1, 1, 0),
 (2, 'New Page 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa...', '## Information About Us\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa eget vulputate luctus, nulla tellus ultrices tellus, ac elementum nibh lorem non nulla. Nulla ut sagittis erat. Curabitur posuere eleifend porta. Duis dignissim eleifend lobortis. Mauris vulputate gravida elementum. Vestibulum non sagittis elit. Nulla eu adipiscing sem. Phasellus in volutpat sapien. Donec ut pretium ligula. Phasellus non accumsan ligula.', '<h2>Information About Us</h2>\n\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa eget vulputate luctus, nulla tellus ultrices tellus, ac elementum nibh lorem non nulla. Nulla ut sagittis erat. Curabitur posuere eleifend porta. Duis dignissim eleifend lobortis. Mauris vulputate gravida elementum. Vestibulum non sagittis elit. Nulla eu adipiscing sem. Phasellus in volutpat sapien. Donec ut pretium ligula. Phasellus non accumsan ligula.</p>\n', 'new-page-1', '2013-10-27 15:17:31', 1, '2013-10-27 16:10:25', 1, 1, 'default', 0, NULL, 1, 0);
 
 -- --------------------------------------------------------
@@ -207,71 +265,48 @@ CREATE TABLE IF NOT EXISTS `kato_tag` (
   `frequency` int(11) NOT NULL DEFAULT '0',
   `tag_type` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
 --
 -- Dumping data for table `kato_tag`
 --
 
 INSERT INTO `kato_tag` (`id`, `name`, `frequency`, `tag_type`) VALUES
-(41, 'blog', 1, 'blog');
+(41, 'blog', 1, 'blog'),
+(43, 'test67567', 1, 'blog'),
+(44, 'test33', 2, 'blog'),
+(45, 'test1', 1, 'blog');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_auth_assignment`
+-- Table structure for table `kato_user`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_auth_assignment` (
-  `item_name` varchar(64) NOT NULL,
-  `user_id` varchar(64) NOT NULL,
-  `biz_rule` text,
-  `data` text,
-  PRIMARY KEY (`item_name`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `kato_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `auth_key` varchar(32) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `password_reset_token` varchar(32) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `role` smallint(6) NOT NULL DEFAULT '10',
+  `status` smallint(6) NOT NULL DEFAULT '10',
+  `create_time` int(11) NOT NULL,
+  `update_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `tbl_auth_assignment`
+-- Dumping data for table `kato_user`
 --
 
-INSERT INTO `tbl_auth_assignment` (`item_name`, `user_id`, `biz_rule`, `data`) VALUES
-('admin', '1', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_auth_item`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_auth_item` (
-  `name` varchar(64) NOT NULL,
-  `type` int(11) NOT NULL,
-  `description` text,
-  `biz_rule` text,
-  `data` text,
-  PRIMARY KEY (`name`),
-  KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_auth_item`
---
-
-INSERT INTO `tbl_auth_item` (`name`, `type`, `description`, `biz_rule`, `data`) VALUES
-('admin', 2, 'Administrator', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_auth_item_child`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_auth_item_child` (
-  `parent` varchar(64) NOT NULL,
-  `child` varchar(64) NOT NULL,
-  PRIMARY KEY (`parent`,`child`),
-  KEY `child` (`child`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `kato_user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `role`, `status`, `create_time`, `update_time`) VALUES
+(1, 'admin', 'CCIwu98zZwmGrJRarrUinrdKtfrfO1_E', '$2y$13$91cNAK1OdvUPExikkwnplOO1IvjBld.x2UQcIJfuvm2eGuACJrvdS', NULL, 'perminder.klair@gmail.com', 10, 10, 1393605836, 1393605836),
+(2, '', '', '', NULL, '', 10, 10, 0, 0),
+(3, '', '', '', NULL, '', 10, 10, 1394548538, 1394548538),
+(4, '', '', '', NULL, '', 10, 10, 1394548713, 1394548713),
+(5, 'user-5', '', '', NULL, 'user@email.com-5', 10, 10, 1394549592, 1394549592);
 
 -- --------------------------------------------------------
 
@@ -293,49 +328,22 @@ INSERT INTO `tbl_migration` (`version`, `apply_time`) VALUES
 ('m000000_000000_base', 1393605777),
 ('m130524_201442_init', 1393605789);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_user`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `auth_key` varchar(32) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `password_reset_token` varchar(32) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `role` smallint(6) NOT NULL DEFAULT '10',
-  `status` smallint(6) NOT NULL DEFAULT '10',
-  `create_time` int(11) NOT NULL,
-  `update_time` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `tbl_user`
---
-
-INSERT INTO `tbl_user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `role`, `status`, `create_time`, `update_time`) VALUES
-(1, 'admin', 'CCIwu98zZwmGrJRarrUinrdKtfrfO1_E', '$2y$13$91cNAK1OdvUPExikkwnplOO1IvjBld.x2UQcIJfuvm2eGuACJrvdS', NULL, 'perminder.klair@gmail.com', 10, 10, 1393605836, 1393605836);
-
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `tbl_auth_assignment`
+-- Constraints for table `kato_auth_assignment`
 --
-ALTER TABLE `tbl_auth_assignment`
-  ADD CONSTRAINT `tbl_auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `tbl_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `kato_auth_assignment`
+  ADD CONSTRAINT `kato_auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `kato_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_auth_item_child`
+-- Constraints for table `kato_auth_item_child`
 --
-ALTER TABLE `tbl_auth_item_child`
-  ADD CONSTRAINT `tbl_auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `tbl_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `tbl_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `kato_auth_item_child`
+  ADD CONSTRAINT `kato_auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `kato_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kato_auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `kato_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

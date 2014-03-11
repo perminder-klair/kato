@@ -5,8 +5,6 @@ namespace common\models;
 use yii\helpers\Html;
 use kartik\markdown\Markdown;
 use kato\helpers\KatoBase;
-use kato\behaviors\Slug;
-use kato\behaviors\SoftDelete;
 use kato\ActiveRecord;
 
 /**
@@ -57,7 +55,13 @@ class Blog extends ActiveRecord
             [['create_time', 'update_time', 'publish_time'], 'safe'],
             [['created_by', 'updated_by', 'published_by', 'is_revision', 'parent_id', 'status', 'deleted'], 'integer'],
             [['title', 'slug'], 'string', 'max' => 70],
-            [['short_desc'], 'string', 'max' => 160]
+            [['short_desc'], 'string', 'max' => 160],
+            ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
+            ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
+            ['parent_id', 'default', 'value' => 0],
+            ['slug', 'default', 'value' => null],
+            ['is_revision', 'default', 'value' => self::NOT_REVISION],
+            ['is_revision', 'in', 'range' => [self::IS_REVISION, self::NOT_REVISION]],
         ];
     }
 
@@ -90,8 +94,15 @@ class Blog extends ActiveRecord
     public function behaviors()
     {
         return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time', 'publish_time'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
             'slug' => [
-                'class' => Slug::className(),
+                'class' => 'kato\behaviors\Slug',
                 // These parameters are optional, default values presented here:
                 'sourceAttributeName' => 'title', // If you want to make a slug from another attribute, set it here
                 'slugAttributeName' => 'slug', // Name of the attribute containing a slug
@@ -100,9 +111,15 @@ class Blog extends ActiveRecord
                 'unique' => true, // Check if the slug value is unique, add number if not
             ],
             'softDelete' => [
-               'class' => SoftDelete::className(),
+               'class' => 'kato\behaviors\SoftDelete',
                'attribute' => 'deleted',
                'safeMode' => true,
+            ],
+            'normalizeTags' => [
+                'class' => 'kato\behaviors\NormalizeTags',
+                'attribute' => 'tags',
+                'updateTags' => true,
+                'tagType' => 'blog',
             ],
         ];
     }
@@ -115,15 +132,9 @@ class Blog extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            if ($this->isNewRecord) {
-                $this->is_revision = self::NOT_REVISION;
-                $this->parent_id = 0;
-                $this->status = self::STATUS_NOT_PUBLISHED;
-                $this->slug = null;
-            } else {
-                $this->content_html = Markdown::convert($this->content);
-                $this->short_desc = KatoBase::genShortDesc($this->content_html, 'p' , '20');
-            }
+            $this->content_html = Markdown::convert($this->content);
+            $this->short_desc = KatoBase::genShortDesc($this->content_html, 'p' , '20');
+
             return true;
         }
         return false;
@@ -185,5 +196,19 @@ class Blog extends ActiveRecord
     public function getAuthorName()
     {
         return $this->user->username;
+    }
+
+    /**
+     * @return string the URL that shows the detail of the post
+     */
+    public function getPermalink()
+    {
+        if(!empty($this->slug)) {
+            $title = $this->slug;
+        } else {
+            $title = $this->title;
+        }
+
+        return Html::url(['blog/view', 'id' => $this->id, 'title' => Html::encode($title)]);
     }
 }

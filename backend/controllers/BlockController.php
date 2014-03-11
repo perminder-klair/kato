@@ -2,38 +2,24 @@
 
 namespace backend\controllers;
 
-use backend\models\Page;
-use backend\models\search\PageSearch;
+use Yii;
+use backend\models\Block;
+use backend\models\search\BlockSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
-use yii\grid\DataColumn;
 
 /**
- * PageController implements the CRUD actions for Page model.
+ * BlockController implements the CRUD actions for Block model.
  */
-class PageController extends \yii\web\Controller
+class BlockController extends Controller
 {
-    public $pageTitle = 'Pages';
-    public $pageIcon = 'fa fa-th';
+    public $pageTitle = 'Block';
+    public $pageIcon = 'fa fa-align-center';
 
 	public function behaviors()
 	{
 		return [
-            'access' => [
-                'class' => \yii\web\AccessControl::className(),
-                //'only' => ['index', 'create', 'update', 'delete'],
-                'rules' => [
-                    [
-                        'actions' => ['index', 'create', 'update', 'delete'], // Define specific actions
-                        'allow' => true, // Has access
-                        'roles' => ['admin'], // '@' All logged in users / or your access role e.g. 'admin', 'user'
-                    ],
-                    [
-                        'allow' => false, // Do not have access
-                        'roles'=>['?'], // Guests '?'
-                    ],
-                ],
-            ],
 			'verbs' => [
 				'class' => VerbFilter::className(),
 				'actions' => [
@@ -44,25 +30,25 @@ class PageController extends \yii\web\Controller
 	}
 
 	/**
-	 * Lists all Page models.
+	 * Lists all Block models.
 	 * @return mixed
 	 */
 	public function actionIndex()
 	{
-		$searchModel = new PageSearch;
-		$dataProvider = $searchModel->search($_GET);$meta['title'] = $this->pageTitle;
+		$searchModel = new BlockSearch;
+		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         $getColumns = [
             ['class' => 'yii\grid\SerialColumn'],
             'title',
-            'slug',
+            'parent',
             'update_time',
-            'status:boolean',
+            'status',
             ['class' => 'backend\components\ActionColumn'],
         ];
 
         $meta['title'] = $this->pageTitle;
-        $meta['description'] = 'List all pages';
+        $meta['description'] = 'List all posts';
         $meta['pageIcon'] = $this->pageIcon;
 
 		return $this->render('/global/index', [
@@ -74,23 +60,25 @@ class PageController extends \yii\web\Controller
 	}
 
 	/**
-	 * Creates a new Page model.
+	 * Creates a new Block model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
 	public function actionCreate()
 	{
-		$model = new Page;
+		$model = new Block;
 
-		if ($model->save(false)) {
-			return $this->redirect(['update', 'id' => $model->id]);
-		}
+        if ($model->save(false)) {
+            return $this->redirect(['update', 'id' => $model->id]);
+        }
+
+        return false;
 	}
 
 	/**
-	 * Updates an existing Page model.
+	 * Updates an existing Block model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id
+	 * @param string $id
 	 * @return mixed
 	 */
 	public function actionUpdate($id)
@@ -98,11 +86,11 @@ class PageController extends \yii\web\Controller
 		$model = $this->findModel($id);
 
         $meta['title'] = $this->pageTitle;
-        $meta['description'] = 'Update page';
+        $meta['description'] = 'Update block';
         $meta['pageIcon'] = $this->pageIcon;
 
-		if ($model->load($_POST) && $model->save()) {
-			return $this->redirect(['update', 'id' => $model->id]);
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->id]);
 		} else {
 			return $this->render('/global/update', [
 				'model' => $model,
@@ -112,9 +100,9 @@ class PageController extends \yii\web\Controller
 	}
 
 	/**
-	 * Deletes an existing Page model.
+	 * Deletes an existing Block model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id
+	 * @param string $id
 	 * @return mixed
 	 */
 	public function actionDelete($id)
@@ -124,15 +112,15 @@ class PageController extends \yii\web\Controller
 	}
 
 	/**
-	 * Finds the Page model based on its primary key value.
+	 * Finds the Block model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param integer $id
-	 * @return Page the loaded model
+	 * @param string $id
+	 * @return Block the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	protected function findModel($id)
 	{
-		if (($model = Page::find($id)) !== null) {
+		if ($id !== null && ($model = Block::find($id)) !== null) {
 			return $model;
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');

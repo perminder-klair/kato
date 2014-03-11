@@ -26,19 +26,6 @@ return [
         ],
     ],
 	'components' => [
-        'kato' => 'kato\components\Kato',
-		'user' => [
-			'identityClass' => 'common\models\User',
-		],
-		'log' => [
-			'traceLevel' => YII_DEBUG ? 3 : 0,
-			'targets' => [
-				[
-					'class' => 'yii\log\FileTarget',
-					'levels' => ['error', 'warning'],
-				],
-			],
-		],
 		'errorHandler' => [
 			'errorAction' => 'site/error',
 		],
@@ -46,13 +33,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<action:(login|logout|about)>' => 'site/<action>',
+                '<action:(login|logout|index)>' => 'site/<action>',
                 'post/<id:[0-9]+>' => 'post/view'
             ]
-        ],
-        'authManager' => [
-            'class' => 'yii\rbac\DbManager',
-            'defaultRoles' => ['guest'],
         ],
         'view' => [
             'class' => 'backend\components\View',

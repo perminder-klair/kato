@@ -5,15 +5,15 @@ use yii\widgets\Breadcrumbs;
 
 /**
  * @var yii\web\View $this
- * @var backend\models\Blog $model
+ * @var common\models\User $model
  * @var $meta
  */
 
 $this->description = $meta['description'];
 $this->pageIcon = $meta['pageIcon'];
-$this->title = 'Update ' . $meta['title'] . ': ' . $model->title;
+$this->title = 'Update ' . $meta['title'] . ': ' . $model->username;
 $this->params['breadcrumbs'][] = ['label' => $meta['title'], 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div id="page-container">
