@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2014 at 02:11 PM
+-- Generation Time: Mar 11, 2014 at 05:24 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.4.25
 
@@ -174,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `kato_media` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) DEFAULT NULL,
+  `source_location` varchar(255) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `extension` varchar(50) DEFAULT '',
   `mimeType` varchar(50) DEFAULT '',
@@ -187,8 +188,8 @@ CREATE TABLE IF NOT EXISTS `kato_media` (
 -- Dumping data for table `kato_media`
 --
 
-INSERT INTO `kato_media` (`id`, `filename`, `source`, `create_time`, `extension`, `mimeType`, `byteSize`, `media_type`, `published`) VALUES
-(17, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '2013-10-29 23:27:15', 'jpg', 'image/jpeg', 102804, NULL, 1);
+INSERT INTO `kato_media` (`id`, `filename`, `source`, `source_location`, `create_time`, `extension`, `mimeType`, `byteSize`, `media_type`, `published`) VALUES
+(17, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '', '2013-10-29 23:27:15', 'jpg', 'image/jpeg', 102804, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -294,14 +295,18 @@ CREATE TABLE IF NOT EXISTS `kato_user` (
   `create_time` int(11) NOT NULL,
   `update_time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `kato_user`
 --
 
 INSERT INTO `kato_user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `role`, `status`, `create_time`, `update_time`) VALUES
-(1, 'admin', 'CCIwu98zZwmGrJRarrUinrdKtfrfO1_E', '$2y$13$91cNAK1OdvUPExikkwnplOO1IvjBld.x2UQcIJfuvm2eGuACJrvdS', NULL, 'perminder.klair@gmail.com', 10, 10, 1393605836, 1393605836);
+(1, 'admin', 'CCIwu98zZwmGrJRarrUinrdKtfrfO1_E', '$2y$13$91cNAK1OdvUPExikkwnplOO1IvjBld.x2UQcIJfuvm2eGuACJrvdS', NULL, 'perminder.klair@gmail.com', 10, 10, 1393605836, 1393605836),
+(2, '', '', '', NULL, '', 10, 10, 0, 0),
+(3, '', '', '', NULL, '', 10, 10, 1394548538, 1394548538),
+(4, '', '', '', NULL, '', 10, 10, 1394548713, 1394548713),
+(5, 'user-5', '', '', NULL, 'user@email.com-5', 10, 10, 1394549592, 1394549592);
 
 -- --------------------------------------------------------
 
