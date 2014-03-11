@@ -18,11 +18,15 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
 
-        <?= $form->field($model, 'parent')->textInput(['maxlength' => 70]) ?>
+        <?= Html::activeLabel($model, 'content') ?>
+        <?= kartik\markdown\MarkdownEditor::widget([
+            'model' => $model,
+            'attribute' => 'content',
+        ]); ?>
 
-		<?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 
-		<?= $form->field($model, 'status')->textInput() ?>
+        <?= $form->field($model, 'parent')->dropDownList($model->listParents(), ['prompt'=>'No Parent']); ?>
 
 		<div class="form-group">
 			<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
