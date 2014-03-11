@@ -3,8 +3,6 @@
 namespace backend\models;
 
 use kato\ActiveRecord;
-use kato\behaviors\Slug;
-use kato\behaviors\SoftDelete;
 use kartik\markdown\Markdown;
 
 /**
@@ -79,8 +77,15 @@ class Block extends ActiveRecord
     public function behaviors()
     {
         return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time', 'publish_time'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
             'slug' => [
-                'class' => Slug::className(),
+                'class' => 'kato\behaviors\Slug',
                 // These parameters are optional, default values presented here:
                 'sourceAttributeName' => 'title', // If you want to make a slug from another attribute, set it here
                 'slugAttributeName' => 'slug', // Name of the attribute containing a slug
@@ -89,7 +94,7 @@ class Block extends ActiveRecord
                 'unique' => true, // Check if the slug value is unique, add number if not
             ],
             'softDelete' => [
-                'class' => SoftDelete::className(),
+                'class' => 'kato\behaviors\SoftDelete',
                 'attribute' => 'deleted',
                 'safeMode' => true,
             ],

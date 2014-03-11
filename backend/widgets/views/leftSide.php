@@ -71,10 +71,10 @@ NavBar::end();*/
                     <a href="#" class="menu-link"><i class="fa fa-user"></i>Users</a>
                     <ul>
                         <li>
-                            <a href="#">All Users</a>
+                            <a href="<?= \Yii::$app->urlManager->createAbsoluteUrl('user/index'); ?>">All Users</a>
                         </li>
                         <li>
-                            <a href="#">Add New</a>
+                            <a href="<?= \Yii::$app->urlManager->createAbsoluteUrl('user/create'); ?>">Add New</a>
                         </li>
                     </ul>
                 </li>

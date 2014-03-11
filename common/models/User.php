@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
+use kato\ActiveRecord;
 use yii\helpers\Security;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
@@ -33,6 +33,7 @@ class User extends ActiveRecord implements IdentityInterface
 	const STATUS_DELETED = 0;
 	const STATUS_ACTIVE = 10;
 
+    const ROLE_ADMIN = 10;
 	const ROLE_USER = 10;
 
     /**
@@ -49,10 +50,43 @@ class User extends ActiveRecord implements IdentityInterface
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
                 ],
             ],
+            'defaultTitle' => [
+                'class' => 'kato\behaviors\DefaultTitle',
+                'attribute' => 'username',
+                'defaultPrefix' => 'user',
+            ],
+            'defaultEmail' => [
+                'class' => 'kato\behaviors\DefaultTitle',
+                'attribute' => 'email',
+                'defaultPrefix' => 'user@email.com',
+            ],
+        ];
+    }
+
+    public function rules()
+    {
+        return [
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+
+            ['role', 'default', 'value' => self::ROLE_USER],
+            ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
+
+            ['username', 'default', 'value' => 'user-' . $this->getLastRow()->id],
+
+            ['username', 'filter', 'filter' => 'trim'],
+            ['username', 'required'],
+            ['username', 'unique'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+
+            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'unique'],
         ];
     }
 
@@ -116,27 +150,6 @@ class User extends ActiveRecord implements IdentityInterface
 	{
 		return Security::validatePassword($password, $this->password_hash);
 	}
-
-    public function rules()
-    {
-        return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-
-            ['role', 'default', 'value' => self::ROLE_USER],
-            ['role', 'in', 'range' => [self::ROLE_USER]],
-
-            ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['username', 'unique'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
-
-            ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'unique'],
-        ];
-    }
 
 	/*public function scenarios()
 	{
