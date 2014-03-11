@@ -60,7 +60,7 @@ class SiteController extends \yii\web\Controller
         //controller $this->getUniqueId()
         //controller/action $this->action->getUniqueId()
         //var_dump($this->action->id); exit;
-        
+
 		return $this->render('index');
 	}
 

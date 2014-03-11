@@ -35,6 +35,14 @@ class User extends ActiveRecord implements IdentityInterface
 
 	const ROLE_USER = 10;
 
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'kato_user';
+    }
+
     public function behaviors()
     {
         return [

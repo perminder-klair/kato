@@ -13,19 +13,6 @@ return [
 	'modules' => [
 	],
 	'components' => [
-        'kato' => 'kato\components\Kato',
-		'user' => [
-			'identityClass' => 'common\models\User',
-		],
-		'log' => [
-			'traceLevel' => YII_DEBUG ? 3 : 0,
-			'targets' => [
-				[
-					'class' => 'yii\log\FileTarget',
-					'levels' => ['error', 'warning'],
-				],
-			],
-		],
 		'errorHandler' => [
 			'errorAction' => 'site/error',
 		],

@@ -73,7 +73,7 @@ class SiteController extends \yii\web\Controller
 
     public function actionMakeadmin()
     {
-        $r=new DbManager;
+        $r=new \yii\rbac\DbManager;
         $r->init();
         $r->createRole("admin","Administrator");
         $r->save();
