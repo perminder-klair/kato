@@ -6,6 +6,7 @@ use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use backend\models\Tag;
 
+$tag = new Tag;
 /**
  * @var yii\web\View $this
  * @var common\models\Blog $model
@@ -36,7 +37,7 @@ use backend\models\Tag;
         ],
         'pluginOptions' => [
             'allowClear' => true,
-            'tags' => Tag::listTags(),
+            'tags' => $tag->listTags(),
         ],
     ]); ?>
 

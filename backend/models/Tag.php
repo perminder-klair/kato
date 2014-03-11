@@ -2,6 +2,8 @@
 
 namespace backend\models;
 
+use kato\ActiveRecord;
+
 /**
  * This is the model class for table "kato_tag".
  *
@@ -10,7 +12,7 @@ namespace backend\models;
  * @property integer $frequency
  * @property string $tag_type
  */
-class Tag extends \yii\db\ActiveRecord
+class Tag extends ActiveRecord
 {
 	/**
 	 * @inheritdoc
@@ -54,23 +56,13 @@ class Tag extends \yii\db\ActiveRecord
     public static function listTags($tagType=null, $limit=30)
     {
         //TODO complete this
-        /*$criteria=new CDbCriteria;
-        $criteria->order = 'frequency DESC, Name';
-        $criteria->limit = $limit;
-        if (!empty($tagType))
-            $criteria->addCondition('tag_type = '. '"'.$tagType.'"');
-
-        $data = array();
-        foreach (KatoTag::model()->findAll($criteria) as $tag) {
-            $data[] = $tag->name;
-        }
-
-        return $data;*/
 
         $data = self::find()
             ->select('name')
             ->orderBy('frequency DESC, Name')
             ->limit($limit)
+            //if (!is_null($tagType))
+                //->where('tag_type > :type', [':type' => $tagType])
             ->all();
 
         $return = [];
