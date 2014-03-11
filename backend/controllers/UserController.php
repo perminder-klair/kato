@@ -83,12 +83,18 @@ class UserController extends Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
+
+        $meta['title'] = $this->pageTitle;
+        $meta['description'] = 'Update user';
+        $meta['pageIcon'] = $this->pageIcon;
+
 //User::create($this->attributes);
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['view', 'id' => $model->id]);
 		} else {
 			return $this->render('update', [
 				'model' => $model,
+                'meta' => $meta,
 			]);
 		}
 	}
