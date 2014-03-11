@@ -46,7 +46,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<action:(login|logout|about)>' => 'site/<action>',
+                '<action:(login|logout|index)>' => 'site/<action>',
                 'post/<id:[0-9]+>' => 'post/view'
             ]
         ],

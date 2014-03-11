@@ -2,7 +2,6 @@
 
 namespace backend\models;
 
-use backend\controllers\SiteController;
 use kato\ActiveRecord;
 use kato\behaviors\Slug;
 use kato\behaviors\SoftDelete;
@@ -48,7 +47,10 @@ class Block extends ActiveRecord
 			[['create_time', 'created_by', 'update_time', 'updated_by'], 'required'],
 			[['create_time', 'update_time'], 'safe'],
 			[['created_by', 'updated_by', 'listing_order', 'status', 'deleted'], 'integer'],
-			[['title', 'slug', 'parent'], 'string', 'max' => 70]
+			[['title', 'slug', 'parent'], 'string', 'max' => 70],
+            ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
+            ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
+            ['slug', 'default', 'value' => null],
 		];
 	}
 
@@ -102,14 +104,7 @@ class Block extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-
-            if ($this->isNewRecord) {
-                $this->status = self::STATUS_NOT_PUBLISHED;
-                $this->slug = null;
-            } else {
-                $this->content_html = Markdown::convert($this->content);
-            }
-
+            $this->content_html = Markdown::convert($this->content);
             $this->parent = strtolower($this->parent);
 
             return true;

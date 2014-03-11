@@ -63,7 +63,7 @@ NavBar::end();*/
                             <a href="<?= \Yii::$app->urlManager->createAbsoluteUrl('page/create'); ?>">Add New</a>
                         </li>
                         <li>
-                            <a href="#">All Text Blocks</a>
+                            <a href="<?= \Yii::$app->urlManager->createAbsoluteUrl('block/index'); ?>">All Text Blocks</a>
                         </li>
                     </ul>
                 </li>
