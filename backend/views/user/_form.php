@@ -18,9 +18,7 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
 
-		<?= $form->field($model, 'status')->textInput() ?>
-
-		<?= $form->field($model, 'role')->textInput() ?>
+        <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 
 		<div class="form-group">
 			<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

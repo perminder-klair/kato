@@ -5,6 +5,8 @@ namespace backend\controllers;
 use Yii;
 use common\models\LoginForm;
 use yii\web\VerbFilter;
+use backend\models\Setting;
+use yii\base\Model;
 
 class SiteController extends \yii\web\Controller
 {
@@ -20,7 +22,7 @@ class SiteController extends \yii\web\Controller
                         'roles' => ['?'],
 					],
 					[
-						'actions' => ['logout', 'index', 'login', 'error', 'makeadmin'],
+						'actions' => ['logout', 'index', 'login', 'error', 'settings','makeadmin'],
 						'allow' => true,
 						'roles' => ['admin'],
 					],
@@ -69,6 +71,21 @@ class SiteController extends \yii\web\Controller
     {
         Yii::$app->user->logout();
         return $this->goHome();
+    }
+
+    public function actionSettings()
+    {
+        $settings = Setting::find()->indexBy('id')->all();
+
+        if (Model::loadMultiple($settings, Yii::$app->request->post()) && Model::validateMultiple($settings)) {
+            foreach ($settings as $setting) {
+                $setting->save(false);
+            }
+
+            return $this->redirect('settings');
+        }
+
+        return $this->render('settings', ['settings' => $settings]);
     }
 
     public function actionMakeadmin()

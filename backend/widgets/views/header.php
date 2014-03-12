@@ -2,13 +2,13 @@
     <!-- Right Header Navigation -->
     <ul class="nav header-nav pull-right">
         <li class="dropdown">
-            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="<?= \Yii::$app->urlManager->createAbsoluteUrl('site/settings'); ?>" class="dropdown-toggle">
                 <i class="fa fa-cogs"></i>
             </a>
         </li>
         <li>
-            <a href="javascript:void(0)" id="sidebar-right-toggle">
-                <strong>5</strong> <i class="fa fa-user"></i>
+            <a href="<?= \Yii::$app->urlManager->createAbsoluteUrl('site/logout'); ?>" id="sidebar-right-toggle">
+                <i class="fa fa-power-off"></i>
             </a>
         </li>
     </ul>

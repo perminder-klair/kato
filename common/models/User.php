@@ -30,8 +30,8 @@ class User extends ActiveRecord implements IdentityInterface
 	 */
 	public $password;
 
-	const STATUS_DELETED = 0;
-	const STATUS_ACTIVE = 10;
+	const STATUS_ACTIVE = 1;
+    const STATUS_NOT_ACTIVE = 0;
 
     const ROLE_ADMIN = 10;
 	const ROLE_USER = 10;
@@ -71,7 +71,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE]],
 
             ['role', 'default', 'value' => self::ROLE_USER],
             ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
@@ -248,5 +248,21 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public function listStatus()
+    {
+        return [
+            self::STATUS_NOT_ACTIVE => 'Active',
+            self::STATUS_ACTIVE => 'Not Active',
+        ];
+    }
+
+    public function getStatusLabel()
+    {
+        if ($status =$this->listStatus()) {
+            return $status[$this->status];
+        }
+        return false;
     }
 }
