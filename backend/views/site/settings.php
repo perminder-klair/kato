@@ -1,6 +1,7 @@
 <?php
 /**
  * @var yii\web\View $this
+ * @var $settings
  */
 $this->title = 'Settings';
 $this->params['breadcrumbs'][] = $this->title;
@@ -37,7 +38,7 @@ use yii\widgets\ActiveForm;
             <?php $form = ActiveForm::begin();
 
             foreach ($settings as $index => $setting) {
-            echo Html::encode($setting->define) . ': ' . $form->field($setting, "[$index]value");
+                echo Html::encode($setting->define) . ': ' . $form->field($setting, "[$index]value");
             }
 
             ActiveForm::end(); ?>
