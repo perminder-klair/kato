@@ -56,7 +56,7 @@ $tag = new Tag;
 
     <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 
-    <?= $form->field($model, 'defaultImage')->widget(FileInput::classname(), [
+    <?= $form->field($media, 'file')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
         'showUpload' => false,
     ]); ?>
