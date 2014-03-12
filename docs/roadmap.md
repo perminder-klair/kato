@@ -11,7 +11,7 @@ The Roadmap aims to set out when certain features will appear. It reduces in cla
 - Per Model Search system
 - Static Pages
 - Text blocks for pages
-- Dropzone.js file upload
+- Dropzone.js file upload as Yii2 extention
 - Extending Gii with Admin Panel
 - System settings
 - Breadcrumbs in Admin Panel
