@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
+use kartik\widgets\FileInput;
 use backend\models\Tag;
 
 $tag = new Tag;
@@ -19,15 +20,17 @@ $tag = new Tag;
 </div>
 
 
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin([
+    'options' => ['enctype'=>'multipart/form-data']
+]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
 
     <?= Html::activeLabel($model, 'content') ?>
-    <?= kartik\markdown\MarkdownEditor::widget([
+    <?/* kartik\markdown\MarkdownEditor::widget([
         'model' => $model,
         'attribute' => 'content',
-    ]); ?>
+    ]); */?>
 
     <?= $form->field($model, 'tags')->widget(Select2::classname(), [
         'language' => 'en',
@@ -52,6 +55,11 @@ $tag = new Tag;
     ]); ?>
 
     <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
+
+    <?= $form->field($model, 'defaultImage')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*'],
+        'showUpload' => false,
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

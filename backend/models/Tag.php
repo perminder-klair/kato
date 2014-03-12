@@ -1,7 +1,6 @@
 <?php
 
 namespace backend\models;
-use kato\ActiveRecord;
 
 use kato\ActiveRecord;
 

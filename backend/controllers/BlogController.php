@@ -114,6 +114,11 @@ class BlogController extends \yii\web\Controller
         $meta['description'] = 'Update post';
         $meta['pageIcon'] = $this->pageIcon;
 
+        //print_r($_REQUEST);exit;
+        $model->image = $_POST['Blog']['defaultImage'];
+        $file = \yii\web\UploadedFile::getInstance($model, 'image');
+        var_dump($file);
+
 		if ($model->load($_POST) && $model->save()) {
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
