@@ -35,8 +35,6 @@ class Blog extends ActiveRecord
     const STATUS_NOT_PUBLISHED = 0;
     const STATUS_PUBLISHED = 1;
 
-    public $defaultImage;
-
     /**
      * @inheritdoc
      */
@@ -54,9 +52,8 @@ class Blog extends ActiveRecord
             [['title'], 'required'],
             [['content', 'content_html', 'tags'], 'string'],
             [['create_time', 'created_by', 'update_time', 'publish_time'], 'required'],
-            [['create_time', 'update_time', 'publish_time', 'defaultImage'], 'safe'],
+            [['create_time', 'update_time', 'publish_time'], 'safe'],
             [['created_by', 'updated_by', 'published_by', 'is_revision', 'parent_id', 'status', 'deleted'], 'integer'],
-            [['defaultImage'], 'file', 'types' => 'jpg'],
             [['title', 'slug'], 'string', 'max' => 70],
             [['short_desc'], 'string', 'max' => 160],
             ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],

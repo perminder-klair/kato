@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Media;
 use common\models\Blog;
 use common\models\search\BlogSearch;
 use yii\web\NotFoundHttpException;
@@ -115,9 +116,12 @@ class BlogController extends \yii\web\Controller
         $meta['pageIcon'] = $this->pageIcon;
 
         //print_r($_REQUEST);exit;
-        $model->image = $_POST['Blog']['defaultImage'];
-        $file = \yii\web\UploadedFile::getInstance($model, 'image');
-        var_dump($file);
+//        $media = new \backend\models\Media();
+//        $media->file = $_POST['Blog']['defaultImage'];
+//        $file = \yii\web\UploadedFile::getInstance($media, 'file');
+//        var_dump($file);
+//        //$file->saveAs(\Yii::$app->params['uploadPath'] . $file->name);//move to after save
+//        exit;
 
 		if ($model->load($_POST) && $model->save()) {
 			return $this->redirect(['update', 'id' => $model->id]);

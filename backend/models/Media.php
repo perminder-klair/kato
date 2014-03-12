@@ -20,6 +20,8 @@ use yii\imagine\Image;
  */
 class Media extends \yii\db\ActiveRecord
 {
+    public $file;
+
 	/**
 	 * @inheritdoc
 	 */
