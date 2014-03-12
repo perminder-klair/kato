@@ -2,10 +2,12 @@
 /**
  * @var yii\web\View $this
  */
-$this->title = \Yii::$app->kato->setting('site_name');
+$this->title = 'Settings';
 $this->params['breadcrumbs'][] = $this->title;
 
 use yii\widgets\Breadcrumbs;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 ?>
 <div id="page-container">
 
@@ -19,7 +21,7 @@ use yii\widgets\Breadcrumbs;
                 <!-- If you do not want a link in the header, instead of .header-title-link you can use a div with the class .header-section -->
                 <a href="" class="header-title-link">
                     <h1>
-                        <i class="fa fa-coffee animation-expandUp"></i>Dashboard<br><small>A clean page to help you start!</small>
+                        <i class="fa fa-cogs animation-expandUp"></i>Settings<br><small>Update site settings.</small>
                     </h1>
                 </a>
             </div>
@@ -27,12 +29,18 @@ use yii\widgets\Breadcrumbs;
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 'options' => ['class' => 'breadcrumb breadcrumb-top'],
                 'encodeLabels' => false,
-                'homeLink' => ['label' => '<i class="fa fa-coffee"></i>'],
+                'homeLink' => ['label' => '<i class="fa fa-cogs"></i>'],
             ]) ?>
             <!-- END Blank Header -->
 
             <!-- Blank Content -->
-            <p>Create your content..</p>
+            <?php $form = ActiveForm::begin();
+
+            foreach ($settings as $index => $setting) {
+            echo Html::encode($setting->define) . ': ' . $form->field($setting, "[$index]value");
+            }
+
+            ActiveForm::end(); ?>
             <!-- END Blank Content -->
         </div>
         <!-- END Page Content -->
