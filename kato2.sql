@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2014 at 05:24 PM
+-- Generation Time: Mar 13, 2014 at 01:10 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.4.25
 
@@ -167,6 +167,27 @@ INSERT INTO `kato_blog` (`id`, `title`, `short_desc`, `content`, `content_html`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kato_content_media`
+--
+
+CREATE TABLE IF NOT EXISTS `kato_content_media` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content_id` int(11) NOT NULL,
+  `media_id` int(11) NOT NULL,
+  `media_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `kato_content_media`
+--
+
+INSERT INTO `kato_content_media` (`id`, `content_id`, `media_id`, `media_type`) VALUES
+(1, 7, 29, 'blog');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kato_media`
 --
 
@@ -182,14 +203,26 @@ CREATE TABLE IF NOT EXISTS `kato_media` (
   `media_type` tinyint(4) DEFAULT NULL,
   `published` tinyint(5) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `kato_media`
 --
 
 INSERT INTO `kato_media` (`id`, `filename`, `source`, `source_location`, `create_time`, `extension`, `mimeType`, `byteSize`, `media_type`, `published`) VALUES
-(17, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '', '2013-10-29 23:27:15', 'jpg', 'image/jpeg', 102804, NULL, 1);
+(17, 'BHVicYICMAAdHGv.jpg', 'files/2013-10-44/BHVicYICMAAdHGv.jpg', '', '2013-10-29 23:27:15', 'jpg', 'image/jpeg', 102804, NULL, 1),
+(18, 'NHA Logo.png', 'C:\\Program Files (x86)\\Ampps\\www\\scripts\\kato\\kato-app/frontend/web/files/NHA Logo.png', '', '2014-03-13 12:02:14', '', 'image/png', 77634, NULL, 1),
+(19, 'NHA Logo.png', './frontend/web/files/NHA Logo.png', '', '2014-03-13 12:03:01', '', 'image/png', 77634, NULL, 1),
+(20, 'NHA Logo.png', 'frontend/web/files/NHA Logo.png', '', '2014-03-13 12:03:24', '', 'image/png', 77634, NULL, 1),
+(21, 'NHA Logo.png', './frontend/web/files/NHA Logo.png', '', '2014-03-13 12:03:31', '', 'image/png', 77634, NULL, 1),
+(22, 'NHA Logo.png', './frontend/web/files/NHA Logo.png', '', '2014-03-13 12:04:54', '', 'image/png', 77634, NULL, 1),
+(23, 'NHA Logo.png', 'filesNHA Logo.png', '', '2014-03-13 12:05:29', '', 'image/png', 77634, NULL, 1),
+(24, 'NHA Logo.png', 'filesNHA Logo.png', '', '2014-03-13 12:07:57', '', 'image/png', 77634, NULL, 1),
+(25, 'NHA Logo.png', 'files/NHA Logo.png', '', '2014-03-13 12:08:32', '', 'image/png', 77634, NULL, 1),
+(26, 'NHA Logo.png', 'files/NHA Logo.png', '', '2014-03-13 12:09:35', '', 'image/png', 77634, NULL, 1),
+(27, 'nha-logo-gjXe.png', 'files/nha-logo-gjXe.png', '', '2014-03-13 12:25:52', 'png', 'image/png', 77634, NULL, 1),
+(28, 'nha-logo-VAqA.png', 'files/2014-03-11/nha-logo-VAqA.png', '', '2014-03-13 12:29:46', 'png', 'image/png', 77634, NULL, 1),
+(29, 'nha-logo-jYla.png', 'files/2014-03-11/nha-logo-jYla.png', '', '2014-03-13 13:06:00', 'png', 'image/png', 77634, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -265,7 +298,7 @@ CREATE TABLE IF NOT EXISTS `kato_tag` (
   `frequency` int(11) NOT NULL DEFAULT '0',
   `tag_type` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `kato_tag`
