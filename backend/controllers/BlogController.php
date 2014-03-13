@@ -110,13 +110,13 @@ class BlogController extends \yii\web\Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
-
+        
         $meta['title'] = $this->pageTitle;
         $meta['description'] = 'Update post';
         $meta['pageIcon'] = $this->pageIcon;
 
         //If any media upload catch it and upload it
-        \Yii::$app->kato->mediaUpload($model->id, 'blog');
+        \Yii::$app->kato->mediaUpload($model->id, $model->className());
 
 		if ($model->load($_POST) && $model->save()) {
 			return $this->redirect(['update', 'id' => $model->id]);
