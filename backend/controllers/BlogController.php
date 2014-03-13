@@ -110,7 +110,7 @@ class BlogController extends \yii\web\Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
-        
+
         $meta['title'] = $this->pageTitle;
         $meta['description'] = 'Update post';
         $meta['pageIcon'] = $this->pageIcon;
