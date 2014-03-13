@@ -34,6 +34,8 @@ use yii\widgets\Breadcrumbs;
             <!-- Blank Content -->
             <p>Create your content..</p>
 
+            <?= \kato\DropZone::widget(); ?>
+
             <!-- END Blank Content -->
         </div>
         <!-- END Page Content -->
