@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
-use kartik\widgets\FileInput;
 use backend\models\Tag;
 
 $tag = new Tag;
@@ -56,9 +55,8 @@ $tag = new Tag;
 
     <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 
-    <?= $form->field($media, 'file')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*'],
-        'showUpload' => false,
+    <?=  \kato\widgets\FileUpload::widget([
+        'form' => $form,
     ]); ?>
 
     <div class="form-group">
