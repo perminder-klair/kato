@@ -36,6 +36,7 @@ use yii\widgets\Breadcrumbs;
 
             <?= \kato\DropZone::widget([
                 'options' => [
+                    'url' => 'site/upload',
                     'maxFilesize' => kato\helpers\KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
                 ],
             ]); ?>

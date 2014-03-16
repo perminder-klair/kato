@@ -115,9 +115,6 @@ class BlogController extends \yii\web\Controller
         $meta['description'] = 'Update post';
         $meta['pageIcon'] = $this->pageIcon;
 
-        //If any media upload catch it and upload it
-        \Yii::$app->kato->mediaUpload($model->id, $model->className());
-
 		if ($model->load($_POST) && $model->save()) {
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {

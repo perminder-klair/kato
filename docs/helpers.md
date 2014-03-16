@@ -11,3 +11,7 @@ Link to theme base
 Return site settings
 
     \Yii::$app->kato->setting('site_name')
+
+Upload $_FILES file into system, returns back Json array of media data
+
+    echo \Yii::$app->kato->mediaUpload();

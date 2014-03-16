@@ -17,12 +17,12 @@ class SiteController extends \yii\web\Controller
 				'class' => \yii\web\AccessControl::className(),
 				'rules' => [
 					[
-						'actions' => ['login', 'error'],
+						'actions' => ['login', 'error', 'upload'],
 						'allow' => true,
                         'roles' => ['?'],
 					],
 					[
-						'actions' => ['logout', 'index', 'login', 'error', 'settings','makeadmin'],
+						'actions' => ['logout', 'index', 'login', 'error', 'settings', 'upload', 'makeadmin'],
 						'allow' => true,
 						'roles' => ['admin'],
 					],
@@ -86,6 +86,12 @@ class SiteController extends \yii\web\Controller
         }
 
         return $this->render('settings', ['settings' => $settings]);
+    }
+
+    public function actionUpload()
+    {
+        //If any media upload catch it and upload it
+        echo \Yii::$app->kato->mediaUpload();
     }
 
     public function actionMakeadmin()
