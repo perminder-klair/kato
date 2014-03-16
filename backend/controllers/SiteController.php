@@ -91,7 +91,17 @@ class SiteController extends \yii\web\Controller
     public function actionUpload()
     {
         //If any media upload catch it and upload it
-        echo \Yii::$app->kato->mediaUpload();
+        $mediaJson = \Yii::$app->kato->mediaUpload();
+
+        $media = \yii\helpers\Json::decode($mediaJson);
+
+        if (isset($_GET['content_id'])) {
+            if (is_array($media) AND !!empty($media)) {
+                //Do join here
+            }
+        }
+
+        return $mediaJson;
     }
 
     public function actionMakeadmin()
