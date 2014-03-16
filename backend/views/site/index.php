@@ -34,6 +34,12 @@ use yii\widgets\Breadcrumbs;
             <!-- Blank Content -->
             <p>Create your content..</p>
 
+            <?= \kato\DropZone::widget([
+                'options' => [
+                    'maxFilesize' => '2',
+                ],
+            ]); ?>
+
             <!-- END Blank Content -->
         </div>
         <!-- END Page Content -->

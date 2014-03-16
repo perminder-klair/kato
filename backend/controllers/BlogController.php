@@ -115,27 +115,14 @@ class BlogController extends \yii\web\Controller
         $meta['description'] = 'Update post';
         $meta['pageIcon'] = $this->pageIcon;
 
-        print_r(\Yii::$app->params['uploadPath']);exit;
-        $media = new \backend\models\Media();
-        $media->file = $_POST['Media']['file'];
-        $file = \yii\web\UploadedFile::getInstance($media, 'file');
-        $media->filename = $file->name;
-        $media->mimeType = $file->type;
-        $media->byteSize = $file->size;
-        $media->source = \Yii::$app->params['uploadPath'] . $file->name;
-        //var_dump($file);
-        //exit;
-        if ($media->save(false)) {
-            $file->saveAs($media->source);
-        }
-        exit;
+        //If any media upload catch it and upload it
+        \Yii::$app->kato->mediaUpload($model->id, $model->className());
 
 		if ($model->load($_POST) && $model->save()) {
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
 			return $this->render('/global/update', [
 				'model' => $model,
-                'media' => $media,
                 'meta' => $meta,
 			]);
 		}
