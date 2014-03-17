@@ -55,8 +55,19 @@ $tag = new Tag;
 
     <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 
-    <?=  \kato\widgets\FileUpload::widget([
+    <? /*  \kato\widgets\FileUpload::widget([
         'form' => $form,
+    ]);*/ ?>
+
+    <?= \kato\DropZone::widget([
+        'options' => [
+            'url' => 'site/upload?content_id=' . $model->id . '&media_type=' . $model->className(),
+            'addRemoveLinks' => true,
+            'maxFilesize' => kato\helpers\KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
+        ],
+        'clientEvents' => [
+            'success' => "function(file, responseText){console.log(responseText)}",
+        ]
     ]); ?>
 
     <div class="form-group">

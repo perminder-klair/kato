@@ -57,7 +57,8 @@ class BlogController extends \yii\web\Controller
     {
         $model = $this->findModel($id);
 
-        dump($model->media[0]->render());exit;
+        //dump($model->media[0]->render());exit;
+
         return $this->render('view', [
             'model' => $model,
         ]);

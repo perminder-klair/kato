@@ -34,17 +34,6 @@ use yii\widgets\Breadcrumbs;
             <!-- Blank Content -->
             <p>Create your content..</p>
 
-            <?= \kato\DropZone::widget([
-                'options' => [
-                    'url' => 'site/upload',
-                    'addRemoveLinks' => true,
-                    'maxFilesize' => kato\helpers\KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
-                ],
-                'clientEvents' => [
-                    'success' => "function(file, responseText){console.log(responseText)}",
-                ]
-            ]); ?>
-
             <!-- END Blank Content -->
         </div>
         <!-- END Page Content -->
