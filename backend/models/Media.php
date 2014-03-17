@@ -63,6 +63,28 @@ class Media extends \yii\db\ActiveRecord
 		];
 	}
 
+    /**
+     * @inheritdoc
+     */
+    public function afterDelete()
+    {
+        //Remove file from system
+        if (file_exists($this->baseSource)) {
+            unlink($this->baseSource);
+        }
+
+        return parent::afterDelete();
+    }
+
+    /**
+     * Returns base path for file
+     * @return string
+     */
+    public function getBaseSource()
+    {
+        return basename(\Yii::$app->params['uploadPath']) . '/' . $this->source;
+    }
+
     public function render()
     {
         //http://imagine.readthedocs.org/en/latest/
