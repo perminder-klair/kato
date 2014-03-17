@@ -212,16 +212,4 @@ class Blog extends ActiveRecord
 
         return Url::to(['blog/view', 'id' => $this->id, 'title' => Html::encode($title)]);
     }
-
-    public function getContentMedia()
-    {
-        return $this->hasMany(\backend\models\ContentMedia::className(), ['content_id' => 'id'])
-            ->where('media_type = :type', [':type' => $this->className()]);
-    }
-
-    public function getMedia()
-    {
-        return $this->hasMany(\backend\models\Media::className(), ['id' => 'media_id'])
-            ->via('contentMedia');
-    }
 }
