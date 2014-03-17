@@ -3,6 +3,7 @@
 namespace common\models;
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\markdown\Markdown;
 use kato\helpers\KatoBase;
 use kato\ActiveRecord;
@@ -209,6 +210,18 @@ class Blog extends ActiveRecord
             $title = $this->title;
         }
 
-        return Html::url(['blog/view', 'id' => $this->id, 'title' => Html::encode($title)]);
+        return Url::to(['blog/view', 'id' => $this->id, 'title' => Html::encode($title)]);
+    }
+
+    public function getContentMedia()
+    {
+        return $this->hasMany(\backend\models\ContentMedia::className(), ['content_id' => 'id'])
+            ->where('media_type = :type', [':type' => $this->className()]);
+    }
+
+    public function getMedia()
+    {
+        return $this->hasMany(\backend\models\Media::className(), ['id' => 'media_id'])
+            ->via('contentMedia');
     }
 }

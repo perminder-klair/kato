@@ -82,16 +82,18 @@ class Media extends \yii\db\ActiveRecord
      */
     public function getBaseSource()
     {
-        return basename(\Yii::$app->params['uploadPath']) . '/' . $this->source;
+        return dirname(\Yii::$app->params['uploadPath']) . '/' . $this->source;
     }
 
     public function render()
     {
+        $cacheFile = \Yii::$app->params['uploadPath'] . 'cache/' . $this->filename;
+
         //http://imagine.readthedocs.org/en/latest/
         // frame, rotate and save an image
-//        Image::frame('path/to/image.jpg', 5, '666', 0)
-//            ->rotate(-8)
-//            ->save('path/to/destination/image.jpg', ['quality' => 50]);
+        Image::thumbnail($this->baseSource, 50, 50)
+            ->save($cacheFile);
 
+        return $cacheFile;
     }
 }
