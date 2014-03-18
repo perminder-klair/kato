@@ -101,7 +101,7 @@ class SiteController extends \yii\web\Controller
             }
         }
 
-        return $mediaJson;
+        echo $mediaJson;
     }
 
     public function actionMakeadmin()
