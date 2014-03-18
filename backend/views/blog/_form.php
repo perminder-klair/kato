@@ -39,7 +39,7 @@ $tag = new Tag;
         ],
         'pluginOptions' => [
             'allowClear' => true,
-            'tags' => $tag->listTags(),
+            'tags' => $tag->listTags($model->className()),
         ],
     ]); ?>
 

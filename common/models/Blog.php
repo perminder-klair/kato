@@ -120,7 +120,7 @@ class Blog extends ActiveRecord
                 'class' => 'kato\behaviors\NormalizeTags',
                 'attribute' => 'tags',
                 'updateTags' => true,
-                'tagType' => 'blog',
+                'tagType' => self::className(),
             ],
         ];
     }
