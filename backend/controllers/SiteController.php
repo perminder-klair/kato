@@ -95,9 +95,14 @@ class SiteController extends \yii\web\Controller
 
         $media = \yii\helpers\Json::decode($mediaJson);
 
-        if (isset($_GET['content_id'])) {
-            if (is_array($media) AND !!empty($media)) {
+        if (isset($_GET['content_id']) && isset($_GET['media_type'])) {
+            if (is_array($media)) {
                 //Do join here
+                $contentMedia = new \backend\models\ContentMedia();
+                $contentMedia->content_id = $_GET['content_id'];
+                $contentMedia->media_type = $_GET['media_type'];
+                $contentMedia->media_id = $media['id'];
+                $contentMedia->save(false);
             }
         }
 

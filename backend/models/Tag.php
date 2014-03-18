@@ -56,7 +56,7 @@ class Tag extends ActiveRecord
      * @param int $limit
      * @return array
      */
-    public static function listTags($tagType=null, $limit=30)
+    public static function listTags($tagType = null, $limit = 30)
     {
         //TODO complete this
 

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\markdown\Markdown;
 use kato\helpers\KatoBase;
 use kato\ActiveRecord;
@@ -98,7 +99,7 @@ class Blog extends ActiveRecord
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time', 'publish_time'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
                 ],
             ],
             'slug' => [
@@ -119,7 +120,7 @@ class Blog extends ActiveRecord
                 'class' => 'kato\behaviors\NormalizeTags',
                 'attribute' => 'tags',
                 'updateTags' => true,
-                'tagType' => 'blog',
+                'tagType' => self::className(),
             ],
         ];
     }
@@ -209,6 +210,6 @@ class Blog extends ActiveRecord
             $title = $this->title;
         }
 
-        return Html::url(['blog/view', 'id' => $this->id, 'title' => Html::encode($title)]);
+        return Url::to(['blog/view', 'id' => $this->id, 'title' => Html::encode($title)]);
     }
 }

@@ -6,7 +6,7 @@ use yii\widgets\ListView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var app\models\search\BlogSearch $searchModel
+ * @var common\models\search\BlogSearch $searchModel
  */
 
 $this->title = 'Blogs';
@@ -21,5 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'itemOptions' => ['class' => 'media'],
         'itemView' => '_view.php',
     ]); ?>
+
+</div>
+
+<div class="tags">
 
 </div>

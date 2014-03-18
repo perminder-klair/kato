@@ -39,7 +39,7 @@ $tag = new Tag;
         ],
         'pluginOptions' => [
             'allowClear' => true,
-            'tags' => $tag->listTags(),
+            'tags' => $tag->listTags($model->className()),
         ],
     ]); ?>
 
@@ -55,9 +55,9 @@ $tag = new Tag;
 
     <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 
-    <?=  \kato\widgets\FileUpload::widget([
+    <? /*  \kato\widgets\FileUpload::widget([
         'form' => $form,
-    ]); ?>
+    ]);*/ ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -65,3 +65,13 @@ $tag = new Tag;
 
 <?php ActiveForm::end(); ?>
 
+<?= \kato\DropZone::widget([
+    'options' => [
+        'url' => \Yii::$app->urlManager->createUrl(['site/upload', 'content_id' => $model->id, 'media_type' => $model->className()]),
+        'addRemoveLinks' => true,
+        'maxFilesize' => kato\helpers\KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
+    ],
+    'clientEvents' => [
+        'success' => "function(file, responseText){console.log(responseText)}",
+    ]
+]); ?>
