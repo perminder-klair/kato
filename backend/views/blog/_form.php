@@ -59,20 +59,19 @@ $tag = new Tag;
         'form' => $form,
     ]);*/ ?>
 
-    <?= \kato\DropZone::widget([
-        'options' => [
-            'url' => 'site/upload?content_id=' . $model->id . '&media_type=' . $model->className(),
-            'addRemoveLinks' => true,
-            'maxFilesize' => kato\helpers\KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
-        ],
-        'clientEvents' => [
-            'success' => "function(file, responseText){console.log(responseText)}",
-        ]
-    ]); ?>
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
 <?php ActiveForm::end(); ?>
 
+<?= \kato\DropZone::widget([
+    'options' => [
+        'url' => \Yii::$app->urlManager->createUrl(['site/upload', 'content_id' => $model->id, 'media_type' => $model->className()]),
+        'addRemoveLinks' => true,
+        'maxFilesize' => kato\helpers\KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
+    ],
+    'clientEvents' => [
+        'success' => "function(file, responseText){console.log(responseText)}",
+    ]
+]); ?>

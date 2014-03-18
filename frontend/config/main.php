@@ -9,6 +9,7 @@ $params = array_merge(
 return [
 	'id' => 'kato-frontend',
 	'basePath' => dirname(__DIR__),
+    'preload' => ['log'],
 	'controllerNamespace' => 'frontend\controllers',
 	'modules' => [
 	],
@@ -31,6 +32,7 @@ return [
                     '@app/views' => '@webroot/themes/basic'
                 ],
                 'baseUrl' => '@web/themes/basic',
+                'basePath' => '@web/themes/basic',
             ],
         ],
 	],
