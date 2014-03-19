@@ -16,8 +16,8 @@ use yii\base\NotSupportedException;
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
+ * @property string $role
  * @property string $auth_key
- * @property integer $role
  * @property integer $status
  * @property integer $create_time
  * @property integer $update_time
@@ -33,8 +33,8 @@ class User extends ActiveRecord implements IdentityInterface
 	const STATUS_ACTIVE = 1;
     const STATUS_NOT_ACTIVE = 0;
 
-    const ROLE_ADMIN = 10;
-	const ROLE_USER = 5;
+    const ROLE_ADMIN = 'admin';
+	const ROLE_USER = 'user';
 
     /**
      * @inheritdoc
@@ -71,7 +71,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['password', 'safe'],
+            [['password'], 'safe'],
 
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE]],
@@ -163,7 +163,11 @@ class User extends ActiveRecord implements IdentityInterface
 		];
 	}*/
 
-	public function beforeSave($insert)
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
 	{
 		if (parent::beforeSave($insert)) {
 			if (($this->isNewRecord || $this->getScenario() === 'resetPassword') || (!empty($this->password) || !is_null($this->password))) {
@@ -172,6 +176,10 @@ class User extends ActiveRecord implements IdentityInterface
 			if ($this->isNewRecord) {
 				$this->auth_key = Security::generateRandomKey();
 			}
+
+            //Update user role in auth
+            $this->updateRole($this->role);
+
 			return true;
 		}
 		return false;
@@ -253,6 +261,10 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    /**
+     * Returns lists of status available
+     * @return array
+     */
     public function listStatus()
     {
         return [
@@ -261,6 +273,10 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    /**
+     * Returns status label
+     * @return bool
+     */
     public function getStatusLabel()
     {
         if ($status =$this->listStatus()) {
@@ -269,11 +285,51 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
+    /**
+     * Returns list of available roles
+     * @return array
+     */
     public function listRoles()
     {
         return [
             self::ROLE_USER => 'User',
             self::ROLE_ADMIN => 'Admin',
         ];
+    }
+
+    /**
+     * Creates new Role
+     * Usage: $this->createRole('admin', 'Administrator');
+     *
+     * @param $key
+     * @param $value
+     * @return bool
+     */
+    public function createRole($key, $value)
+    {
+        $r = \Yii::$app->authManager;
+
+        $r->init();
+        $r->createRole($key, $value);
+        if ($r->save()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Removed all previous rules and Updates user's rule
+     * @param $role
+     * @return bool
+     */
+    private function updateRole($role)
+    {
+        $r = \Yii::$app->authManager;
+
+        $r->revokeAll($this->id);
+        if ($r->assign($this->id, $role)) {
+            return true;
+        }
+        return false;
     }
 }

@@ -108,14 +108,4 @@ class SiteController extends \yii\web\Controller
 
         echo $mediaJson;
     }
-
-    public function actionMakeadmin()
-    {
-        $r=new \yii\rbac\DbManager;
-        $r->init();
-        $r->createRole("admin","Administrator");
-        $r->save();
-
-        $r->assign('1','admin');
-    }
 }
