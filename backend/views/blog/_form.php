@@ -5,8 +5,10 @@ use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use backend\models\Tag;
+use kato\helpers\KatoBase;
 
 $tag = new Tag;
+
 /**
  * @var yii\web\View $this
  * @var common\models\Blog $model
@@ -65,11 +67,6 @@ $tag = new Tag;
 
         <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 
-        <? /*  \kato\widgets\FileUpload::widget([
-                'form' => $form,
-            ]);*/
-        ?>
-
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
@@ -80,12 +77,11 @@ $tag = new Tag;
 
     <div class="tab-pane" id="media">
 
-        <?=
-        \kato\DropZone::widget([
+        <?= \kato\DropZone::widget([
             'options' => [
                 'url' => \Yii::$app->urlManager->createUrl(['site/upload', 'content_id' => $model->id, 'media_type' => $model->className()]),
                 'addRemoveLinks' => true,
-                'maxFilesize' => kato\helpers\KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
+                'maxFilesize' => KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
             ],
             'clientEvents' => [
                 'success' => "function(file, responseText){console.log(responseText)}",
@@ -112,10 +108,8 @@ $tag = new Tag;
                     <td><?= $media->publishedStatus ?></td>
                     <td class="text-center">
                         <div class="btn-group btn-group-xs">
-                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-default"
-                               data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-default"
-                               data-original-title="Delete"><i class="fa fa-times"></i></a>
+                            <a href="#" class="btn btn-default" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="btn btn-default" data-original-title="Delete"><i class="fa fa-times"></i></a>
                         </div>
                     </td>
                 </tr>
