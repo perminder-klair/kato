@@ -2,9 +2,8 @@
 
 namespace backend\controllers;
 
-use backend\models\Media;
 use common\models\Blog;
-use common\models\search\BlogSearch;
+use common\models\search\Blog as BlogSearch;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
 use yii\grid\DataColumn;

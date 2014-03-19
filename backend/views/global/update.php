@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = 'Update';
             <!-- END Blank Header -->
 
             <!-- Blank Content -->
-            <div class="block">
+            <div class="block block-tabs full">
 
                 <?php echo $this->render('_form', [
                     'model' => $model,

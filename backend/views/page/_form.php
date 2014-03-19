@@ -11,29 +11,55 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="block-title">
-    <h2>Update Form</h2>
+    <ul class="nav nav-tabs" data-toggle="tabs">
+        <li class="active"><a href="#form">Home</a></li>
+        <li class=""><a href="#media">Media</a></li>
+    </ul>
 </div>
 
-<?php $form = ActiveForm::begin(); ?>
+<div class="tab-content">
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
+    <div class="tab-pane active" id="form">
 
-    <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
+        <?php $form = ActiveForm::begin(); ?>
 
-    <?= Html::activeLabel($model, 'content') ?>
-    <?= kartik\markdown\MarkdownEditor::widget([
-        'model' => $model,
-        'attribute' => 'content',
-    ]); ?>
+            <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
 
-    <?= $form->field($model, 'parent_id')->dropDownList($model->listParents(), ['prompt'=>'Select Parent']); ?>
+            <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
+            <?= Html::activeLabel($model, 'content') ?>
+            <?= kartik\markdown\MarkdownEditor::widget([
+                'model' => $model,
+                'attribute' => 'content',
+            ]); ?>
 
-    <?= $form->field($model, 'layout')->dropDownList($model->listLayouts()); ?>
+            <?= $form->field($model, 'parent_id')->dropDownList($model->listParents(), ['prompt'=>'Select Parent']); ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
+
+            <?= $form->field($model, 'layout')->dropDownList($model->listLayouts()); ?>
+
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            </div>
+
+        <?php ActiveForm::end(); ?>
+
     </div>
 
-<?php ActiveForm::end(); ?>
+    <div class="tab-pane" id="media">
+
+        <?= \kato\DropZone::widget([
+            'options' => [
+                'url' => \Yii::$app->urlManager->createUrl(['site/upload', 'content_id' => $model->id, 'media_type' => $model->className()]),
+                'addRemoveLinks' => true,
+                'maxFilesize' => kato\helpers\KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
+            ],
+            'clientEvents' => [
+                'success' => "function(file, responseText){console.log(responseText)}",
+            ]
+        ]); ?>
+
+    </div>
+
+</div>

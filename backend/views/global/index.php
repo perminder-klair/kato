@@ -51,7 +51,7 @@ use yii\helpers\Html;
                 <div class="block-title">
                     <h2><?= Html::encode($this->title) ?></h2>
                 </div>
-                <?php echo GridView::widget([
+                <?= GridView::widget([
                     'options' => ['class' => 'table-responsive'],
                     'tableOptions' => ['id' => 'general-table', 'class' => 'table table-striped'],
                     'showFooter' => true,

@@ -20,7 +20,11 @@ use yii\imagine\Image;
  */
 class Media extends \yii\db\ActiveRecord
 {
+    const PUBLISHED_NO = 0;
+    const PUBLISHED_YES = 1;
+
     public $file;
+    public $cacheDir = 'cache';
 
 	/**
 	 * @inheritdoc
@@ -87,7 +91,7 @@ class Media extends \yii\db\ActiveRecord
 
     public function render()
     {
-        $cacheFile = \Yii::$app->params['uploadPath'] . 'cache/' . $this->filename;
+        $cacheFile = \Yii::$app->params['uploadPath'] . $this->cacheDir . '/' . $this->filename;
 
         //http://imagine.readthedocs.org/en/latest/
         // frame, rotate and save an image
@@ -95,5 +99,25 @@ class Media extends \yii\db\ActiveRecord
             ->save($cacheFile);
 
         return $cacheFile;
+    }
+
+    /**
+     * @return array
+     */
+    public function listPublishedStatus()
+    {
+        return [
+            self::PUBLISHED_NO => 'No',
+            self::PUBLISHED_YES => 'Yes',
+        ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublishedStatus()
+    {
+        $list = $this->listPublishedStatus();
+        return $list[$this->published];
     }
 }
