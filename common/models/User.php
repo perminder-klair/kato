@@ -34,7 +34,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_NOT_ACTIVE = 0;
 
     const ROLE_ADMIN = 10;
-	const ROLE_USER = 10;
+	const ROLE_USER = 5;
 
     /**
      * @inheritdoc
@@ -267,5 +267,13 @@ class User extends ActiveRecord implements IdentityInterface
             return $status[$this->status];
         }
         return false;
+    }
+
+    public function listRoles()
+    {
+        return [
+            self::ROLE_USER => 'User',
+            self::ROLE_ADMIN => 'Admin',
+        ];
     }
 }
