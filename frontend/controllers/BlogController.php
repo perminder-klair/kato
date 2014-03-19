@@ -2,8 +2,9 @@
 
 namespace frontend\controllers;
 
+use Yii;
 use common\models\Blog;
-use common\models\search\BlogSearch;
+use common\models\search\Blog as BlogSearch;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
 use yii\data\ActiveDataProvider;
@@ -28,23 +29,15 @@ class BlogController extends \yii\web\Controller
      */
     public function actionIndex()
     {
-        $provider = new ActiveDataProvider([
-            'query' => Blog::find(),
-            'pagination' => [
-                'pageSize' => 20,
-            ],
-        ]);
-
-        // get the posts in the current page
-        $posts = $provider->getModels();
+        $model = new Blog();
 
         $searchModel = new BlogSearch;
-        $dataProvider = $searchModel->search($_GET);
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
+            'model' => $model,
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
-            'model' => $posts,
         ]);
     }
 

@@ -24,6 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<div class="tags">
-
-</div>
+<?= \kato\widgets\Tags::widget([
+    'model' => $model,
+]); ?>
