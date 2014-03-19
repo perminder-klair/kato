@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 
+        <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255]) ?>
+
 		<div class="form-group">
 			<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 		</div>

@@ -53,6 +53,7 @@ class User extends ActiveRecord implements IdentityInterface
                     ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
                 ],
+                'value' => new \yii\db\Expression('NOW()'),
             ],
             'defaultTitle' => [
                 'class' => 'kato\behaviors\DefaultTitle',
@@ -70,6 +71,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            ['password', 'safe'],
+
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE]],
 
@@ -160,10 +163,10 @@ class User extends ActiveRecord implements IdentityInterface
 		];
 	}*/
 
-	/*public function beforeSave($insert)
+	public function beforeSave($insert)
 	{
 		if (parent::beforeSave($insert)) {
-			if (($this->isNewRecord || $this->getScenario() === 'resetPassword') && !empty($this->password)) {
+			if (($this->isNewRecord || $this->getScenario() === 'resetPassword') || (!empty($this->password) || !is_null($this->password))) {
 				$this->password_hash = Security::generatePasswordHash($this->password);
 			}
 			if ($this->isNewRecord) {
@@ -172,7 +175,7 @@ class User extends ActiveRecord implements IdentityInterface
 			return true;
 		}
 		return false;
-	}*/
+	}
 
     /**
      * Creates a new user
