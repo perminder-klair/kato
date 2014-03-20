@@ -4,6 +4,7 @@ namespace frontend\models;
 use common\models\User;
 use yii\base\Model;
 use Yii;
+use common\models\UserProfile;
 
 /**
  * Signup form
@@ -43,7 +44,13 @@ class SignupForm extends Model
     public function signup()
     {
         if ($this->validate()) {
-            return User::create($this->attributes);
+            if ($user = User::create($this->attributes)) {
+                //Create user profile
+                $profile = new UserProfile();
+                $profile->register($user->id);
+            }
+
+            return $user;
         }
         return null;
     }

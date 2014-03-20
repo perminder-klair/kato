@@ -187,10 +187,10 @@ class User extends ActiveRecord implements IdentityInterface
 			}
 			if ($this->isNewRecord) {
 				$this->auth_key = Security::generateRandomKey();
-			}
-
-            //Update user role in auth
-            $this->updateRole($this->role);
+			} else {
+                //Update user role in auth
+                $this->updateRole($this->role);
+            }
 
 			return true;
 		}
