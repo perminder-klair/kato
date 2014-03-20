@@ -119,6 +119,9 @@ class SiteController extends \yii\web\Controller
         return $this->render('settings', ['settings' => $settings]);
     }
 
+    /**
+     * TODO: make it work with: Yii::$app->request->getQueryParams() instead of $_GET
+     */
     public function actionUpload()
     {
         //If any media upload catch it and upload it

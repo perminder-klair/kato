@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Yii;
 use backend\models\Page;
 use backend\models\search\PageSearch;
 use yii\web\NotFoundHttpException;
@@ -50,7 +51,7 @@ class PageController extends \yii\web\Controller
 	public function actionIndex()
 	{
 		$searchModel = new PageSearch;
-		$dataProvider = $searchModel->search($_GET);$meta['title'] = $this->pageTitle;
+		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());$meta['title'] = $this->pageTitle;
 
         $getColumns = [
             ['class' => 'yii\grid\SerialColumn'],
@@ -101,7 +102,7 @@ class PageController extends \yii\web\Controller
         $meta['description'] = 'Update page';
         $meta['pageIcon'] = $this->pageIcon;
 
-		if ($model->load($_POST) && $model->save()) {
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
 			return $this->render('/global/update', [

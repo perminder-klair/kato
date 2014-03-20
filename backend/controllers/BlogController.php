@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Yii;
 use common\models\Blog;
 use common\models\search\Blog as BlogSearch;
 use yii\web\NotFoundHttpException;
@@ -50,7 +51,7 @@ class BlogController extends \yii\web\Controller
 	public function actionIndex()
 	{
 		$searchModel = new BlogSearch;
-		$dataProvider = $searchModel->search($_GET);
+		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         $getColumns = [
             ['class' => 'yii\grid\SerialColumn'],
@@ -114,7 +115,7 @@ class BlogController extends \yii\web\Controller
         $meta['description'] = 'Update post';
         $meta['pageIcon'] = $this->pageIcon;
 
-		if ($model->load($_POST) && $model->save()) {
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
 			return $this->render('/global/update', [

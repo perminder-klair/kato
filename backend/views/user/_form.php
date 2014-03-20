@@ -10,24 +10,43 @@ use yii\widgets\ActiveForm;
  */
 ?>
 
-<div class="user-form">
+<div class="block-title">
+    <ul class="nav nav-tabs" data-toggle="tabs">
+        <li class="active"><a href="#form">Home</a></li>
+        <li class=""><a href="#profile">Profile</a></li>
+    </ul>
+</div>
 
-	<?php $form = ActiveForm::begin(); ?>
+<div class="tab-content">
 
-        <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
+    <div class="tab-pane active" id="form">
 
-        <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
+        <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
+            <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
 
-        <?= $form->field($model, 'role')->dropDownList($model->listRoles()); ?>
+            <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
 
-        <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255]) ?>
+            <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 
-		<div class="form-group">
-			<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-		</div>
+            <?= $form->field($model, 'role')->dropDownList($model->listRoles()); ?>
 
-	<?php ActiveForm::end(); ?>
+            <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255]) ?>
+
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            </div>
+
+        <?php ActiveForm::end(); ?>
+
+    </div>
+
+    <div class="tab-pane" id="profile">
+
+        <?= \common\widgets\UserProfileForm::widget([
+            'userId' => $model->id,
+        ]); ?>
+
+    </div>
 
 </div>

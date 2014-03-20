@@ -15,3 +15,11 @@ Return site settings
 Upload $_FILES file into system, returns back Json array of media data
 
     echo \Yii::$app->kato->mediaUpload();
+
+Returns post data
+
+    Yii::$app->request->post()
+
+Returns GET data
+
+    Yii::$app->request->getQueryParams()

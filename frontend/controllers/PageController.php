@@ -10,6 +10,7 @@ class PageController extends \yii\web\Controller
 {
     /**
      * Displays a single Page model.
+     * TODO use Yii::$app->request->getQueryParams() instead of $_GET
      * @return string
      * @throws \yii\web\BadRequestHttpException
      */
