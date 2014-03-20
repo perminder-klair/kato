@@ -13,7 +13,7 @@ $this->description = $meta['description'];
 $this->pageIcon = $meta['pageIcon'];
 $this->title = 'Update ' . $meta['title'] . ': ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => $meta['title'], 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = $model->title;
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div id="page-container">

@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var app\models\Blog $model
+ * @var common\models\Blog $model
  */
 
 $this->title = $model->title;
@@ -19,23 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?php echo DetailView::widget([
 		'model' => $model,
 		'attributes' => [
-			'id',
 			'title',
 			'short_desc',
-			'content:ntext',
 			'content_html:ntext',
-			'slug',
 			'tags:ntext',
-			'create_time',
-			'created_by',
-			'update_time',
-			'updated_by',
 			'publish_time',
 			'published_by',
-			'is_revision',
-			'parent_id',
-			'status',
-			'deleted',
 		],
 	]); ?>
 
