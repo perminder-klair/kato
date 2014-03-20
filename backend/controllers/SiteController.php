@@ -21,7 +21,7 @@ class SiteController extends \yii\web\Controller
                 'only' => ['index', 'settings', 'logout'],
 				'rules' => [
 					[
-						'actions' => [['index', 'settings', 'logout']],
+						'actions' => ['index', 'settings', 'logout'],
 						'allow' => true,
 						'roles' => ['admin'],
 					],

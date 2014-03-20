@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /**
  * @var yii\web\View $this
  * @var common\models\User $model
+ * @var common\models\UserProfile $profile
  * @var yii\widgets\ActiveForm $form
  */
 ?>
@@ -44,7 +45,7 @@ use yii\widgets\ActiveForm;
     <div class="tab-pane" id="profile">
 
         <?= \common\widgets\UserProfileForm::widget([
-            'userId' => $model->id,
+            'profile' => $profile,
         ]); ?>
 
     </div>

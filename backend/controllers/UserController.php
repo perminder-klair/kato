@@ -88,16 +88,20 @@ class UserController extends Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
+        $profile = UserProfile::find()
+            ->where(['user_id' => $model->id])
+            ->one();
 
         $meta['title'] = $this->pageTitle;
         $meta['description'] = 'Update user';
         $meta['pageIcon'] = $this->pageIcon;
 
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+		if (($model->load(Yii::$app->request->post()) && $model->save()) || ($profile->load(Yii::$app->request->post()) && $profile->save())) {
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
 			return $this->render('update', [
 				'model' => $model,
+                'profile' => $profile,
                 'meta' => $meta,
 			]);
 		}

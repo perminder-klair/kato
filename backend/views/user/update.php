@@ -6,6 +6,7 @@ use yii\widgets\Breadcrumbs;
 /**
  * @var yii\web\View $this
  * @var common\models\User $model
+ * @var common\models\UserProfile $profile
  * @var $meta
  */
 
@@ -47,6 +48,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
                 <?php echo $this->render('_form', [
                     'model' => $model,
+                    'profile' => $profile,
                 ]); ?>
 
             </div>

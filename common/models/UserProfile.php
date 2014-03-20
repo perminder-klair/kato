@@ -30,7 +30,7 @@ class UserProfile extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', ['full_name']], 'safe'],
+            [['user_id', 'full_name'], 'safe'],
             [['user_id', 'create_time', 'update_time', 'full_name'], 'required'],
             [['user_id'], 'integer'],
             [['create_time', 'update_time'], 'safe'],
