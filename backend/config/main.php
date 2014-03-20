@@ -37,9 +37,6 @@ return [
                 'post/<id:[0-9]+>' => 'post/view'
             ]
         ],
-        'view' => [
-            'class' => 'backend\components\View',
-        ],
         'request'=>[
             //TODO enable this
             'enableCsrfValidation'=>false,

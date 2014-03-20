@@ -10,6 +10,9 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'view' => [
+            'class' => 'backend\components\View',
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest'],

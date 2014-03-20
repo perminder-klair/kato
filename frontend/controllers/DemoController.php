@@ -103,8 +103,7 @@ class DemoController extends Controller
      */
     public function actionUpdate($id)
     {
-        dump(dirname(dirname(__DIR__)) . '/frontend');exit;
-        $this->layout = 'admin';
+        $this->layout = '@backend/views/layouts/main';
 
         $model = $this->findModel($id);
 
