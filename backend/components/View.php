@@ -3,6 +3,7 @@
 namespace backend\components;
 
 use Yii;
+use yii\helpers\Html;
 
 class View extends \yii\web\View
 {

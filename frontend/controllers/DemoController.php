@@ -14,6 +14,9 @@ use yii\web\VerbFilter;
  */
 class DemoController extends Controller
 {
+    public $pageTitle = 'Demo';
+    public $pageIcon = 'fa fa-bars';
+
     public function behaviors()
     {
         return [
@@ -58,12 +61,33 @@ class DemoController extends Controller
     */
     public function actionAdmin()
     {
+        $this->layout = '@backend/views/layouts/main';
+
         $searchModel = new DemoSearch;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
-        return $this->render('admin', [
+        $getColumns = [
+            ['class' => 'yii\grid\SerialColumn'],
+            'id',
+            'title',
+            'tags:ntext',
+            'create_time',
+            'update_time',
+            // 'listing_order',
+            // 'active',
+            // 'deleted',
+            ['class' => 'backend\components\ActionColumn'],
+        ];
+
+        $meta['title'] = $this->pageTitle;
+        $meta['description'] = 'List all Demo';
+        $meta['pageIcon'] = $this->pageIcon;
+
+        return $this->render('@backend/views/global/index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'meta' => $meta,
+            'getColumns' => $getColumns,
         ]);
     }
 
@@ -107,11 +131,16 @@ class DemoController extends Controller
 
         $model = $this->findModel($id);
 
+        $meta['title'] = $this->pageTitle;
+        $meta['description'] = 'Update Demo';
+        $meta['pageIcon'] = $this->pageIcon;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
+            return $this->render('@backend/views/global/update', [
                 'model' => $model,
+                'meta' => $meta,
             ]);
         }
     }
