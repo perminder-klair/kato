@@ -65,7 +65,9 @@ class Blog extends Model
 
     public function search($params)
     {
-        $query = BlogModel::find();
+        $query = BlogModel::find()
+            ->where(['deleted' => 0])
+            ->andWhere(['status' => BlogModel::STATUS_PUBLISHED]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
