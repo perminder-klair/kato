@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\User;
+use common\models\UserProfile;
 use common\models\search\User as UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -66,8 +67,12 @@ class UserController extends Controller
 	public function actionCreate()
 	{
 		$model = new User;
+        $profile = new UserProfile();
 
         if ($model->save(false)) {
+            //Create empty user profile row
+            $profile->register($model->id);
+
             return $this->redirect(['update', 'id' => $model->id]);
         }
 
