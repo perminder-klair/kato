@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var backend\models\search\DemoSearch $searchModel
+ * @var frontend\models\search\DemoSearch $searchModel
  */
 
 $this->title = 'Demos';
@@ -30,9 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
+            'tags:ntext',
             'create_time',
             'update_time',
-            'listing_order',
+            // 'listing_order',
             // 'active',
             // 'deleted',
 

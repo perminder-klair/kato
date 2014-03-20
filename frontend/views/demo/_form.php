@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
- * @var backend\models\Demo $model
+ * @var frontend\models\Demo $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>
@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
 <div class="demo-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'tags')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'create_time')->textInput() ?>
 

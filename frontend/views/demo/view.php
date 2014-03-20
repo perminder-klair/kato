@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var backend\models\Demo $model
+ * @var frontend\models\Demo $model
  */
 
 $this->title = $model->title;
@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
+            'tags:ntext',
             'create_time',
             'update_time',
             'listing_order',

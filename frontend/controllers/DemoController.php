@@ -1,10 +1,10 @@
 <?php
 
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use Yii;
-use backend\models\Demo;
-use backend\models\search\DemoSearch;
+use frontend\models\Demo;
+use frontend\models\search\DemoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
@@ -17,6 +17,17 @@ class DemoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => \yii\web\AccessControl::className(),
+                'only' => ['admin', 'create', 'update', 'delete'],
+                    'rules' => [
+                    [
+                        'actions' => ['admin', 'create', 'update', 'delete'], // Define specific actions
+                        'allow' => true, // Has access
+                        'roles' => ['admin'], // '@' All logged in users / or your access role e.g. 'admin', 'user'
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,6 +47,21 @@ class DemoController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
+
+    /**
+    * Admin all Demo models.
+    * @return mixed
+    */
+    public function actionAdmin()
+    {
+        $searchModel = new DemoSearch;
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+
+        return $this->render('admin', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
         ]);
@@ -62,13 +88,11 @@ class DemoController extends Controller
     {
         $model = new Demo;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if ($model->save(false)) {
+            return $this->redirect(['update', 'id' => $model->id]);
         }
+
+        return false;
     }
 
     /**
@@ -79,6 +103,9 @@ class DemoController extends Controller
      */
     public function actionUpdate($id)
     {
+        dump(dirname(dirname(__DIR__)) . '/frontend');exit;
+        $this->layout = 'admin';
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

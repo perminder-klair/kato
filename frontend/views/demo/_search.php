@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
- * @var backend\models\search\DemoSearch $model
+ * @var frontend\models\search\DemoSearch $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>
@@ -21,11 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
+    <?= $form->field($model, 'tags') ?>
+
     <?= $form->field($model, 'create_time') ?>
 
     <?= $form->field($model, 'update_time') ?>
 
-    <?= $form->field($model, 'listing_order') ?>
+    <?php // echo $form->field($model, 'listing_order') ?>
 
     <?php // echo $form->field($model, 'active') ?>
 
