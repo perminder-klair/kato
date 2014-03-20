@@ -17,19 +17,10 @@ class AppAsset extends AssetBundle
 {
 	public $basePath = '@webroot';
 	public $baseUrl = '@web';
-	public $css = [
-        'css/plugins.css',
-        'css/main.css',
-        'css/themes.css',
-    ];
-	public $js = [
-        'js/vendor/bootstrap.min.js',
-        'js/plugins.js',
-        'js/main.js',
-        'js/vendor/modernizr-2.6.2-respond-1.3.0.min.js',
-    ];
+
 	public $depends = [
 		'yii\web\YiiAsset',
 		'yii\bootstrap\BootstrapAsset',
+        'kato\KatoAsset',
 	];
 }
