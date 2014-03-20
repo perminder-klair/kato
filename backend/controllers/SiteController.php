@@ -7,6 +7,9 @@ use common\models\LoginForm;
 use yii\web\VerbFilter;
 use backend\models\Setting;
 use yii\base\Model;
+use yii\base\Exception;
+use yii\base\UserException;
+use yii\web\HttpException;
 
 class SiteController extends \yii\web\Controller
 {
@@ -15,14 +18,10 @@ class SiteController extends \yii\web\Controller
 		return [
 			'access' => [
 				'class' => \yii\web\AccessControl::className(),
+                'only' => ['index', 'settings', 'logout'],
 				'rules' => [
 					[
-						'actions' => ['login', 'error', 'upload'],
-						'allow' => true,
-                        'roles' => ['?'],
-					],
-					[
-						'actions' => ['logout', 'index', 'login', 'error', 'settings', 'upload', 'makeadmin'],
+						'actions' => [['index', 'settings', 'logout']],
 						'allow' => true,
 						'roles' => ['admin'],
 					],
@@ -42,17 +41,49 @@ class SiteController extends \yii\web\Controller
         return $this->render('index');
     }
 
-	public function actions()
-	{
-		return [
-			'error' => [
-				'class' => 'yii\web\ErrorAction',
-			],
-		];
-	}
+    public function actionError()
+    {
+        $this->layout = 'fullWidth';
+
+        if (($exception = Yii::$app->exception) === null) {
+            return '';
+        }
+
+        if ($exception instanceof HttpException) {
+            $code = $exception->statusCode;
+        } else {
+            $code = $exception->getCode();
+        }
+        if ($exception instanceof Exception) {
+            $name = $exception->getName();
+        } else {
+            $name = $this->defaultName ?: Yii::t('yii', 'Error');
+        }
+        if ($code) {
+            $name .= " (#$code)";
+        }
+
+        if ($exception instanceof UserException) {
+            $message = $exception->getMessage();
+        } else {
+            $message = $this->defaultMessage ?: Yii::t('yii', 'An internal server error occurred.');
+        }
+
+        if (Yii::$app->getRequest()->getIsAjax()) {
+            return "$name: $message";
+        } else {
+            return $this->render('error', [
+                'name' => $name,
+                'message' => $message,
+                'exception' => $exception,
+            ]);
+        }
+    }
 
     public function actionLogin()
     {
+        $this->layout = 'fullWidth';
+
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
