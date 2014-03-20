@@ -118,22 +118,6 @@ class Block extends ActiveRecord
         return false;
     }
 
-    public function listStatus()
-    {
-        return [
-            self::STATUS_NOT_PUBLISHED => 'Not Published',
-            self::STATUS_PUBLISHED => 'Published',
-        ];
-    }
-
-    public function getStatusLabel()
-    {
-        if ($status =$this->listStatus()) {
-            return $status[$this->status];
-        }
-        return false;
-    }
-
     /**
      * List all actions in site controller
      * @return array

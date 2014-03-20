@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use yii\imagine\Image;
+use kato\ActiveRecord;
 
 /**
  * This is the model class for table "kato_media".
@@ -15,13 +16,12 @@ use yii\imagine\Image;
  * @property string $extension
  * @property string $mimeType
  * @property string $byteSize
- * @property integer $media_type
- * @property integer $published
+ * @property integer $status
  */
-class Media extends \yii\db\ActiveRecord
+class Media extends ActiveRecord
 {
-    const PUBLISHED_NO = 0;
-    const PUBLISHED_YES = 1;
+    const STATUS_NOT_PUBLISHED = 0;
+    const STATUS_PUBLISHED = 1;
 
     public $file;
     public $cacheDir = 'cache';
@@ -42,7 +42,7 @@ class Media extends \yii\db\ActiveRecord
 		return [
 			[['source_location', 'create_time', 'byteSize'], 'required'],
 			[['create_time'], 'safe'],
-			[['byteSize', 'media_type', 'published'], 'integer'],
+			[['byteSize', 'status'], 'integer'],
 			[['filename', 'source', 'source_location'], 'string', 'max' => 255],
 			[['extension', 'mimeType'], 'string', 'max' => 50]
 		];
@@ -62,8 +62,7 @@ class Media extends \yii\db\ActiveRecord
 			'extension' => 'Extension',
 			'mimeType' => 'Mime Type',
 			'byteSize' => 'Byte Size',
-			'media_type' => 'Media Type',
-			'published' => 'Published',
+			'status' => 'Status',
 		];
 	}
 
@@ -101,23 +100,4 @@ class Media extends \yii\db\ActiveRecord
         return $cacheFile;
     }
 
-    /**
-     * @return array
-     */
-    public function listPublishedStatus()
-    {
-        return [
-            self::PUBLISHED_NO => 'No',
-            self::PUBLISHED_YES => 'Yes',
-        ];
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPublishedStatus()
-    {
-        $list = $this->listPublishedStatus();
-        return $list[$this->published];
-    }
 }

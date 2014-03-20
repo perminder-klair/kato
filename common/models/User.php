@@ -2,10 +2,13 @@
 
 namespace common\models;
 
+use Yii;
 use kato\ActiveRecord;
 use yii\helpers\Security;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
+use yii\helpers\Inflector;
+use ReflectionClass;
 
 /**
  * Class User
@@ -22,6 +25,8 @@ use yii\base\NotSupportedException;
  * @property integer $create_time
  * @property integer $update_time
  * @property string $password write-only password
+ * @property string $login_ip
+ * @property string $login_time
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -94,6 +99,13 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return \yii\db\ActiveQueryInterface
+     */
+    public function getProfile() {
+        return $this->hasOne(UserProfile::className(), ['user_id' => 'id']);
+    }
+
+    /**
      * @inheritdoc
      */
     public static function findIdentity($id)
@@ -133,7 +145,7 @@ class User extends ActiveRecord implements IdentityInterface
 	 */
 	public function getAuthKey()
 	{
-        return $this->getAuthKey() === $authKey;
+        return $this->getAuthKey() === $this->authKey;
 	}
 
 	/**
@@ -262,27 +274,48 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Returns lists of status available
-     * @return array
+     * Get a clean display name for the user
+     *
+     * @var string $default
+     * @return string|int
      */
-    public function listStatus()
-    {
-        return [
-            self::STATUS_NOT_ACTIVE => 'Active',
-            self::STATUS_ACTIVE => 'Not Active',
+    public function getDisplayName($default = "") {
+
+        // define possible names
+        $possibleNames = [
+            "username",
+            "email",
         ];
+
+        // go through each and return if valid
+        foreach ($possibleNames as $possibleName) {
+            if (!empty($this->$possibleName)) {
+                return $this->$possibleName;
+            }
+        }
+
+        return $default;
     }
 
     /**
-     * Returns status label
-     * @return bool
+     * Set login ip and time
+     * TODO complete this
+     * @param bool $save Save record
+     * @return static
      */
-    public function getStatusLabel()
-    {
-        if ($status =$this->listStatus()) {
-            return $status[$this->status];
+    public function setLoginIpAndTime($save = true) {
+
+        // set data
+        $this->login_ip = Yii::$app->getRequest()->getUserIP();
+        $this->login_time = date("Y-m-d H:i:s");
+
+        // save and return
+        // auth key is added here in case user doesn't have one set from registration
+        // it will be calculated in [[before_save]]
+        if ($save) {
+            $this->save(false, ["login_ip", "login_time", "auth_key"]);
         }
-        return false;
+        return $this;
     }
 
     /**
@@ -291,10 +324,26 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function listRoles()
     {
-        return [
-            self::ROLE_USER => 'User',
-            self::ROLE_ADMIN => 'Admin',
-        ];
+        static $data;
+        if ($data === null) {
+
+            // create a reflection class to get constants
+            $refl = new ReflectionClass(get_called_class());
+            $constants = $refl->getConstants();
+
+            // check for status constants (e.g., STATUS_ACTIVE)
+            foreach ($constants as $constantName => $constantValue) {
+
+                // add prettified name to dropdown
+                if (strpos($constantName, "ROLE_") === 0) {
+                    $prettyName = str_replace("ROLE_", "", $constantName);
+                    $prettyName = Inflector::humanize(strtolower($prettyName));
+                    $data[$constantValue] = $prettyName;
+                }
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -331,5 +380,15 @@ class User extends ActiveRecord implements IdentityInterface
             return true;
         }
         return false;
+    }
+
+    /**
+     * Check if user can do specified $permission
+     * TODO complete it
+     * @param string $permission
+     * @return bool
+     */
+    public function can($permission) {
+        return $this->role->checkPermission($permission);
     }
 }

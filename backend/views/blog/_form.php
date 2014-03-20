@@ -105,7 +105,7 @@ $tag = new Tag;
                     <td><a href="<?= $media->render() ?>"><?= $media->filename ?></a></td>
                     <td><?= $media->mimeType ?></td>
                     <td><?= \kato\helpers\KatoBase::formatBytes($media->byteSize, 'MB') ?></td>
-                    <td><?= $media->publishedStatus ?></td>
+                    <td><?= $media->statusLabel ?></td>
                     <td class="text-center">
                         <div class="btn-group btn-group-xs">
                             <a href="#" class="btn btn-default" data-original-title="Edit"><i class="fa fa-pencil"></i></a>

@@ -179,22 +179,6 @@ class Blog extends ActiveRecord
             ->one();
     }
 
-    public function listStatus()
-    {
-        return [
-            self::STATUS_NOT_PUBLISHED => 'Not Published',
-            self::STATUS_PUBLISHED => 'Published',
-        ];
-    }
-
-    public function getStatusLabel()
-    {
-        if ($status =$this->listStatus()) {
-            return $status[$this->status];
-        }
-        return false;
-    }
-
     public function getAuthorName()
     {
         return $this->user->username;
