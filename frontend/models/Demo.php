@@ -81,6 +81,11 @@ class Demo extends \kato\ActiveRecord
                 'updateTags' => true,
                 'tagType' => self::className(),
             ],
+                'defaultTitle' => [
+                'class' => 'kato\behaviors\DefaultTitle',
+                'attribute' => 'title',
+                'defaultPrefix' => 'Demo',
+            ],
         ];
     }
 

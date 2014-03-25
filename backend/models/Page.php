@@ -104,7 +104,7 @@ class Page extends ActiveRecord
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time', 'publish_time'],
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
                 ],
                 'value' => new \yii\db\Expression('NOW()'),
@@ -122,6 +122,11 @@ class Page extends ActiveRecord
                 'class' => SoftDelete::className(),
                 'attribute' => 'deleted',
                 'safeMode' => true,
+            ],
+            'defaultTitle' => [
+                'class' => 'kato\behaviors\DefaultTitle',
+                'attribute' => 'title',
+                'defaultPrefix' => 'Page',
             ],
         ];
     }
