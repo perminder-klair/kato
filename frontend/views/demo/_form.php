@@ -2,6 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\Select2;
+use kartik\widgets\DatePicker;
+use kartik\markdown\MarkdownEditor;
+use backend\models\Tag;
+use kato\helpers\KatoBase;
+
+$tag = new Tag;
 
 /**
  * @var yii\web\View $this
@@ -14,17 +21,43 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'tags')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'create_time')->textInput() ?>
+    <?= $form->field($model, 'tags')->widget(Select2::classname(), [
+            'language' => 'en',
+            'options' => [
+                'multiple' => true,
+                'placeholder' => 'Select a tag ...'
+            ],
+            'pluginOptions' => [
+                'allowClear' => true,
+                'tags' => $tag->listTags($model->className()),
+            ],
+        ]) ?>
 
-    <?= $form->field($model, 'update_time')->textInput() ?>
+    <?= $form->field($model, 'create_time')->widget(DatePicker::classname(), [
+            'options' => [
+                'placeholder' => 'Select date ...',
+            ],
+            'pluginOptions' => [
+                'format' => 'yyyy-mm-dd',
+                'todayHighlight' => true
+            ],
+        ]) ?>
 
-    <?= $form->field($model, 'listing_order')->textInput() ?>
+    <?= $form->field($model, 'update_time')->widget(DatePicker::classname(), [
+            'options' => [
+                'placeholder' => 'Select date ...',
+            ],
+            'pluginOptions' => [
+                'format' => 'yyyy-mm-dd',
+                'todayHighlight' => true
+            ],
+        ]) ?>
 
-    <?= $form->field($model, 'active')->textInput() ?>
+    <?= $form->field($model, 'active')->checkbox() ?>
 
-    <?= $form->field($model, 'deleted')->textInput() ?>
+    <?= $form->field($model, 'deleted')->checkbox() ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 

@@ -21,13 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
+    <?= $form->field($model, 'description') ?>
+
     <?= $form->field($model, 'tags') ?>
 
     <?= $form->field($model, 'create_time') ?>
 
-    <?= $form->field($model, 'update_time') ?>
-
-    <?php // echo $form->field($model, 'listing_order') ?>
+    <?php // echo $form->field($model, 'update_time') ?>
 
     <?php // echo $form->field($model, 'active') ?>
 

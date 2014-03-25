@@ -13,18 +13,18 @@ class DemoSearch extends Model
 {
     public $id;
     public $title;
+    public $description;
     public $tags;
     public $create_time;
     public $update_time;
-    public $listing_order;
     public $active;
     public $deleted;
 
     public function rules()
     {
         return [
-            [['id', 'listing_order', 'active', 'deleted'], 'integer'],
-            [['title', 'tags', 'create_time', 'update_time'], 'safe'],
+            [['id', 'active', 'deleted'], 'integer'],
+            [['title', 'description', 'tags', 'create_time', 'update_time'], 'safe'],
         ];
     }
 
@@ -36,10 +36,10 @@ class DemoSearch extends Model
         return [
             'id' => 'ID',
             'title' => 'Title',
+            'description' => 'Description',
             'tags' => 'Tags',
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
-            'listing_order' => 'Listing Order',
             'active' => 'Active',
             'deleted' => 'Deleted',
         ];
@@ -58,10 +58,10 @@ class DemoSearch extends Model
 
         $this->addCondition($query, 'id');
         $this->addCondition($query, 'title', true);
+        $this->addCondition($query, 'description', true);
         $this->addCondition($query, 'tags', true);
         $this->addCondition($query, 'create_time');
         $this->addCondition($query, 'update_time');
-        $this->addCondition($query, 'listing_order');
         $this->addCondition($query, 'active');
         $this->addCondition($query, 'deleted');
         return $dataProvider;

@@ -48,8 +48,10 @@
     <li>
         <h2 class="sidebar-header">Extras</h2>
     </li>
+    <?php foreach ($items as $item): ?>
     <li>
-        <a href="<?= \Yii::$app->urlManager->createSiteUrl('demo/admin'); ?>"><i class="fa fa-bars"></i>Demo</a>
+        <a href="<?= \Yii::$app->urlManager->createSiteUrl($item['controller'] . '/admin'); ?>"><i class="<?= $item['icon']; ?>"></i><?= $item['title']; ?></a>
     </li>
+    <?php endforeach; ?>
 </ul>
 <!-- END Sidebar Navigation -->

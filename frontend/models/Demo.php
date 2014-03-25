@@ -7,10 +7,10 @@ namespace frontend\models;
 *
     * @property string $id
     * @property string $title
+    * @property string $description
     * @property string $tags
     * @property string $create_time
     * @property string $update_time
-    * @property integer $listing_order
     * @property integer $active
     * @property integer $deleted
 */
@@ -34,9 +34,9 @@ class Demo extends \kato\ActiveRecord
     public function rules()
     {
     return [
-            [['tags'], 'string'],
+            [['description', 'tags'], 'string'],
             [['create_time', 'update_time'], 'safe'],
-            [['listing_order', 'active', 'deleted'], 'integer'],
+            [['active', 'deleted'], 'integer'],
             [['title'], 'string', 'max' => 255]
         ];
     }
@@ -49,10 +49,10 @@ class Demo extends \kato\ActiveRecord
     return [
             'id' => 'ID',
             'title' => 'Title',
+            'description' => 'Description',
             'tags' => 'Tags',
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
-            'listing_order' => 'Listing Order',
             'active' => 'Active',
             'deleted' => 'Deleted',
         ];

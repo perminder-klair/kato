@@ -6,4 +6,7 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     'maxUploadSize' => 2097152,
     'uploadPath' => dirname(dirname(__DIR__)) . '/frontend/web/files/',
+    'adminMenu' => [
+        ['controller' => 'demo', 'title' => 'Demo', 'icon' => 'fa fa-bars'],
+    ],
 ];
