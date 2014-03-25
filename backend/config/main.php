@@ -31,6 +31,8 @@ return [
 			'errorAction' => 'site/error',
 		],
         'urlManager' => [
+            'class' => 'kato\components\UrlManager',
+            'adminUrl' => 'admin',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
@@ -39,7 +41,7 @@ return [
             ]
         ],
         'request'=>[
-            'class' => 'common\components\Request',
+            'class' => 'kato\components\Request',
             'web'=> '/backend/web',
             'adminUrl' => '/admin',
             //TODO enable this

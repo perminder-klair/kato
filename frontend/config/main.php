@@ -16,13 +16,15 @@ return [
 	],
 	'components' => [
         'request'=>[
-            'class' => 'common\components\Request',
+            'class' => 'kato\components\Request',
             'web'=> '/frontend/web'
         ],
 		'errorHandler' => [
 			'errorAction' => 'site/error',
 		],
         'urlManager' => [
+            'class' => 'kato\components\UrlManager',
+            'adminUrl' => 'admin',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
