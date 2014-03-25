@@ -123,6 +123,7 @@ class PageController extends \yii\web\Controller
 	{
 		$this->findModel($id)->delete();
         Yii::$app->session->setFlash('success', 'Page has been deleted');
+
 		return $this->redirect(['index']);
 	}
 

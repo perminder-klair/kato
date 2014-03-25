@@ -137,6 +137,7 @@ class BlogController extends \yii\web\Controller
         $model = $this->findModel($id);
         $model->delete();
         Yii::$app->session->setFlash('success', 'Post has been deleted');
+
 		return $this->redirect(['index']);
 	}
 

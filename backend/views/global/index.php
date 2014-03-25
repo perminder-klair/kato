@@ -51,6 +51,11 @@ use yii\helpers\Html;
                 <? // Html::a('Create Blog', ['create'], ['class' => 'btn btn-success']) ?>
 
                 <div class="block-title">
+                    <div class="block-options pull-right">
+                        <div class="btn-group">
+                            <?= Html::a('<i class="fa fa-plus"></i> Create', ['create'], ['class' => 'btn btn-primary']) ?>
+                        </div>
+                    </div>
                     <h2><?= Html::encode($this->title) ?></h2>
                 </div>
                 <?= GridView::widget([

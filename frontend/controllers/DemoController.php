@@ -136,7 +136,8 @@ class DemoController extends Controller
         $meta['pageIcon'] = $this->pageIcon;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'Demo has been updated');
+            return $this->redirect(['update', 'id' => $model->id]);
         } else {
             return $this->render('@backend/views/global/update', [
                 'model' => $model,
@@ -154,6 +155,7 @@ class DemoController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        Yii::$app->session->setFlash('success', 'Demo has been deleted');
 
         return $this->redirect(['index']);
     }
