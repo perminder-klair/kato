@@ -43,6 +43,8 @@ $this->params['breadcrumbs'][] = 'Update';
             ]) ?>
             <!-- END Blank Header -->
 
+            <?= \backend\widgets\Alert::widget(); ?>
+
             <!-- Blank Content -->
             <div class="block block-tabs full">
 

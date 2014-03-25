@@ -97,6 +97,7 @@ class UserController extends Controller
         $meta['pageIcon'] = $this->pageIcon;
 
 		if (($model->load(Yii::$app->request->post()) && $model->save()) || ($profile->load(Yii::$app->request->post()) && $profile->save())) {
+            Yii::$app->session->setFlash('success', 'User has been updated');
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
 			return $this->render('update', [
@@ -116,6 +117,7 @@ class UserController extends Controller
 	public function actionDelete($id)
 	{
 		$this->findModel($id)->delete();
+        Yii::$app->session->setFlash('success', 'User has been deleted');
 		return $this->redirect(['index']);
 	}
 

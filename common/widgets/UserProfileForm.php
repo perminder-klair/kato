@@ -2,8 +2,6 @@
 
 namespace common\widgets;
 
-use common\models\UserProfile;
-
 class UserProfileForm extends \yii\base\Widget
 {
     public $profile;
@@ -14,7 +12,7 @@ class UserProfileForm extends \yii\base\Widget
             return 'User profile not found in system';
         }
 
-        echo $this->render('userProfileForm', [
+        return $this->render('userProfileForm', [
             'model' => $this->profile,
         ]);
     }

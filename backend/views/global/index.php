@@ -42,6 +42,8 @@ use yii\helpers\Html;
             ]) ?>
             <!-- END Blank Header -->
 
+            <?= \backend\widgets\Alert::widget(); ?>
+
             <!-- Blank Content -->
             <div class="block">
 

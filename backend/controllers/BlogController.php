@@ -116,6 +116,7 @@ class BlogController extends \yii\web\Controller
         $meta['pageIcon'] = $this->pageIcon;
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Post has been updated');
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
 			return $this->render('/global/update', [
@@ -135,6 +136,7 @@ class BlogController extends \yii\web\Controller
 	{
         $model = $this->findModel($id);
         $model->delete();
+        Yii::$app->session->setFlash('success', 'Post has been deleted');
 		return $this->redirect(['index']);
 	}
 

@@ -19,7 +19,7 @@ use yii\widgets\Breadcrumbs;
                 <!-- If you do not want a link in the header, instead of .header-title-link you can use a div with the class .header-section -->
                 <a href="" class="header-title-link">
                     <h1>
-                        <i class="fa fa-coffee animation-expandUp"></i>Dashboard<br><small>A clean page to help you start!</small>
+                        <i class="fa fa-coffee animation-expandUp"></i>Dashboard<br><small>Kato's Dashboard!</small>
                     </h1>
                 </a>
             </div>
@@ -32,7 +32,7 @@ use yii\widgets\Breadcrumbs;
             <!-- END Blank Header -->
 
             <!-- Blank Content -->
-            <p>Create your content..</p>
+            <p>Welcome to Kato!</p>
 
             <!-- END Blank Content -->
         </div>

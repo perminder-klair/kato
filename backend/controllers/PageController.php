@@ -103,6 +103,7 @@ class PageController extends \yii\web\Controller
         $meta['pageIcon'] = $this->pageIcon;
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Page has been updated');
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
 			return $this->render('/global/update', [
@@ -121,6 +122,7 @@ class PageController extends \yii\web\Controller
 	public function actionDelete($id)
 	{
 		$this->findModel($id)->delete();
+        Yii::$app->session->setFlash('success', 'Page has been deleted');
 		return $this->redirect(['index']);
 	}
 

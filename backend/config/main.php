@@ -26,6 +26,7 @@ return [
         ],
     ],
 	'components' => [
+
 		'errorHandler' => [
 			'errorAction' => 'site/error',
 		],
@@ -38,6 +39,9 @@ return [
             ]
         ],
         'request'=>[
+            'class' => 'common\components\Request',
+            'web'=> '/backend/web',
+            'adminUrl' => '/admin',
             //TODO enable this
             'enableCsrfValidation'=>false,
             'enableCookieValidation'=>true,
