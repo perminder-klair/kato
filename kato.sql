@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.13)
 # Database: kato2
-# Generation Time: 2014-03-26 14:18:43 +0000
+# Generation Time: 2014-03-26 15:48:50 +0000
 # ************************************************************
 
 
@@ -319,7 +319,7 @@ LOCK TABLES `kato_user` WRITE;
 
 INSERT INTO `kato_user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `role`, `status`, `create_time`, `update_time`, `login_ip`, `login_time`)
 VALUES
-	(1,'admin','CCIwu98zZwmGrJRarrUinrdKtfrfO1_E','$2y$13$91cNAK1OdvUPExikkwnplOO1IvjBld.x2UQcIJfuvm2eGuACJrvdS',NULL,'perminder.klair@gmail.com',NULL,10,'2014-03-20 19:49:58','2014-03-20 19:49:58','','2014-03-20 09:56:59');
+	(1,'admin','CCIwu98zZwmGrJRarrUinrdKtfrfO1_E','$2y$13$91cNAK1OdvUPExikkwnplOO1IvjBld.x2UQcIJfuvm2eGuACJrvdS',NULL,'perminder.klair@gmail.com','admin',1,'2014-03-20 19:49:58','2014-03-26 15:24:26','','2014-03-20 09:56:59');
 
 /*!40000 ALTER TABLE `kato_user` ENABLE KEYS */;
 UNLOCK TABLES;
