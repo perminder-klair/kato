@@ -28,10 +28,6 @@ index
 #ignore dev mockup dir
 dev
 
-#ignore system files
-/yii
-/composer.lock
-
 # phpunit itself is not needed
 phpunit.phar
 # local phpunit config
