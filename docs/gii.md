@@ -29,3 +29,8 @@ Example:
 Then visit side bar at:
 
     http://site.com/admin
+
+Optional, you can move newly created view files to themes directory, for example
+
+From `/frontend/views/demo`
+To `/frontend/web/themes/basic/demo`

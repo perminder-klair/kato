@@ -33,3 +33,8 @@ the installed application. You only need to do these once for all.
 - Logins for admin:
 -- Username: `admin`
 -- Password: `admin12`
+
+## Theming
+
+To update assets like css and images: `/frontend/web/`
+To change/update layout and views of site: `/frontend/web/themes/basic`

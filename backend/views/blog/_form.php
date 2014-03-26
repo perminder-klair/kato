@@ -2,8 +2,7 @@
 
 use yii\helpers\Html;
 use backend\models\Tag;
-use kato\helpers\KatoBase;
-use kato\DropZone;
+use backend\widgets\Media;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
@@ -74,46 +73,9 @@ $tag = new Tag;
 
     <div class="tab-pane" id="media">
 
-        <?= DropZone::widget([
-            'options' => [
-                'url' => \Yii::$app->urlManager->createUrl(['site/upload', 'content_id' => $model->id, 'media_type' => $model->className()]),
-                'addRemoveLinks' => true,
-                'maxFilesize' => KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
-            ],
-            'clientEvents' => [
-                'success' => "function(file, responseText){console.log(responseText)}",
-            ]
+        <?= Media::widget([
+            'model' => $model,
         ]); ?>
-
-        <div class="table-responsive">
-            <table id="general-table" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Mime Type</th>
-                    <th>Size</th>
-                    <th>Published</th>
-                    <th class="text-center">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($model->media as $media): ?>
-                <tr>
-                    <td><a href="<?= $media->render() ?>"><?= $media->filename ?></a></td>
-                    <td><?= $media->mimeType ?></td>
-                    <td><?= \kato\helpers\KatoBase::formatBytes($media->byteSize, 'MB') ?></td>
-                    <td><?= $media->statusLabel ?></td>
-                    <td class="text-center">
-                        <div class="btn-group btn-group-xs">
-                            <a href="#" class="btn btn-default" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="btn btn-default" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
 
     </div>
 

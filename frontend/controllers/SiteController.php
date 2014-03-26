@@ -18,6 +18,9 @@ class SiteController extends \yii\web\Controller
 				'class' => 'yii\captcha\CaptchaAction',
 				'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
 			],
+            'upload' => [
+                'class' => 'kato\actions\UploadAction',
+            ],
 		];
 	}
 
