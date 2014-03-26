@@ -2,12 +2,12 @@
     <!-- Right Header Navigation -->
     <ul class="nav header-nav pull-right">
         <li class="dropdown">
-            <a href="<?= \Yii::$app->urlManager->createAbsoluteUrl('site/settings'); ?>" class="dropdown-toggle">
+            <a href="<?= \Yii::$app->urlManager->createAdminUrl('site/settings'); ?>" class="dropdown-toggle">
                 <i class="fa fa-cogs"></i>
             </a>
         </li>
         <li>
-            <a href="<?= \Yii::$app->urlManager->createAbsoluteUrl('site/logout'); ?>" id="sidebar-right-toggle">
+            <a href="<?= \Yii::$app->urlManager->createAdminUrl('site/logout'); ?>" id="sidebar-right-toggle">
                 <i class="fa fa-power-off"></i>
             </a>
         </li>
@@ -25,8 +25,8 @@
     <!-- END Left Header Navigation -->
 
     <!-- Header Brand -->
-    <a href="<?= \Yii::$app->urlManager->createAbsoluteUrl('site/index'); ?>" class="navbar-brand">
-        <img src="<?= \Yii::$app->urlManager->baseUrl; ?>/img/template/drop.png" alt="FreshUI">
+    <a href="<?= \Yii::$app->urlManager->createUrl('site/index'); ?>" class="navbar-brand">
+        <img src="<?= Yii::$app->request->adminBaseUrl ?>/img/drop.png" alt="Kato">
         <span><?= \Yii::$app->kato->setting('site_name'); ?></span>
     </a>
     <!-- END Header Brand -->
