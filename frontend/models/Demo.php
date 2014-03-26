@@ -25,7 +25,7 @@ class Demo extends \kato\ActiveRecord
     */
     public static function tableName()
     {
-    return 'demo';
+        return 'demo';
     }
 
     /**
@@ -33,8 +33,9 @@ class Demo extends \kato\ActiveRecord
     */
     public function rules()
     {
-    return [
+        return [
             [['description', 'tags'], 'string'],
+            [['create_time', 'update_time'], 'required'],
             [['create_time', 'update_time'], 'safe'],
             [['active', 'deleted'], 'integer'],
             [['title'], 'string', 'max' => 255]
@@ -46,7 +47,7 @@ class Demo extends \kato\ActiveRecord
     */
     public function attributeLabels()
     {
-    return [
+        return [
             'id' => 'ID',
             'title' => 'Title',
             'description' => 'Description',

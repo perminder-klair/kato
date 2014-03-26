@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\markdown\MarkdownEditor;
 
 /**
  * @var yii\web\View $this
@@ -18,11 +19,7 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
 
-        <?= Html::activeLabel($model, 'content') ?>
-        <?= kartik\markdown\MarkdownEditor::widget([
-            'model' => $model,
-            'attribute' => 'content',
-        ]); ?>
+        <?= $form->field($model, 'content')->widget(MarkdownEditor::classname()); ?>
 
         <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 

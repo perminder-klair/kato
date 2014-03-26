@@ -1,11 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use backend\models\Tag;
+use kato\helpers\KatoBase;
+use kato\DropZone;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
-use backend\models\Tag;
-use kato\helpers\KatoBase;
+use kartik\markdown\MarkdownEditor;
 
 $tag = new Tag;
 
@@ -19,7 +21,7 @@ $tag = new Tag;
 
 <div class="block-title">
     <ul class="nav nav-tabs" data-toggle="tabs">
-        <li class="active"><a href="#form">Home</a></li>
+        <li class="active"><a href="#form">Form</a></li>
         <li class=""><a href="#media">Media</a></li>
     </ul>
 </div>
@@ -34,12 +36,7 @@ $tag = new Tag;
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
 
-        <?= Html::activeLabel($model, 'content') ?>
-        <?= kartik\markdown\MarkdownEditor::widget([
-                'model' => $model,
-                'attribute' => 'content',
-            ]);
-        ?>
+        <?= $form->field($model, 'content')->widget(MarkdownEditor::classname()); ?>
 
         <?=
         $form->field($model, 'tags')->widget(Select2::classname(), [
@@ -77,7 +74,7 @@ $tag = new Tag;
 
     <div class="tab-pane" id="media">
 
-        <?= \kato\DropZone::widget([
+        <?= DropZone::widget([
             'options' => [
                 'url' => \Yii::$app->urlManager->createUrl(['site/upload', 'content_id' => $model->id, 'media_type' => $model->className()]),
                 'addRemoveLinks' => true,

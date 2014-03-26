@@ -2,11 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use backend\models\Tag;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use kartik\markdown\MarkdownEditor;
-use backend\models\Tag;
-use kato\helpers\KatoBase;
+use kartik\widgets\SwitchInput;
 
 $tag = new Tag;
 
@@ -17,11 +17,20 @@ $tag = new Tag;
  */
 ?>
 
-<div class="demo-form">
+<div class="block-title">
+    <ul class="nav nav-tabs" data-toggle="tabs">
+        <li class="active"><a href="#form">Form</a></li>
+        <li class=""><a href="#media">Media</a></li>
+    </ul>
+</div>
 
-    <?php $form = ActiveForm::begin(); ?>
+<div class="tab-content">
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <div class="tab-pane active demo-form" id="form">
+
+        <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'description')->widget(MarkdownEditor::classname()) ?>
 
     <?= $form->field($model, 'tags')->widget(Select2::classname(), [
             'language' => 'en',
@@ -36,35 +45,51 @@ $tag = new Tag;
         ]) ?>
 
     <?= $form->field($model, 'create_time')->widget(DatePicker::classname(), [
-            'options' => [
-                'placeholder' => 'Select date ...',
-            ],
-            'pluginOptions' => [
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true
-            ],
-        ]) ?>
+                'options' => [
+                    'placeholder' => 'Select date ...',
+                ],
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true
+                ],
+            ]) ?>
 
     <?= $form->field($model, 'update_time')->widget(DatePicker::classname(), [
-            'options' => [
-                'placeholder' => 'Select date ...',
-            ],
-            'pluginOptions' => [
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true
-            ],
-        ]) ?>
+                'options' => [
+                    'placeholder' => 'Select date ...',
+                ],
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true
+                ],
+            ]) ?>
 
-    <?= $form->field($model, 'active')->checkbox() ?>
+    <?= $form->field($model, 'active')->widget(SwitchInput::classname(), [
+                'pluginOptions' => [
+                    'size' => 'small'
+                ],
+            ]) ?>
 
-    <?= $form->field($model, 'deleted')->checkbox() ?>
+    <?= $form->field($model, 'deleted')->widget(SwitchInput::classname(), [
+                'pluginOptions' => [
+                    'size' => 'small'
+                ],
+            ]) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <div class="tab-pane" id="media">
+
+        media here
+
+    </div>
 
 </div>
