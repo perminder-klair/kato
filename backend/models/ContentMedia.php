@@ -26,7 +26,7 @@ class ContentMedia extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['content_id', 'media_id', 'media_type'], 'required'],
+			[['content_id', 'media_id'], 'required'],
 			[['content_id', 'media_id'], 'integer'],
 			[['media_type'], 'string', 'max' => 50]
 		];

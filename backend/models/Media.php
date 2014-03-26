@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use Yii;
 use yii\imagine\Image;
 use kato\ActiveRecord;
 
@@ -17,6 +18,7 @@ use kato\ActiveRecord;
  * @property string $mimeType
  * @property string $byteSize
  * @property integer $status
+ * @property string $content_type
  */
 class Media extends ActiveRecord
 {
@@ -63,6 +65,7 @@ class Media extends ActiveRecord
 			'mimeType' => 'Mime Type',
 			'byteSize' => 'Byte Size',
 			'status' => 'Status',
+            'content_type' => 'Content Type',
 		];
 	}
 
@@ -85,19 +88,23 @@ class Media extends ActiveRecord
      */
     public function getBaseSource()
     {
-        return dirname(\Yii::$app->params['uploadPath']) . '/' . $this->source;
+        return dirname(Yii::$app->params['uploadPath']) . '/' . $this->source;
     }
 
+    /**
+     * TODO complete this properly
+     * @return string
+     */
     public function render()
     {
-        $cacheFile = \Yii::$app->params['uploadPath'] . $this->cacheDir . '/' . $this->filename;
+        $cacheFile = Yii::$app->params['uploadPath'] . $this->cacheDir . '/' . $this->filename;
 
         //http://imagine.readthedocs.org/en/latest/
         // frame, rotate and save an image
         Image::thumbnail($this->baseSource, 50, 50)
             ->save($cacheFile);
 
-        return $cacheFile;
+        return '/files/' . $this->cacheDir . '/' . $this->filename;
     }
 
 }

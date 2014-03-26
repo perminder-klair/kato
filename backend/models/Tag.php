@@ -58,15 +58,15 @@ class Tag extends ActiveRecord
      */
     public static function listTags($tagType = null, $limit = 30)
     {
-        //TODO complete this
-
-        $data = self::find()
+        $model = self::find()
             ->select('name')
             ->orderBy('frequency DESC, Name')
-            ->limit($limit)
-            //if (!is_null($tagType))
-                //->where('tag_type > :type', [':type' => $tagType])
-            ->all();
+            ->limit($limit);
+            if (!is_null($tagType)) {
+                $data = $model->where('tag_type = :type', [':type' => $tagType])->all();
+            } else {
+                $data = $model->all();
+            }
 
         $return = [''];
         if (!empty($data)) {

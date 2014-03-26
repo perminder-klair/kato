@@ -37,8 +37,7 @@ $tag = new Tag;
 
         <?= $form->field($model, 'content')->widget(MarkdownEditor::classname()); ?>
 
-        <?=
-        $form->field($model, 'tags')->widget(Select2::classname(), [
+        <?= $form->field($model, 'tags')->widget(Select2::classname(), [
             'language' => 'en',
             'options' => [
                 'multiple' => true,
@@ -50,8 +49,7 @@ $tag = new Tag;
             ],
         ]); ?>
 
-        <?=
-        $form->field($model, 'publish_time')->widget(DatePicker::classname(), [
+        <?= $form->field($model, 'publish_time')->widget(DatePicker::classname(), [
             'options' => [
                 'placeholder' => 'Select issue date ...',
             ],

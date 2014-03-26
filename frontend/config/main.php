@@ -17,7 +17,10 @@ return [
 	'components' => [
         'request'=>[
             'class' => 'kato\components\Request',
-            'web'=> '/frontend/web'
+            'web'=> '/frontend/web',
+            //TODO enable this
+            'enableCsrfValidation'=>false,
+            'enableCookieValidation'=>true,
         ],
 		'errorHandler' => [
 			'errorAction' => 'site/error',
