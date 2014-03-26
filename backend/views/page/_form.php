@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\markdown\MarkdownEditor;
+use backend\widgets\Media;
 
 /**
  * @var yii\web\View $this
@@ -46,15 +47,8 @@ use kartik\markdown\MarkdownEditor;
 
     <div class="tab-pane" id="media">
 
-        <?= \kato\DropZone::widget([
-            'options' => [
-                'url' => \Yii::$app->urlManager->createUrl(['site/upload', 'content_id' => $model->id, 'media_type' => $model->className()]),
-                'addRemoveLinks' => true,
-                'maxFilesize' => kato\helpers\KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
-            ],
-            'clientEvents' => [
-                'success' => "function(file, responseText){console.log(responseText)}",
-            ]
+        <?= Media::widget([
+            'model' => $model,
         ]); ?>
 
     </div>

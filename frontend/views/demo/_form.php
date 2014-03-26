@@ -3,19 +3,19 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use backend\models\Tag;
-use backend\widgets\Media;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use kartik\markdown\MarkdownEditor;
 use kartik\widgets\SwitchInput;
+use backend\widgets\Media;
 
 $tag = new Tag;
 
 /**
- * @var yii\web\View $this
- * @var frontend\models\Demo $model
- * @var yii\widgets\ActiveForm $form
- */
+* @var yii\web\View $this
+* @var frontend\models\Demo $model
+* @var yii\widgets\ActiveForm $form
+*/
 ?>
 
 <div class="block-title">
@@ -31,9 +31,9 @@ $tag = new Tag;
 
         <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'description')->widget(MarkdownEditor::classname()) ?>
+              <?= $form->field($model, 'description')->widget(MarkdownEditor::classname()) ?>
 
-    <?= $form->field($model, 'tags')->widget(Select2::classname(), [
+              <?= $form->field($model, 'tags')->widget(Select2::classname(), [
             'language' => 'en',
             'options' => [
                 'multiple' => true,
@@ -45,7 +45,7 @@ $tag = new Tag;
             ],
         ]) ?>
 
-    <?= $form->field($model, 'create_time')->widget(DatePicker::classname(), [
+              <?= $form->field($model, 'create_time')->widget(DatePicker::classname(), [
                 'options' => [
                     'placeholder' => 'Select date ...',
                 ],
@@ -55,7 +55,7 @@ $tag = new Tag;
                 ],
             ]) ?>
 
-    <?= $form->field($model, 'update_time')->widget(DatePicker::classname(), [
+              <?= $form->field($model, 'update_time')->widget(DatePicker::classname(), [
                 'options' => [
                     'placeholder' => 'Select date ...',
                 ],
@@ -65,23 +65,23 @@ $tag = new Tag;
                 ],
             ]) ?>
 
-    <?= $form->field($model, 'active')->widget(SwitchInput::classname(), [
+              <?= $form->field($model, 'active')->widget(SwitchInput::classname(), [
                 'pluginOptions' => [
                     'size' => 'small'
                 ],
             ]) ?>
 
-    <?= $form->field($model, 'deleted')->widget(SwitchInput::classname(), [
+              <?= $form->field($model, 'deleted')->widget(SwitchInput::classname(), [
                 'pluginOptions' => [
                     'size' => 'small'
                 ],
             ]) ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
+              <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 
-        <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        </div>
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            </div>
 
         <?php ActiveForm::end(); ?>
 
@@ -90,7 +90,7 @@ $tag = new Tag;
     <div class="tab-pane" id="media">
 
         <?= Media::widget([
-            'model' => $model,
+        'model' => $model,
         ]); ?>
 
     </div>
