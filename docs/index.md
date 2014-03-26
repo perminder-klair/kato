@@ -8,6 +8,7 @@
 
 - [Installation](installation.md)
 - [Configuration](configuration.md)
+- [Gii](gii.md)
 
 #Usage
 

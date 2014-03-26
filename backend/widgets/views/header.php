@@ -2,12 +2,12 @@
     <!-- Right Header Navigation -->
     <ul class="nav header-nav pull-right">
         <li class="dropdown">
-            <a href="<?= \Yii::$app->urlManager->createAdminUrl('site/settings'); ?>" class="dropdown-toggle">
+            <a href="<?= \Yii::$app->urlManager->createAdminUrl('site/settings'); ?>">
                 <i class="fa fa-cogs"></i>
             </a>
         </li>
         <li>
-            <a href="<?= \Yii::$app->urlManager->createAdminUrl('site/logout'); ?>" id="sidebar-right-toggle">
+            <a href="<?= \Yii::$app->urlManager->createAdminUrl('site/logout'); ?>">
                 <i class="fa fa-power-off"></i>
             </a>
         </li>

@@ -68,7 +68,7 @@ class Tag extends ActiveRecord
                 //->where('tag_type > :type', [':type' => $tagType])
             ->all();
 
-        $return = [];
+        $return = [''];
         if (!empty($data)) {
             foreach ($data as $tag) {
                 $return[] = $tag->name;
