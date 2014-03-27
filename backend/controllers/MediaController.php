@@ -10,6 +10,9 @@ use yii\helpers\Url;
 
 class MediaController extends \yii\web\Controller
 {
+    public $pageTitle = 'Media';
+    public $pageIcon = 'fa fa-camera-retro';
+
     public function behaviors()
     {
         return [
@@ -34,6 +37,32 @@ class MediaController extends \yii\web\Controller
     }
 
     /**
+     * Updates an existing Media model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+        $model->title = $model->id;
+
+        $meta['title'] = $this->pageTitle;
+        $meta['description'] = 'Update media';
+        $meta['pageIcon'] = $this->pageIcon;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Media has been updated');
+            return $this->redirect(Url::previous());
+        } else {
+            return $this->render('/global/update', [
+                'model' => $model,
+                'meta' => $meta,
+            ]);
+        }
+    }
+
+    /**
      * Deletes an existing Media model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -44,7 +73,7 @@ class MediaController extends \yii\web\Controller
         $this->findModel($id)->delete();
         Yii::$app->session->setFlash('success', 'Media has been deleted');
 
-        $this->redirect(Url::previous());
+        return $this->redirect(Url::previous());
     }
 
     /**

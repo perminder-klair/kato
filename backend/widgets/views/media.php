@@ -39,6 +39,7 @@ use kato\DropZone;
             <th>Mime Type</th>
             <th>Size</th>
             <th>Published</th>
+            <th>Type</th>
             <th class="text-center">Actions</th>
         </tr>
         </thead>
@@ -49,9 +50,10 @@ use kato\DropZone;
                 <td><?= $media->mimeType ?></td>
                 <td><?= \kato\helpers\KatoBase::formatBytes($media->byteSize, 'MB') ?></td>
                 <td><?= $media->statusLabel ?></td>
+                <td><?= ucfirst($media->media_type) ?></td>
                 <td class="text-center">
                     <div class="btn-group btn-group-xs">
-                        <a href="#" class="btn btn-default" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                        <a href="<?= \Yii::$app->urlManager->createAdminUrl(['media/update', 'id' => $media->id]); ?>" class="btn btn-default" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                         <a href="<?= \Yii::$app->urlManager->createAdminUrl(['media/delete', 'id' => $media->id]); ?>" class="btn btn-default" data-original-title="Delete" data-confirm="Are you sure to delete this item?" data-method="post" data-pjax="0"><i class="fa fa-times"></i></a>
                     </div>
                 </td>

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "dc8774773811af3660c08642071f332c",
+    "hash": "bb2f79df9cf26fc671bbb5282024bac8",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -306,12 +306,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widgets.git",
-                "reference": "5a49a6bcf9af6f8d7fbb2906d7898211652e0740"
+                "reference": "f702cac6696e5a43b214dcf91ed98202c420eaf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/5a49a6bcf9af6f8d7fbb2906d7898211652e0740",
-                "reference": "5a49a6bcf9af6f8d7fbb2906d7898211652e0740",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/f702cac6696e5a43b214dcf91ed98202c420eaf6",
+                "reference": "f702cac6696e5a43b214dcf91ed98202c420eaf6",
                 "shasum": ""
             },
             "require": {
@@ -345,7 +345,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-03-25 13:35:12"
+            "time": "2014-03-25 14:33:37"
         },
         {
             "name": "michelf/php-markdown",
@@ -459,12 +459,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/perminder-klair/kato-core.git",
-                "reference": "ae10f9ca7193b40ed224f73ef77dc41e574db4b8"
+                "reference": "ca00943b9d0b7f9515f9e9d2ca2019fb2833c82b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perminder-klair/kato-core/zipball/ae10f9ca7193b40ed224f73ef77dc41e574db4b8",
-                "reference": "ae10f9ca7193b40ed224f73ef77dc41e574db4b8",
+                "url": "https://api.github.com/repos/perminder-klair/kato-core/zipball/ca00943b9d0b7f9515f9e9d2ca2019fb2833c82b",
+                "reference": "ca00943b9d0b7f9515f9e9d2ca2019fb2833c82b",
                 "shasum": ""
             },
             "require": {
@@ -494,7 +494,7 @@
                 "kato",
                 "yii2"
             ],
-            "time": "2014-03-20 22:27:57"
+            "time": "2014-03-27 13:13:02"
         },
         {
             "name": "perminder-klair/yii2-dropzone",
@@ -535,6 +535,45 @@
                 "yii2"
             ],
             "time": "2014-03-17 11:03:19"
+        },
+        {
+            "name": "perminder-klair/yii2-x-editable",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/perminder-klair/yii2-x-editable.git",
+                "reference": "669554a382bc4a91e04a3373ffc2a25940d6a5c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/perminder-klair/yii2-x-editable/zipball/669554a382bc4a91e04a3373ffc2a25940d6a5c8",
+                "reference": "669554a382bc4a91e04a3373ffc2a25940d6a5c8",
+                "shasum": ""
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kato\\xeditable\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Parminder Klair",
+                    "email": "perminder.klair@gmail.com",
+                    "homepage": "http://www.webonise.co.uk/"
+                }
+            ],
+            "description": "X-editable for Yii2",
+            "keywords": [
+                "extension",
+                "x-editable",
+                "yii2"
+            ],
+            "time": "2014-03-27 13:05:47"
         },
         {
             "name": "phpspec/php-diff",
@@ -626,12 +665,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "d74aee409342d086ae6b087ea6dc3e71f6da055c"
+                "reference": "e9982cad66839f82515079912f207ee1b9708f9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/d74aee409342d086ae6b087ea6dc3e71f6da055c",
-                "reference": "d74aee409342d086ae6b087ea6dc3e71f6da055c",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/e9982cad66839f82515079912f207ee1b9708f9d",
+                "reference": "e9982cad66839f82515079912f207ee1b9708f9d",
                 "shasum": ""
             },
             "type": "library",
@@ -666,7 +705,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2014-03-24 07:30:44"
+            "time": "2014-03-27 11:22:15"
         },
         {
             "name": "yiisoft/jquery",
@@ -723,12 +762,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "c0860451132a3010c25af65f5c8d7d76c309fd48"
+                "reference": "368fde844ba58e79fed263ffa9b2513ce464aaa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/c0860451132a3010c25af65f5c8d7d76c309fd48",
-                "reference": "c0860451132a3010c25af65f5c8d7d76c309fd48",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/368fde844ba58e79fed263ffa9b2513ce464aaa8",
+                "reference": "368fde844ba58e79fed263ffa9b2513ce464aaa8",
                 "shasum": ""
             },
             "require": {
@@ -793,7 +832,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-03-25 12:35:25"
+            "time": "2014-03-27 12:17:54"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -890,12 +929,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "cf9be2759a785d943c71cf49334db79b2bc7fcd7"
+                "reference": "fd03936b952b81160a17e756dd098a187e6fe7c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/cf9be2759a785d943c71cf49334db79b2bc7fcd7",
-                "reference": "cf9be2759a785d943c71cf49334db79b2bc7fcd7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/fd03936b952b81160a17e756dd098a187e6fe7c0",
+                "reference": "fd03936b952b81160a17e756dd098a187e6fe7c0",
                 "shasum": ""
             },
             "require": {
@@ -926,7 +965,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2014-03-24 22:26:30"
+            "time": "2014-03-27 01:48:41"
         },
         {
             "name": "yiisoft/yii2-gii",
@@ -1080,6 +1119,7 @@
         "yiisoft/yii2-gii": 20,
         "perminder-klair/kato-core": 20,
         "perminder-klair/yii2-dropzone": 20,
+        "perminder-klair/yii2-x-editable": 20,
         "kartik-v/yii2-markdown": 20,
         "kartik-v/yii2-widgets": 20
     },

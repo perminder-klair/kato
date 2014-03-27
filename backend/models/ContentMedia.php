@@ -41,7 +41,7 @@ class ContentMedia extends \yii\db\ActiveRecord
 			'id' => 'ID',
 			'content_id' => 'Content ID',
 			'media_id' => 'Media ID',
-			'media_type' => 'Media Type',
+			'content_type' => 'Content Type',
 		];
 	}
 }

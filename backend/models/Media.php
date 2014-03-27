@@ -26,6 +26,7 @@ class Media extends ActiveRecord
     const STATUS_PUBLISHED = 1;
 
     public $file;
+    public $title;
     public $cacheDir = 'cache';
 
 	/**
@@ -42,8 +43,8 @@ class Media extends ActiveRecord
 	public function rules()
 	{
 		return [
-			[['source_location', 'create_time', 'byteSize'], 'required'],
-			[['create_time'], 'safe'],
+			[['filename', 'source'], 'required'],
+			[['create_time', 'media_type'], 'safe'],
 			[['byteSize', 'status'], 'integer'],
 			[['filename', 'source', 'source_location'], 'string', 'max' => 255],
 			[['extension', 'mimeType'], 'string', 'max' => 50]
@@ -65,7 +66,7 @@ class Media extends ActiveRecord
 			'mimeType' => 'Mime Type',
 			'byteSize' => 'Byte Size',
 			'status' => 'Status',
-            'content_type' => 'Content Type',
+            'media_type' => 'Media Type',
 		];
 	}
 
@@ -79,7 +80,7 @@ class Media extends ActiveRecord
             unlink($this->baseSource);
         }
 
-        return parent::afterDelete();
+        parent::afterDelete();
     }
 
     /**
@@ -89,6 +90,17 @@ class Media extends ActiveRecord
     public function getBaseSource()
     {
         return dirname(Yii::$app->params['uploadPath']) . '/' . $this->source;
+    }
+
+    public function listMediaType()
+    {
+        $types = [];
+        if (!empty(Yii::$app->params['mediaTypes'])) {
+            foreach (Yii::$app->params['mediaTypes'] as $key => $value) {
+                $types[$value] = ucfirst($value);
+            }
+        }
+        return $types;
     }
 
     /**
