@@ -20,7 +20,7 @@ use kato\DropZone;
     <!-- Dropzone.js, You can check out https://github.com/enyo/dropzone/wiki for usage examples -->
     <?= DropZone::widget([
         'options' => [
-            'url' => \Yii::$app->urlManager->createUrl(['site/upload', 'content_id' => $model->id, 'media_type' => $model->className()]),
+            'url' => \Yii::$app->urlManager->createUrl(['site/upload', 'content_id' => $model->id, 'content_type' => $model->className()]),
             'addRemoveLinks' => true,
             'maxFilesize' => KatoBase::formatBytes(Yii::$app->params['maxUploadSize'], 'MB', '0', true),
         ],
@@ -52,7 +52,7 @@ use kato\DropZone;
                 <td class="text-center">
                     <div class="btn-group btn-group-xs">
                         <a href="#" class="btn btn-default" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                        <a href="#" class="btn btn-default" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                        <a href="<?= \Yii::$app->urlManager->createAdminUrl(['media/delete', 'id' => $media->id]); ?>" class="btn btn-default" data-original-title="Delete" data-confirm="Are you sure to delete this item?" data-method="post" data-pjax="0"><i class="fa fa-times"></i></a>
                     </div>
                 </td>
             </tr>

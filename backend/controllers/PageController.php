@@ -22,7 +22,7 @@ class PageController extends \yii\web\Controller
 		return [
             'access' => [
                 'class' => \yii\web\AccessControl::className(),
-                //'only' => ['index', 'create', 'update', 'delete'],
+                'only' => ['index', 'create', 'update', 'delete'],
                 'rules' => [
                     [
                         'actions' => ['index', 'create', 'update', 'delete'], // Define specific actions

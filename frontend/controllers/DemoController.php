@@ -8,6 +8,7 @@ use frontend\models\search\DemoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * DemoController implements the CRUD actions for Demo model.
@@ -128,6 +129,8 @@ class DemoController extends Controller
     public function actionUpdate($id)
     {
         $this->layout = '@backend/views/layouts/main';
+
+        Url::remember();
 
         $model = $this->findModel($id);
 

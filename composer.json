@@ -29,6 +29,7 @@
         "yiisoft/yii2-imagine": "*",
         "perminder-klair/kato-core": "dev-master",
         "perminder-klair/yii2-dropzone": "dev-master",
+        "perminder-klair/yii2-x-editable": "dev-master",
         "kartik-v/yii2-markdown": "dev-master",
         "kartik-v/yii2-widgets": "dev-master"
 

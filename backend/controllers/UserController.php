@@ -21,6 +21,17 @@ class UserController extends Controller
 	public function behaviors()
 	{
 		return [
+            'access' => [
+                'class' => \yii\web\AccessControl::className(),
+                'only' => ['index', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'delete'], // Define specific actions
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
 			'verbs' => [
 				'class' => VerbFilter::className(),
 				'actions' => [

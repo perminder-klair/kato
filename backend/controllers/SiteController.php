@@ -30,7 +30,7 @@ class SiteController extends \yii\web\Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    //'logout' => ['post'],
+                    'logout' => ['post'],
                 ],
             ],
 		];

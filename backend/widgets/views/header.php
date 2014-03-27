@@ -7,7 +7,7 @@
             </a>
         </li>
         <li>
-            <a href="<?= \Yii::$app->urlManager->createAdminUrl('site/logout'); ?>">
+            <a href="<?= \Yii::$app->urlManager->createAdminUrl('site/logout'); ?>" data-method="post">
                 <i class="fa fa-power-off"></i>
             </a>
         </li>
