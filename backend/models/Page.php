@@ -17,6 +17,7 @@ use yii\helpers\ArrayHelper;
  * @property string $short_desc
  * @property string $content
  * @property string $content_html
+ * @property string $content_blocks
  * @property string $slug
  * @property string $create_time
  * @property integer $created_by
@@ -50,7 +51,7 @@ class Page extends ActiveRecord
 	public function rules()
 	{
 		return [
-			[['content', 'content_html'], 'string'],
+			[['content', 'content_html', 'content_blocks'], 'string'],
 			[['create_time', 'created_by', 'update_time'], 'required'],
 			[['create_time', 'update_time'], 'safe'],
 			[['created_by', 'updated_by', 'level', 'parent_id', 'type'], 'integer'],
@@ -79,6 +80,7 @@ class Page extends ActiveRecord
 			'short_desc' => 'Short Desc',
 			'content' => 'Content',
 			'content_html' => 'Content Html',
+            'content_blocks' => 'Content Blocks',
 			'slug' => 'Slug',
 			'create_time' => 'Create Time',
 			'created_by' => 'Created By',
@@ -166,5 +168,10 @@ class Page extends ActiveRecord
         return [
             'default' => 'default',
         ];
+    }
+
+    public function renderBlocks()
+    {
+        return \Yii::$app->kato->renderBlock($this->content_blocks);
     }
 }

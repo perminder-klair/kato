@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\markdown\MarkdownEditor;
 use kato\sirtrevorjs\SirTrevor;
 
 /**
@@ -18,7 +17,9 @@ use kato\sirtrevorjs\SirTrevor;
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
 
-        <?= $form->field($model, 'content')->widget(SirTrevor::classname()); ?>
+        <?= $form->field($model, 'content')->widget(SirTrevor::classname(), [
+            'imageUploadUrl' => Yii::$app->urlManager->createAdminUrl(['block/upload']),
+        ]); ?>
 
         <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 

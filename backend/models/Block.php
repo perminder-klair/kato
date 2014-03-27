@@ -5,8 +5,6 @@ namespace backend\models;
 use kato\ActiveRecord;
 use yii\helpers\Inflector;
 use yii\helpers\Json;
-use kartik\markdown\Markdown;
-use yii\helpers\Html;
 
 /**
  * This is the model class for table "kato_block".
@@ -14,7 +12,6 @@ use yii\helpers\Html;
  * @property string $id
  * @property string $title
  * @property string $content
- * @property string $content_html
  * @property string $create_time
  * @property integer $created_by
  * @property string $update_time
@@ -43,7 +40,7 @@ class Block extends ActiveRecord
 	public function rules()
 	{
 		return [
-			[['content', 'content_html'], 'string'],
+			[['content'], 'string'],
 			[['create_time', 'update_time', 'content'], 'safe'],
 			[['created_by', 'updated_by', 'listing_order', 'status', 'deleted'], 'integer'],
 			[['title', 'parent'], 'string', 'max' => 70],
@@ -61,7 +58,6 @@ class Block extends ActiveRecord
 			'id' => 'ID',
 			'title' => 'Title',
 			'content' => 'Content',
-			'content_html' => 'Content Html',
 			'create_time' => 'Create Time',
 			'created_by' => 'Created By',
 			'update_time' => 'Update Time',
@@ -107,7 +103,6 @@ class Block extends ActiveRecord
         if (parent::beforeSave($insert)) {
             $this->parent = strtolower($this->parent);
 
-            //$this->content_html = Markdown::convert($this->content);
             $this->title = Inflector::slug($this->title);
 
             return true;
@@ -143,20 +138,6 @@ class Block extends ActiveRecord
 
     public function render()
     {
-        $content = Json::decode($this->content);
-
-        $blocks = '';
-        if (!empty($content)) {
-            foreach ($content['data'] as $block) {
-                if ($block['type'] === 'heading') {
-                    $blocks .= Html::tag('h2', $block['data']['text']);
-                }
-                if ($block['type'] === 'text' || $block['type'] === 'list') {
-                    $blocks .= Markdown::convert($block['data']['text']);
-                }
-            }
-        }
-
-        return $blocks;
+        return \Yii::$app->kato->renderBlock($this->content);
     }
 }

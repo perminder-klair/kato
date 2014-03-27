@@ -26,4 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		],
 	]); ?>
 
+    <?= $model->renderBlocks(); ?>
+
 </div>
