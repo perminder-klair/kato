@@ -56,7 +56,7 @@ class Blog extends ActiveRecord
             [['create_time', 'update_time', 'publish_time'], 'safe'],
             [['created_by', 'updated_by', 'published_by', 'is_revision', 'parent_id', 'status', 'deleted'], 'integer'],
             [['title', 'slug'], 'string', 'max' => 70],
-            [['short_desc'], 'string', 'max' => 160],
+            [['short_desc'], 'string', 'max' => 255],
             ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
             ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
             ['parent_id', 'default', 'value' => 0],

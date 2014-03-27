@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "bb2f79df9cf26fc671bbb5282024bac8",
+    "hash": "06bff403c6405e1b7d2779165620f834",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -459,12 +459,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/perminder-klair/kato-core.git",
-                "reference": "ca00943b9d0b7f9515f9e9d2ca2019fb2833c82b"
+                "reference": "4b211f6e1d7500fb5da9917cdfede44975e8f07a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perminder-klair/kato-core/zipball/ca00943b9d0b7f9515f9e9d2ca2019fb2833c82b",
-                "reference": "ca00943b9d0b7f9515f9e9d2ca2019fb2833c82b",
+                "url": "https://api.github.com/repos/perminder-klair/kato-core/zipball/4b211f6e1d7500fb5da9917cdfede44975e8f07a",
+                "reference": "4b211f6e1d7500fb5da9917cdfede44975e8f07a",
                 "shasum": ""
             },
             "require": {
@@ -494,7 +494,7 @@
                 "kato",
                 "yii2"
             ],
-            "time": "2014-03-27 13:13:02"
+            "time": "2014-03-27 13:18:37"
         },
         {
             "name": "perminder-klair/yii2-dropzone",
@@ -502,12 +502,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/perminder-klair/yii2-dropzone.git",
-                "reference": "2689ef1940ceec8853b7c794084102aa48e4d7e0"
+                "reference": "54c10f866db957045d80ed81959f0ec1d47a3f05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perminder-klair/yii2-dropzone/zipball/2689ef1940ceec8853b7c794084102aa48e4d7e0",
-                "reference": "2689ef1940ceec8853b7c794084102aa48e4d7e0",
+                "url": "https://api.github.com/repos/perminder-klair/yii2-dropzone/zipball/54c10f866db957045d80ed81959f0ec1d47a3f05",
+                "reference": "54c10f866db957045d80ed81959f0ec1d47a3f05",
                 "shasum": ""
             },
             "type": "yii2-extension",
@@ -534,26 +534,26 @@
                 "upload",
                 "yii2"
             ],
-            "time": "2014-03-17 11:03:19"
+            "time": "2014-03-27 14:11:41"
         },
         {
-            "name": "perminder-klair/yii2-x-editable",
+            "name": "perminder-klair/yii2-sir-trevor-js",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/perminder-klair/yii2-x-editable.git",
-                "reference": "669554a382bc4a91e04a3373ffc2a25940d6a5c8"
+                "url": "https://github.com/perminder-klair/yii2-sir-trevor-js.git",
+                "reference": "ff4cbeb99afd1aa86334f0b2ff8910440daa5b18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perminder-klair/yii2-x-editable/zipball/669554a382bc4a91e04a3373ffc2a25940d6a5c8",
-                "reference": "669554a382bc4a91e04a3373ffc2a25940d6a5c8",
+                "url": "https://api.github.com/repos/perminder-klair/yii2-sir-trevor-js/zipball/ff4cbeb99afd1aa86334f0b2ff8910440daa5b18",
+                "reference": "ff4cbeb99afd1aa86334f0b2ff8910440daa5b18",
                 "shasum": ""
             },
             "type": "yii2-extension",
             "autoload": {
                 "psr-4": {
-                    "kato\\xeditable\\": ""
+                    "kato\\sirtrevorjs\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -567,13 +567,13 @@
                     "homepage": "http://www.webonise.co.uk/"
                 }
             ],
-            "description": "X-editable for Yii2",
+            "description": "Sir Trevor Editor for Yii2",
             "keywords": [
                 "extension",
-                "x-editable",
+                "sir-trevor-js",
                 "yii2"
             ],
-            "time": "2014-03-27 13:05:47"
+            "time": "2014-03-27 16:31:50"
         },
         {
             "name": "phpspec/php-diff",
@@ -762,12 +762,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "368fde844ba58e79fed263ffa9b2513ce464aaa8"
+                "reference": "3df63b72eb3817dd9d5837136a0b9f0bfeb46397"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/368fde844ba58e79fed263ffa9b2513ce464aaa8",
-                "reference": "368fde844ba58e79fed263ffa9b2513ce464aaa8",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/3df63b72eb3817dd9d5837136a0b9f0bfeb46397",
+                "reference": "3df63b72eb3817dd9d5837136a0b9f0bfeb46397",
                 "shasum": ""
             },
             "require": {
@@ -832,7 +832,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-03-27 12:17:54"
+            "time": "2014-03-27 15:01:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -1119,7 +1119,7 @@
         "yiisoft/yii2-gii": 20,
         "perminder-klair/kato-core": 20,
         "perminder-klair/yii2-dropzone": 20,
-        "perminder-klair/yii2-x-editable": 20,
+        "perminder-klair/yii2-sir-trevor-js": 20,
         "kartik-v/yii2-markdown": 20,
         "kartik-v/yii2-widgets": 20
     },

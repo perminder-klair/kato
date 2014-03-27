@@ -56,7 +56,7 @@ class Page extends ActiveRecord
 			[['created_by', 'updated_by', 'level', 'parent_id', 'type'], 'integer'],
 			[['status', 'deleted'], 'boolean'],
 			[['title', 'slug'], 'string', 'max' => 70],
-			[['short_desc'], 'string', 'max' => 160],
+			[['short_desc'], 'string', 'max' => 255],
 			[['layout'], 'string', 'max' => 25],
             ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
             ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
@@ -64,6 +64,7 @@ class Page extends ActiveRecord
             ['type', 'in', 'range' => [self::TYPE_STATIC, self::TYPE_NON_STATIC]],
             ['parent_id', 'default', 'value' => 0],
             ['slug', 'default', 'value' => null],
+            [['title', 'slug'], 'unique'],
 		];
 	}
 

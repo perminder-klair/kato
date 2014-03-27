@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\markdown\MarkdownEditor;
+use kato\sirtrevorjs\SirTrevor;
 
 /**
  * @var yii\web\View $this
@@ -17,9 +18,7 @@ use kartik\markdown\MarkdownEditor;
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
 
-        <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
-
-        <?= $form->field($model, 'content')->widget(MarkdownEditor::classname()); ?>
+        <?= $form->field($model, 'content')->widget(SirTrevor::classname()); ?>
 
         <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
 

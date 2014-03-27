@@ -35,6 +35,8 @@ $tag = new Tag;
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
 
+        <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
+
         <?= $form->field($model, 'content')->widget(MarkdownEditor::classname()); ?>
 
         <?= $form->field($model, 'tags')->widget(Select2::classname(), [

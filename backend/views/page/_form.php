@@ -29,6 +29,8 @@ use backend\widgets\Media;
 
             <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
 
+            <?= $form->field($model, 'short_desc')->textInput(['maxlength' => 255]) ?>
+
             <?= $form->field($model, 'content')->widget(MarkdownEditor::classname()); ?>
 
             <?= $form->field($model, 'parent_id')->dropDownList($model->listParents(), ['prompt'=>'Select Parent']); ?>
