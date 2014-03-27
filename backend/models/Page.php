@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use Yii;
 use kartik\markdown\Markdown;
 use kato\helpers\KatoBase;
 use kato\behaviors\Slug;
@@ -163,11 +164,23 @@ class Page extends ActiveRecord
         return ArrayHelper::map($parents, 'id', 'title');
     }
 
+    /**
+     * TODO make it work with different themes
+     * @return array
+     */
     public function listLayouts()
     {
-        return [
-            'default' => 'default',
-        ];
+        $dir = Yii::getAlias('@frontend') . '/web/themes/basic/page';
+
+        $files = [];
+        if ($viewFiles = \kato\helpers\KatoBase::get_files($dir)) {
+            foreach ($viewFiles as $key => $value) {
+                $fileName = basename($value, ".php");
+                $files[$fileName] = ucfirst($fileName);
+            }
+
+        }
+        return $files;
     }
 
     public function renderBlocks()
