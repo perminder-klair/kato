@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.13)
 # Database: kato2
-# Generation Time: 2014-03-26 15:48:50 +0000
+# Generation Time: 2014-03-27 23:53:22 +0000
 # ************************************************************
 
 
@@ -42,7 +42,7 @@ LOCK TABLES `demo` WRITE;
 
 INSERT INTO `demo` (`id`, `title`, `description`, `tags`, `create_time`, `update_time`, `active`, `deleted`)
 VALUES
-	(7,'Demo-1','nice\r\n**bold**','test','2014-03-26 10:58:35','2014-03-26 10:59:05',1,0);
+	(7,'Demo-1','nice\r\n**bold**','kato','2014-03-26 10:58:35','2014-03-26 21:40:10',1,0);
 
 /*!40000 ALTER TABLE `demo` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -123,13 +123,11 @@ DROP TABLE IF EXISTS `kato_block`;
 CREATE TABLE `kato_block` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(70) NOT NULL DEFAULT '',
-  `slug` varchar(70) NOT NULL DEFAULT '',
   `content` text,
-  `content_html` text,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` int(11) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
   `parent` varchar(70) DEFAULT NULL,
   `listing_order` int(11) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
@@ -140,9 +138,10 @@ CREATE TABLE `kato_block` (
 LOCK TABLES `kato_block` WRITE;
 /*!40000 ALTER TABLE `kato_block` DISABLE KEYS */;
 
-INSERT INTO `kato_block` (`id`, `title`, `slug`, `content`, `content_html`, `create_time`, `created_by`, `update_time`, `updated_by`, `parent`, `listing_order`, `status`, `deleted`)
+INSERT INTO `kato_block` (`id`, `title`, `content`, `create_time`, `created_by`, `update_time`, `updated_by`, `parent`, `listing_order`, `status`, `deleted`)
 VALUES
-	(1,'Contact Intro','contact-intro','If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.','<p>If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.</p>\r\n','2013-10-27 18:14:48',0,'2014-03-11 12:50:15',1,'contact',NULL,1,0);
+	(1,'contact-intro','{\"data\":[{\"type\":\"text\",\"data\":{\"text\":\"If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.\\n\"}}]}','2013-10-27 18:14:48',0,'2014-03-27 20:00:00',1,'contact',NULL,1,0),
+	(5,'block-2','{\"data\":[{\"type\":\"heading\",\"data\":{\"text\":\"image test\"}}]}','2014-03-27 20:10:02',1,'2014-03-27 21:14:40',1,'',NULL,0,0);
 
 /*!40000 ALTER TABLE `kato_block` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -156,7 +155,7 @@ DROP TABLE IF EXISTS `kato_blog`;
 CREATE TABLE `kato_blog` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(70) NOT NULL DEFAULT '',
-  `short_desc` varchar(160) DEFAULT NULL,
+  `short_desc` varchar(255) DEFAULT NULL,
   `content` text,
   `content_html` text,
   `slug` varchar(70) DEFAULT NULL,
@@ -174,6 +173,15 @@ CREATE TABLE `kato_blog` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `kato_blog` WRITE;
+/*!40000 ALTER TABLE `kato_blog` DISABLE KEYS */;
+
+INSERT INTO `kato_blog` (`id`, `title`, `short_desc`, `content`, `content_html`, `slug`, `tags`, `create_time`, `created_by`, `update_time`, `updated_by`, `publish_time`, `published_by`, `is_revision`, `parent_id`, `status`, `deleted`)
+VALUES
+	(15,'Post-1','...',NULL,NULL,NULL,NULL,'2014-03-26 17:27:54',1,'2014-03-26 17:27:54',NULL,'2014-03-26 17:27:54',NULL,0,0,0,0);
+
+/*!40000 ALTER TABLE `kato_blog` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table kato_content_media
@@ -185,7 +193,7 @@ CREATE TABLE `kato_content_media` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content_id` int(11) NOT NULL,
   `media_id` int(11) NOT NULL,
-  `media_type` varchar(50) NOT NULL,
+  `content_type` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -206,9 +214,20 @@ CREATE TABLE `kato_media` (
   `mimeType` varchar(50) DEFAULT '',
   `byteSize` int(10) unsigned NOT NULL,
   `status` tinyint(5) NOT NULL DEFAULT '1',
+  `media_type` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `kato_media` WRITE;
+/*!40000 ALTER TABLE `kato_media` DISABLE KEYS */;
+
+INSERT INTO `kato_media` (`id`, `filename`, `source`, `source_location`, `create_time`, `extension`, `mimeType`, `byteSize`, `status`, `media_type`)
+VALUES
+	(43,'57544110151582073170257518358037n-9G1a.jpg','files/2014-03-13/57544110151582073170257518358037n-9G1a.jpg',NULL,'2014-03-27 21:12:08','jpg','image/jpeg',110065,1,NULL),
+	(44,'57544110151582073170257518358037n-wBjE.jpg','files/2014-03-13/57544110151582073170257518358037n-wBjE.jpg',NULL,'2014-03-27 21:12:46','jpg','image/jpeg',110065,1,NULL);
+
+/*!40000 ALTER TABLE `kato_media` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table kato_page
@@ -219,9 +238,10 @@ DROP TABLE IF EXISTS `kato_page`;
 CREATE TABLE `kato_page` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(70) NOT NULL DEFAULT '',
-  `short_desc` varchar(160) DEFAULT NULL,
+  `short_desc` varchar(255) DEFAULT NULL,
   `content` text,
   `content_html` text,
+  `content_blocks` text,
   `slug` varchar(70) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` int(11) NOT NULL,
@@ -239,9 +259,9 @@ CREATE TABLE `kato_page` (
 LOCK TABLES `kato_page` WRITE;
 /*!40000 ALTER TABLE `kato_page` DISABLE KEYS */;
 
-INSERT INTO `kato_page` (`id`, `title`, `short_desc`, `content`, `content_html`, `slug`, `create_time`, `created_by`, `update_time`, `updated_by`, `level`, `layout`, `parent_id`, `type`, `status`, `deleted`)
+INSERT INTO `kato_page` (`id`, `title`, `short_desc`, `content`, `content_html`, `content_blocks`, `slug`, `create_time`, `created_by`, `update_time`, `updated_by`, `level`, `layout`, `parent_id`, `type`, `status`, `deleted`)
 VALUES
-	(1,'About Us','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa...','## Information About Us\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa eget vulputate luctus, nulla tellus ultrices tellus, ac elementum nibh lorem non nulla. Nulla ut sagittis erat. Curabitur posuere eleifend porta. Duis dignissim eleifend lobortis. Mauris vulputate gravida elementum. Vestibulum non sagittis elit. Nulla eu adipiscing sem. Phasellus in volutpat sapien. Donec ut pretium ligula. Phasellus non accumsan ligula.','<h2>Information About Us</h2>\n\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa eget vulputate luctus, nulla tellus ultrices tellus, ac elementum nibh lorem non nulla. Nulla ut sagittis erat. Curabitur posuere eleifend porta. Duis dignissim eleifend lobortis. Mauris vulputate gravida elementum. Vestibulum non sagittis elit. Nulla eu adipiscing sem. Phasellus in volutpat sapien. Donec ut pretium ligula. Phasellus non accumsan ligula.</p>\n','about-us','2013-10-27 09:48:13',0,'2014-03-10 17:11:18',1,1,'default',2,1,1,0);
+	(1,'About Us','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa...','## Information About Us\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa eget vulputate luctus, nulla tellus ultrices tellus, ac elementum nibh lorem non nulla. Nulla ut sagittis erat. Curabitur posuere eleifend porta. Duis dignissim eleifend lobortis. Mauris vulputate gravida elementum. Vestibulum non sagittis elit. Nulla eu adipiscing sem. Phasellus in volutpat sapien. Donec ut pretium ligula. Phasellus non accumsan ligula.','<h2>Information About Us</h2>\n\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales imperdiet leo, a suscipit est lacinia vitae. Aliquam blandit, massa eget vulputate luctus, nulla tellus ultrices tellus, ac elementum nibh lorem non nulla. Nulla ut sagittis erat. Curabitur posuere eleifend porta. Duis dignissim eleifend lobortis. Mauris vulputate gravida elementum. Vestibulum non sagittis elit. Nulla eu adipiscing sem. Phasellus in volutpat sapien. Donec ut pretium ligula. Phasellus non accumsan ligula.</p>\n','{\"data\":[{\"type\":\"heading\",\"data\":{\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit.\"}},{\"type\":\"text\",\"data\":{\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consectetur orci non lorem dictum ullamcorper. Maecenas tristique at dui ac cursus. Nulla aliquet nisl et mauris molestie gravida. Donec at condimentum tellus, in malesuada diam. In nec eros sit amet libero faucibus tincidunt in id mi. Cras non tellus ut orci rhoncus fermentum. Maecenas volutpat vulputate leo sit amet hendrerit.\\n\\nPraesent sem erat, interdum a neque quis, aliquam sollicitudin felis. Cras non condimentum tellus, nec rhoncus orci. Vivamus imperdiet odio sed purus aliquet sollicitudin. Vivamus nec venenatis nunc. Nunc quis lectus sit amet dolor cursus mattis. Cras semper in dolor ut viverra. Etiam tempus porta mollis. Suspendisse non velit scelerisque, suscipit nulla et, vestibulum mi. Phasellus sed pharetra augue. Proin eu lorem vestibulum, mattis orci viverra, consequat lorem. Quisque porta metus vitae risus feugiat, quis interdum nisl laoreet. Ut quis justo ante. Phasellus mollis egestas ultrices. Donec et libero aliquam, egestas leo ut, mattis mauris. Ut venenatis nisi nec leo pretium pulvinar.\\n\\n\"}},{\"type\":\"list\",\"data\":{\"text\":\" - Vestibulum magna est, interdum imperdiet iaculis nec, auctor at diam. \\n - Morbi sagittis libero eget quam volutpat vulputate. \\n - Etiam imperdiet, neque a tincidunt convallis, felis tellus facilisis lectus, ut varius mauris metus cursus massa. \\n - Maecenas tristique dui nec ligula tincidunt porta.\\n - Donec id odio id lacus suscipit facilisis. Proin interdum sapien nibh, a tempor orci faucibus sed. \\n - Maecenas lectus nulla, commodo et posuere nec, ullamcorper vel mi. Etiam elementum magna at mi auctor, ut rutrum arcu luctus. Nam non malesuada nunc. \\n - Donec nec leo ac diam tempus faucibus. \\n\"}}]}','about-us','2013-10-27 09:48:13',0,'2014-03-27 23:34:14',1,1,'default',0,1,1,0);
 
 /*!40000 ALTER TABLE `kato_page` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -291,6 +311,15 @@ CREATE TABLE `kato_tag` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `kato_tag` WRITE;
+/*!40000 ALTER TABLE `kato_tag` DISABLE KEYS */;
+
+INSERT INTO `kato_tag` (`id`, `name`, `frequency`, `tag_type`)
+VALUES
+	(47,'kato',1,'frontend\\models\\Demo');
+
+/*!40000 ALTER TABLE `kato_tag` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table kato_user
