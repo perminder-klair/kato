@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use backend\models\Tag;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
-use kartik\markdown\MarkdownEditor;
+use yii\imperavi\Widget as ImperaviWidget;
 use kartik\widgets\SwitchInput;
 use backend\widgets\Media;
 
@@ -31,7 +31,7 @@ $tag = new Tag;
 
         <?php $form = ActiveForm::begin(); ?>
 
-              <?= $form->field($model, 'description')->widget(MarkdownEditor::classname()) ?>
+              <?= $form->field($model, 'description')->widget(ImperaviWidget::classname()) ?>
 
               <?= $form->field($model, 'tags')->widget(Select2::classname(), [
             'language' => 'en',

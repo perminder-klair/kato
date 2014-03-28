@@ -44,11 +44,21 @@ use yii\helpers\Html;
 
             <?= \backend\widgets\Alert::widget(); ?>
 
+
+            <div class="collapse-group">
+                <div class="text-center remove-margin">
+                    <a data-toggle="collapse" data-target=".search-container" class="btn btn-xs btn-primary"><i class="fa fa-angle-down"></i> Search <?= Html::encode($this->title) ?></a>
+                </div>
+                <div class="block search-container collapse">
+                    <div class="block-title">
+                        <h2>Search <?= Html::encode($this->title) ?></h2>
+                    </div>
+                    <?= $this->render('_search', ['model' => $searchModel]); ?>
+                </div>
+            </div>
+
             <!-- Blank Content -->
             <div class="block">
-
-                <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                <? // Html::a('Create Blog', ['create'], ['class' => 'btn btn-success']) ?>
 
                 <div class="block-title">
                     <div class="block-options pull-right">
