@@ -31,7 +31,8 @@
         "perminder-klair/yii2-dropzone": "dev-master",
         "perminder-klair/yii2-sir-trevor-js": "dev-master",
         "kartik-v/yii2-markdown": "dev-master",
-        "kartik-v/yii2-widgets": "dev-master"
+        "kartik-v/yii2-widgets": "dev-master",
+        "asofter/yii2-imperavi-redactor": "*"
 
     },
     "scripts": {
