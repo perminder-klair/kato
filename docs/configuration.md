@@ -2,17 +2,17 @@
 
 For local environment change database config in:
 
-    common/config/params-local.php
+    environments/dev/
 
 For live environment change database config in:
 
-    common/config/params.php
+    environments/live/
 
 Structure for database connection
 
     'components.db' => [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=localhost;dbname=kato2',
+        'dsn' => 'mysql:host=localhost;dbname=kato',
         'username' => 'root',
         'password' => 'root',
         'charset' => 'utf8',

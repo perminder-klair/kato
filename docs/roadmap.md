@@ -6,15 +6,9 @@ The Roadmap aims to set out when certain features will appear. It reduces in cla
 - Dashboard update
 -- Show live numbers in Dashbaord
 -- Search from Dashboard
-- Smart Tags with selection instead of categories
 - Overall system search
 - Per Model Search system
-- Static Pages
-- Text blocks for pages
-- Dropzone.js file upload as Yii2 extention
-- Extending Gii with Admin Panel
 - System settings
-- Breadcrumbs in Admin Panel
 
 ### Blog content creation
 - Extended markdown features with toolbar
@@ -29,8 +23,6 @@ The Roadmap aims to set out when certain features will appear. It reduces in cla
 - Commenting system using Disqus API
 
 ### Users
-- User slug
-- User bio
 - User last login, created date, update date
 - Role system like: admin, author, editor
 - User profile
