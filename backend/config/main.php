@@ -12,6 +12,9 @@ return [
 	'preload' => ['log'],
 	'controllerNamespace' => 'backend\controllers',
 	'components' => [
+        'user' => [
+            'identityClass' => 'common\models\User',
+        ],
 		'errorHandler' => [
 			'errorAction' => 'site/error',
 		],

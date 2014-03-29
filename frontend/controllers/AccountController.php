@@ -10,6 +10,8 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use yii\web\NotFoundHttpException;
+use common\models\User;
 
 class AccountController extends \yii\web\Controller
 {
@@ -18,7 +20,7 @@ class AccountController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => \yii\web\AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['index', 'logout', 'signup'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -26,7 +28,7 @@ class AccountController extends \yii\web\Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['index', 'logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -39,6 +41,15 @@ class AccountController extends \yii\web\Controller
                 ],
             ],
         ];
+    }
+
+    public function actionIndex()
+    {
+        $user = $this->findModel(Yii::$app->user->id);
+
+        return $this->render('index', [
+            'user' => $user,
+        ]);
     }
 
     public function actionLogin()
@@ -113,6 +124,22 @@ class AccountController extends \yii\web\Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Finds the User model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $id
+     * @return User the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if ($id !== null && ($model = User::find($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
 }

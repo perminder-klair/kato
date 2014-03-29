@@ -15,6 +15,9 @@ return [
 	'modules' => [
 	],
 	'components' => [
+        'user' => [
+            'identityClass' => 'common\models\User',
+        ],
         'request'=>[
             'class' => 'kato\components\Request',
             'web'=> '/frontend/web',

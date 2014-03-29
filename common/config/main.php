@@ -17,9 +17,8 @@ return [
         ],
     ],
     'components' => [
-        'kato' => 'kato\components\Kato',
-        'user' => [
-            'identityClass' => 'common\models\User',
+        'kato' => [
+            'class' => 'kato\components\Kato',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
