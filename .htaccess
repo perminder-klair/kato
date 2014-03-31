@@ -5,11 +5,6 @@
 
 <IfModule mod_rewrite.c>
 
-
-    # Gii admin redirect
-    #RewriteCond %{REQUEST_URI} ^/admin/frontend/
-    #RewriteRule ^admin/frontend/(.*)$ /$1 [R=301,NC,L]
-
     # deal with admin first
     RewriteCond %{REQUEST_URI} ^/(admin)
     RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
@@ -29,4 +24,5 @@
     RewriteCond %{REQUEST_FILENAME} !-f [OR]
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^.*$ frontend/web/index.php
+    
 </IfModule>
