@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.13)
 # Database: kato2
-# Generation Time: 2014-03-27 23:53:22 +0000
+# Generation Time: 2014-03-31 15:36:33 +0000
 # ************************************************************
 
 
@@ -29,12 +29,13 @@ CREATE TABLE `demo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL DEFAULT '',
   `description` text,
-  `tags` text,
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tags` int(11) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `tags` (`tags`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `demo` WRITE;
@@ -42,7 +43,7 @@ LOCK TABLES `demo` WRITE;
 
 INSERT INTO `demo` (`id`, `title`, `description`, `tags`, `create_time`, `update_time`, `active`, `deleted`)
 VALUES
-	(7,'Demo-1','nice\r\n**bold**','kato','2014-03-26 10:58:35','2014-03-26 21:40:10',1,0);
+	(7,'Demo-1','nice\r\n**bold**',NULL,'2014-03-26 10:58:35','2014-03-26 21:40:10',1,0);
 
 /*!40000 ALTER TABLE `demo` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -124,7 +125,7 @@ CREATE TABLE `kato_block` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(70) NOT NULL DEFAULT '',
   `content` text,
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_time` timestamp NULL DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT NULL,
@@ -160,11 +161,11 @@ CREATE TABLE `kato_blog` (
   `content_html` text,
   `slug` varchar(70) DEFAULT NULL,
   `tags` text,
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_time` timestamp NULL DEFAULT NULL,
   `created_by` int(11) unsigned NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT NULL,
-  `publish_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `publish_time` timestamp NULL DEFAULT NULL,
   `published_by` int(11) unsigned DEFAULT NULL,
   `is_revision` tinyint(25) NOT NULL DEFAULT '0',
   `parent_id` int(11) NOT NULL DEFAULT '0',
@@ -243,7 +244,7 @@ CREATE TABLE `kato_page` (
   `content_html` text,
   `content_blocks` text,
   `slug` varchar(70) DEFAULT NULL,
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_time` timestamp NULL DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT NULL,
@@ -336,10 +337,10 @@ CREATE TABLE `kato_user` (
   `email` varchar(255) NOT NULL,
   `role` varchar(10) DEFAULT NULL,
   `status` smallint(6) NOT NULL DEFAULT '10',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `login_ip` varchar(20) NOT NULL,
-  `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `login_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
