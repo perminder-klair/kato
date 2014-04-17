@@ -24,8 +24,6 @@
         "yiisoft/yii2": "dev-master",
         "yiisoft/yii2-swiftmailer": "dev-master",
         "yiisoft/yii2-bootstrap": "dev-master",
-        "yiisoft/yii2-debug": "dev-master",
-        "yiisoft/yii2-gii": "dev-master",
         "yiisoft/yii2-imagine": "*",
         "perminder-klair/kato-core": "dev-master",
         "perminder-klair/yii2-dropzone": "dev-master",
@@ -34,6 +32,17 @@
         "kartik-v/yii2-widgets": "dev-master",
         "asofter/yii2-imperavi-redactor": "*"
 
+    },
+    "require-dev": {
+        "yiisoft/yii2-codeception": "dev-master",
+        "yiisoft/yii2-debug": "dev-master",
+        "yiisoft/yii2-gii": "dev-master"
+    },
+    "suggest": {
+        "codeception/codeception": "Codeception, 1.8.*@dev is currently works well with Yii.",
+        "codeception/specify": "BDD style code blocks for PHPUnit and Codeception",
+        "codeception/verify": "BDD Assertions for PHPUnit and Codeception",
+        "yiisoft/yii2-faker": "Fixtures generator for Yii2 based on Faker lib"
     },
     "scripts": {
         "post-create-project-cmd": [

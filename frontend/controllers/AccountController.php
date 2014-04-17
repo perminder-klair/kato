@@ -3,7 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\web\VerbFilter;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\base\InvalidParamException;
 use common\models\LoginForm;
@@ -19,7 +20,7 @@ class AccountController extends \yii\web\Controller
     {
         return [
             'access' => [
-                'class' => \yii\web\AccessControl::className(),
+                'class' => AccessControl::className(),
                 'only' => ['index', 'logout', 'signup'],
                 'rules' => [
                     [

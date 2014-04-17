@@ -10,10 +10,9 @@ $params = array_merge(
 return [
 	'id' => 'kato-frontend',
 	'basePath' => dirname(__DIR__),
-    'preload' => ['log'],
+    'bootstrap' => ['log'],
 	'controllerNamespace' => 'frontend\controllers',
-	'modules' => [
-	],
+	'modules' => [],
 	'components' => [
         'user' => [
             'identityClass' => 'common\models\User',

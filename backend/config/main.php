@@ -9,7 +9,7 @@ $params = array_merge(
 return [
 	'id' => 'kato-backend',
 	'basePath' => dirname(__DIR__),
-	'preload' => ['log'],
+	'bootstrap' => ['log'],
 	'controllerNamespace' => 'backend\controllers',
 	'components' => [
         'user' => [
