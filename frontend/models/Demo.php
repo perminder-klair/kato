@@ -8,7 +8,7 @@ namespace frontend\models;
     * @property string $id
     * @property string $title
     * @property string $description
-    * @property string $tags
+    * @property integer $tags
     * @property string $create_time
     * @property string $update_time
     * @property integer $active
@@ -34,10 +34,10 @@ class Demo extends \kato\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'tags'], 'string'],
-            [['create_time', 'update_time'], 'required'],
+            [['description'], 'string'],
+            [['tags', 'active', 'deleted'], 'integer'],
             [['create_time', 'update_time'], 'safe'],
-            [['active', 'deleted'], 'integer'],
+            [['update_time'], 'required'],
             [['title'], 'string', 'max' => 255]
         ];
     }

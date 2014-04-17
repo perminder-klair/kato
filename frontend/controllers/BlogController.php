@@ -66,7 +66,7 @@ class BlogController extends \yii\web\Controller
      */
     protected function findModel($id, $withList = [])
     {
-        $query = Blog::findOne()
+        $query = Blog::find()
             ->where(['id' => $id])
             ->with('user');
 

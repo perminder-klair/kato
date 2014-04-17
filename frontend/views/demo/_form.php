@@ -45,6 +45,18 @@ $tag = new Tag;
             ],
         ]) ?>
 
+              <?= $form->field($model, 'active')->widget(SwitchInput::classname(), [
+                'pluginOptions' => [
+                    'size' => 'small'
+                ],
+            ]) ?>
+
+              <?= $form->field($model, 'deleted')->widget(SwitchInput::classname(), [
+                'pluginOptions' => [
+                    'size' => 'small'
+                ],
+            ]) ?>
+
               <?= $form->field($model, 'create_time')->widget(DatePicker::classname(), [
                 'options' => [
                     'placeholder' => 'Select date ...',
@@ -62,18 +74,6 @@ $tag = new Tag;
                 'pluginOptions' => [
                     'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true
-                ],
-            ]) ?>
-
-              <?= $form->field($model, 'active')->widget(SwitchInput::classname(), [
-                'pluginOptions' => [
-                    'size' => 'small'
-                ],
-            ]) ?>
-
-              <?= $form->field($model, 'deleted')->widget(SwitchInput::classname(), [
-                'pluginOptions' => [
-                    'size' => 'small'
                 ],
             ]) ?>
 

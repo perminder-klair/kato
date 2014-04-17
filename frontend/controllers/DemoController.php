@@ -67,13 +67,14 @@ class DemoController extends Controller
 
         $searchModel = new DemoSearch;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $controllerName = $this->getUniqueId();
 
         $getColumns = [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
             'title',
             'description:ntext',
-            'tags:ntext',
+            'tags',
             'create_time',
             // 'update_time',
             // 'active',
@@ -88,6 +89,7 @@ class DemoController extends Controller
         return $this->render('@backend/views/global/index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'controllerName' => $controllerName,
             'meta' => $meta,
             'getColumns' => $getColumns,
         ]);
@@ -123,7 +125,7 @@ class DemoController extends Controller
 
     /**
      * Updates an existing Demo model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * If update is successful, the browser will be redirected back to the 'update' page.
      * @param string $id
      * @return mixed
      */
@@ -134,6 +136,7 @@ class DemoController extends Controller
         Url::remember();
 
         $model = $this->findModel($id);
+        $controllerName = $this->getUniqueId();
 
         $meta['title'] = $this->pageTitle;
         $meta['description'] = 'Update Demo';
@@ -146,6 +149,7 @@ class DemoController extends Controller
             return $this->render('@backend/views/global/update', [
                 'model' => $model,
                 'meta' => $meta,
+                'controllerName' => $controllerName,
             ]);
         }
     }

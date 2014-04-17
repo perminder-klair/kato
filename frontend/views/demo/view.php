@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'description:ntext',
-            'tags:ntext',
+            'tags',
             'create_time',
             'update_time',
             'active',

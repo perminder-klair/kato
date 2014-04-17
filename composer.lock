@@ -512,12 +512,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/perminder-klair/kato-core.git",
-                "reference": "834320fab08a5f0e049a8d0bb97ca5eeea042aec"
+                "reference": "820c60fd76fe9d677ff71fc58d25ba4ca912d5bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perminder-klair/kato-core/zipball/834320fab08a5f0e049a8d0bb97ca5eeea042aec",
-                "reference": "834320fab08a5f0e049a8d0bb97ca5eeea042aec",
+                "url": "https://api.github.com/repos/perminder-klair/kato-core/zipball/820c60fd76fe9d677ff71fc58d25ba4ca912d5bc",
+                "reference": "820c60fd76fe9d677ff71fc58d25ba4ca912d5bc",
                 "shasum": ""
             },
             "require": {
@@ -547,7 +547,7 @@
                 "kato",
                 "yii2"
             ],
-            "time": "2014-03-28 17:42:09"
+            "time": "2014-04-17 20:54:19"
         },
         {
             "name": "perminder-klair/yii2-dropzone",
@@ -785,12 +785,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "afb65a4235608814c232de71893138726e70162c"
+                "reference": "2d6a5294c2a5ca11377ab7afc3bbecd5a91f1891"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/afb65a4235608814c232de71893138726e70162c",
-                "reference": "afb65a4235608814c232de71893138726e70162c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2d6a5294c2a5ca11377ab7afc3bbecd5a91f1891",
+                "reference": "2d6a5294c2a5ca11377ab7afc3bbecd5a91f1891",
                 "shasum": ""
             },
             "require": {
@@ -855,7 +855,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-04-17 11:35:09"
+            "time": "2014-04-17 18:10:30"
         },
         {
             "name": "yiisoft/yii2-bootstrap",

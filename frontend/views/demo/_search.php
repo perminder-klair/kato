@@ -10,9 +10,10 @@ use yii\widgets\ActiveForm;
  */
 ?>
 
-<div class="model-search">
+<div class="demo-search">
 
     <?php $form = ActiveForm::begin([
+        'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
