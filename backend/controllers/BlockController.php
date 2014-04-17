@@ -49,6 +49,7 @@ class BlockController extends Controller
 	{
 		$searchModel = new BlockSearch;
 		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $controllerName = $this->getUniqueId();
 
         $getColumns = [
             ['class' => 'yii\grid\SerialColumn'],
@@ -66,6 +67,7 @@ class BlockController extends Controller
 		return $this->render('/global/index', [
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
+            'controllerName' => $controllerName,
             'meta' => $meta,
             'getColumns' => $getColumns,
 		]);
@@ -96,6 +98,7 @@ class BlockController extends Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
+        $controllerName = $this->getUniqueId();
 
         $meta['title'] = $this->pageTitle;
         $meta['description'] = 'Update block';
@@ -108,6 +111,7 @@ class BlockController extends Controller
 			return $this->render('/global/update', [
 				'model' => $model,
                 'meta' => $meta,
+                'controllerName' => $controllerName,
 			]);
 		}
 	}

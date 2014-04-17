@@ -47,6 +47,7 @@ class MediaController extends \yii\web\Controller
     {
         $model = $this->findModel($id);
         $model->title = $model->id;
+        $controllerName = $this->getUniqueId();
 
         $meta['title'] = $this->pageTitle;
         $meta['description'] = 'Update media';
@@ -59,6 +60,7 @@ class MediaController extends \yii\web\Controller
             return $this->render('/global/update', [
                 'model' => $model,
                 'meta' => $meta,
+                'controllerName' => $controllerName,
             ]);
         }
     }

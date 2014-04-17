@@ -48,6 +48,7 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
+        $controllerName = $this->getUniqueId();
 		$searchModel = new UserSearch;
 		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
@@ -66,6 +67,7 @@ class UserController extends Controller
 		return $this->render('/global/index', [
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
+            'controllerName' => $controllerName,
             'meta' => $meta,
             'getColumns' => $getColumns,
 		]);
@@ -99,6 +101,7 @@ class UserController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+        $controllerName = $this->getUniqueId();
 		$model = $this->findModel($id);
         $profile = UserProfile::find()
             ->where(['user_id' => $model->id])
@@ -116,6 +119,7 @@ class UserController extends Controller
 				'model' => $model,
                 'profile' => $profile,
                 'meta' => $meta,
+                'controllerName' => $controllerName,
 			]);
 		}
 	}

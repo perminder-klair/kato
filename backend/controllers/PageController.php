@@ -52,6 +52,7 @@ class PageController extends \yii\web\Controller
 	{
 		$searchModel = new PageSearch;
 		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());$meta['title'] = $this->pageTitle;
+        $controllerName = $this->getUniqueId();
 
         $getColumns = [
             ['class' => 'yii\grid\SerialColumn'],
@@ -69,6 +70,7 @@ class PageController extends \yii\web\Controller
 		return $this->render('/global/index', [
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
+            'controllerName' => $controllerName,
             'meta' => $meta,
             'getColumns' => $getColumns,
 		]);
@@ -97,6 +99,7 @@ class PageController extends \yii\web\Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
+        $controllerName = $this->getUniqueId();
 
         $meta['title'] = $this->pageTitle;
         $meta['description'] = 'Update page';
@@ -109,6 +112,7 @@ class PageController extends \yii\web\Controller
 			return $this->render('/global/update', [
 				'model' => $model,
                 'meta' => $meta,
+                'controllerName' => $controllerName,
 			]);
 		}
 	}
