@@ -7,6 +7,7 @@ use yii\widgets\Breadcrumbs;
  * @var yii\web\View $this
  * @var backend\models\Blog $model
  * @var $meta
+ * @var $controllerName
  */
 
 $this->description = $meta['description'];
@@ -47,7 +48,7 @@ $this->params['breadcrumbs'][] = 'Update';
             <!-- Blank Content -->
             <div class="block block-tabs full">
 
-                <?php echo $this->render('_form', [
+                <?php echo $this->render('/' . $controllerName . '/_form', [
                     'model' => $model,
                 ]); ?>
 

@@ -37,10 +37,12 @@ class LoginForm extends Model
 	 */
 	public function validatePassword()
 	{
-		$user = $this->getUser();
-		if (!$user || !$user->validatePassword($this->password)) {
-			$this->addError('password', 'Incorrect username or password.');
-		}
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError('password', 'Incorrect username or password.');
+            }
+        }
 	}
 
 	/**

@@ -4,7 +4,8 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\LoginForm;
-use yii\web\VerbFilter;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use backend\models\Setting;
 use yii\base\Model;
 use yii\base\Exception;
@@ -17,7 +18,7 @@ class SiteController extends \yii\web\Controller
 	{
 		return [
 			'access' => [
-				'class' => \yii\web\AccessControl::className(),
+				'class' => AccessControl::className(),
                 'only' => ['index', 'settings', 'logout'],
 				'rules' => [
 					[
@@ -47,6 +48,11 @@ class SiteController extends \yii\web\Controller
 
     public function actionIndex()
     {
+        //controller $this->getUniqueId()
+        //controller/action $this->action->getUniqueId()
+        //var_dump($this->action->id);
+        //exit;
+
         return $this->render('index');
     }
 

@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.13)
 # Database: kato2
-# Generation Time: 2014-03-31 15:36:33 +0000
+# Generation Time: 2014-04-17 20:25:55 +0000
 # ************************************************************
 
 
@@ -18,6 +18,91 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table kato_auth_assignment
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `kato_auth_assignment`;
+
+CREATE TABLE `kato_auth_assignment` (
+  `item_name` varchar(64) NOT NULL,
+  `user_id` varchar(64) NOT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`item_name`,`user_id`),
+  CONSTRAINT `kato_auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `kato_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `kato_auth_assignment` WRITE;
+/*!40000 ALTER TABLE `kato_auth_assignment` DISABLE KEYS */;
+
+INSERT INTO `kato_auth_assignment` (`item_name`, `user_id`, `created_at`)
+VALUES
+	('admin','1',1397765756);
+
+/*!40000 ALTER TABLE `kato_auth_assignment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table kato_auth_item
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `kato_auth_item`;
+
+CREATE TABLE `kato_auth_item` (
+  `name` varchar(64) NOT NULL,
+  `type` int(11) NOT NULL,
+  `description` text,
+  `rule_name` varchar(64) DEFAULT NULL,
+  `data` text,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`name`),
+  KEY `rule_name` (`rule_name`),
+  KEY `type` (`type`),
+  CONSTRAINT `kato_auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `kato_auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `kato_auth_item` WRITE;
+/*!40000 ALTER TABLE `kato_auth_item` DISABLE KEYS */;
+
+INSERT INTO `kato_auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`)
+VALUES
+	('admin',1,NULL,NULL,NULL,1397765552,1397765552);
+
+/*!40000 ALTER TABLE `kato_auth_item` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table kato_auth_item_child
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `kato_auth_item_child`;
+
+CREATE TABLE `kato_auth_item_child` (
+  `parent` varchar(64) NOT NULL,
+  `child` varchar(64) NOT NULL,
+  PRIMARY KEY (`parent`,`child`),
+  KEY `child` (`child`),
+  CONSTRAINT `kato_auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `kato_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `kato_auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `kato_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table kato_auth_rule
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `kato_auth_rule`;
+
+CREATE TABLE `kato_auth_rule` (
+  `name` varchar(64) NOT NULL,
+  `data` text,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 # Dump of table demo
@@ -47,73 +132,6 @@ VALUES
 
 /*!40000 ALTER TABLE `demo` ENABLE KEYS */;
 UNLOCK TABLES;
-
-
-# Dump of table kato_auth_assignment
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `kato_auth_assignment`;
-
-CREATE TABLE `kato_auth_assignment` (
-  `item_name` varchar(64) NOT NULL,
-  `user_id` varchar(64) NOT NULL,
-  `biz_rule` text,
-  `data` text,
-  PRIMARY KEY (`item_name`,`user_id`),
-  CONSTRAINT `kato_auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `kato_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `kato_auth_assignment` WRITE;
-/*!40000 ALTER TABLE `kato_auth_assignment` DISABLE KEYS */;
-
-INSERT INTO `kato_auth_assignment` (`item_name`, `user_id`, `biz_rule`, `data`)
-VALUES
-	('admin','1',NULL,NULL);
-
-/*!40000 ALTER TABLE `kato_auth_assignment` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table kato_auth_item
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `kato_auth_item`;
-
-CREATE TABLE `kato_auth_item` (
-  `name` varchar(64) NOT NULL,
-  `type` int(11) NOT NULL,
-  `description` text,
-  `biz_rule` text,
-  `data` text,
-  PRIMARY KEY (`name`),
-  KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `kato_auth_item` WRITE;
-/*!40000 ALTER TABLE `kato_auth_item` DISABLE KEYS */;
-
-INSERT INTO `kato_auth_item` (`name`, `type`, `description`, `biz_rule`, `data`)
-VALUES
-	('admin',2,'Administrator',NULL,NULL);
-
-/*!40000 ALTER TABLE `kato_auth_item` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table kato_auth_item_child
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `kato_auth_item_child`;
-
-CREATE TABLE `kato_auth_item_child` (
-  `parent` varchar(64) NOT NULL,
-  `child` varchar(64) NOT NULL,
-  PRIMARY KEY (`parent`,`child`),
-  KEY `child` (`child`),
-  CONSTRAINT `kato_auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `kato_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `kato_auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `kato_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 
 # Dump of table kato_block

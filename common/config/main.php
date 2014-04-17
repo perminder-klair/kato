@@ -28,10 +28,11 @@ return [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
-            'defaultRoles' => ['guest'],
+            'defaultRoles' => ['guest'], //'admin', 'user'
             'itemTable' => 'kato_auth_item',
             'itemChildTable' => 'kato_auth_item_child',
             'assignmentTable' => 'kato_auth_assignment',
+            'ruleTable' => 'kato_auth_rule',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

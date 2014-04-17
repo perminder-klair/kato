@@ -7,7 +7,8 @@ use frontend\models\Demo;
 use frontend\models\search\DemoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\VerbFilter;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii\helpers\Url;
 
 /**
@@ -22,7 +23,7 @@ class DemoController extends Controller
     {
         return [
             'access' => [
-                'class' => \yii\web\AccessControl::className(),
+                'class' => AccessControl::className(),
                 'only' => ['admin', 'create', 'update', 'delete'],
                     'rules' => [
                     [
@@ -172,7 +173,7 @@ class DemoController extends Controller
      */
     protected function findModel($id)
     {
-        if ($id !== null && ($model = Demo::find($id)) !== null) {
+        if ($id !== null && ($model = Demo::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

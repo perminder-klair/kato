@@ -6,7 +6,8 @@ use Yii;
 use common\models\Blog;
 use common\models\search\Blog as BlogSearch;
 use yii\web\NotFoundHttpException;
-use yii\web\VerbFilter;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii\grid\DataColumn;
 
 /**
@@ -21,7 +22,7 @@ class BlogController extends \yii\web\Controller
 	{
 		return [
             'access' => [
-                'class' => \yii\web\AccessControl::className(),
+                'class' => AccessControl::className(),
                 'only' => ['index', 'create', 'update', 'delete'],
                 'rules' => [
                     [
@@ -52,6 +53,7 @@ class BlogController extends \yii\web\Controller
 	{
 		$searchModel = new BlogSearch;
 		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $controllerName = $this->getUniqueId();
 
         $getColumns = [
             ['class' => 'yii\grid\SerialColumn'],
@@ -80,6 +82,7 @@ class BlogController extends \yii\web\Controller
 		return $this->render('/global/index', [
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
+            'controllerName' => $controllerName,
             'meta' => $meta,
             'getColumns' => $getColumns,
 		]);
@@ -110,6 +113,7 @@ class BlogController extends \yii\web\Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
+        $controllerName = $this->getUniqueId();
 
         $meta['title'] = $this->pageTitle;
         $meta['description'] = 'Update post';
@@ -122,6 +126,7 @@ class BlogController extends \yii\web\Controller
 			return $this->render('/global/update', [
 				'model' => $model,
                 'meta' => $meta,
+                'controllerName' => $controllerName,
 			]);
 		}
 	}

@@ -8,7 +8,8 @@ use common\models\UserProfile;
 use common\models\search\User as UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\VerbFilter;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -22,7 +23,7 @@ class UserController extends Controller
 	{
 		return [
             'access' => [
-                'class' => \yii\web\AccessControl::className(),
+                'class' => AccessControl::className(),
                 'only' => ['index', 'create', 'update', 'delete'],
                 'rules' => [
                     [

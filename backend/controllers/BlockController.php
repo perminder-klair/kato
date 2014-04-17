@@ -7,7 +7,8 @@ use backend\models\Block;
 use backend\models\search\BlockSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\VerbFilter;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * BlockController implements the CRUD actions for Block model.
@@ -21,7 +22,7 @@ class BlockController extends Controller
 	{
 		return [
             'access' => [
-                'class' => \yii\web\AccessControl::className(),
+                'class' => AccessControl::className(),
                 'only' => ['index', 'create', 'update', 'delete'],
                 'rules' => [
                     [
@@ -133,7 +134,7 @@ class BlockController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if ($id !== null && ($model = Block::find($id)) !== null) {
+		if ($id !== null && ($model = Block::findOne($id)) !== null) {
 			return $model;
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');

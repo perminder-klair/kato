@@ -5,6 +5,7 @@
  * @var common\models\search\BlogSearch $searchModel
  * @var $meta
  * @var $getColumns
+ * @var $controllerName
  */
 $this->title = $meta['title'];
 $this->description = $meta['description'];
@@ -53,7 +54,7 @@ use yii\helpers\Html;
                     <div class="block-title">
                         <h2>Search <?= Html::encode($this->title) ?></h2>
                     </div>
-                    <?= $this->render('_search', ['model' => $searchModel]); ?>
+                    <?= $this->render('/' . $controllerName . '/_search', ['model' => $searchModel]); ?>
                 </div>
             </div>
 

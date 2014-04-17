@@ -6,8 +6,7 @@ use Yii;
 use common\models\Blog;
 use common\models\search\Blog as BlogSearch;
 use yii\web\NotFoundHttpException;
-use yii\web\VerbFilter;
-use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
 
 class BlogController extends \yii\web\Controller
 {
@@ -67,7 +66,7 @@ class BlogController extends \yii\web\Controller
      */
     protected function findModel($id, $withList = [])
     {
-        $query = Blog::find()
+        $query = Blog::findOne()
             ->where(['id' => $id])
             ->with('user');
 

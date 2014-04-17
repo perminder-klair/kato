@@ -85,7 +85,6 @@ class User extends ActiveRecord implements IdentityInterface
             ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
 
             ['username', 'default', 'value' => 'user-' . $this->getLastRow()->id],
-
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique'],
@@ -110,7 +109,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::find($id);
+        return static::findOne($id);
     }
 
     /**
@@ -129,7 +128,7 @@ class User extends ActiveRecord implements IdentityInterface
 	 */
 	public static function findByUsername($username)
 	{
-		return static::find(['username' => $username, 'status' => static::STATUS_ACTIVE]);
+		return static::findOne(['username' => $username, 'status' => static::STATUS_ACTIVE]);
 	}
 
 	/**
@@ -233,7 +232,7 @@ class User extends ActiveRecord implements IdentityInterface
             return null;
         }
 
-        return static::find([
+        return static::findOne([
             'password_reset_token' => $token,
             'status' => self::STATUS_ACTIVE,
         ]);
@@ -348,19 +347,17 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Creates new Role
-     * Usage: $this->createRole('admin', 'Administrator');
+     * Usage: $this->createRole('admin');
      *
      * @param $key
-     * @param $value
      * @return bool
      */
-    public function createRole($key, $value)
+    public function createRole($key)
     {
-        $r = \Yii::$app->authManager;
+        $auth = Yii::$app->authManager;
 
-        $r->init();
-        $r->createRole($key, $value);
-        if ($r->save()) {
+        $admin = $auth->createRole($key);
+        if ($auth->add($admin)) {
             return true;
         }
         return false;
@@ -368,15 +365,16 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Removed all previous rules and Updates user's rule
-     * @param $role
+     * @param $roleName
      * @return bool
      */
-    private function updateRole($role)
+    private function updateRole($roleName)
     {
-        $r = \Yii::$app->authManager;
+        $auth = Yii::$app->authManager;
 
-        $r->revokeAll($this->id);
-        if ($r->assign($this->id, $role)) {
+        $role = $auth->createRole($roleName);
+        $auth->revokeAll($this->id);
+        if ($auth->assign($role, $this->id)) {
             return true;
         }
         return false;

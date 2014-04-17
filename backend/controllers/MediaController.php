@@ -3,7 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\web\VerbFilter;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use backend\models\Media;
 use yii\helpers\Url;
@@ -17,7 +18,7 @@ class MediaController extends \yii\web\Controller
     {
         return [
             'access' => [
-                'class' => \yii\web\AccessControl::className(),
+                'class' => AccessControl::className(),
                 'only' => ['delete'],
                 'rules' => [
                     [
@@ -85,7 +86,7 @@ class MediaController extends \yii\web\Controller
      */
     protected function findModel($id)
     {
-        if (($model = Media::find($id)) !== null) {
+        if (($model = Media::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

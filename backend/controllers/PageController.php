@@ -6,8 +6,8 @@ use Yii;
 use backend\models\Page;
 use backend\models\search\PageSearch;
 use yii\web\NotFoundHttpException;
-use yii\web\VerbFilter;
-use yii\grid\DataColumn;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * PageController implements the CRUD actions for Page model.
@@ -21,7 +21,7 @@ class PageController extends \yii\web\Controller
 	{
 		return [
             'access' => [
-                'class' => \yii\web\AccessControl::className(),
+                'class' => AccessControl::className(),
                 'only' => ['index', 'create', 'update', 'delete'],
                 'rules' => [
                     [
@@ -136,7 +136,7 @@ class PageController extends \yii\web\Controller
 	 */
 	protected function findModel($id)
 	{
-		if (($model = Page::find($id)) !== null) {
+		if (($model = Page::findOne($id)) !== null) {
 			return $model;
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');
