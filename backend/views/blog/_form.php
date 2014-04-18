@@ -29,9 +29,7 @@ $tag = new Tag;
 
     <div class="tab-pane active" id="form">
 
-        <?php $form = ActiveForm::begin([
-            'options' => ['enctype' => 'multipart/form-data']
-        ]); ?>
+        <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => 70]) ?>
 

@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use yii\helpers\HtmlPurifier;
 
 /**
  * @var yii\web\View $this
@@ -16,16 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<h1><?= Html::encode($this->title) ?></h1>
 
-	<?php echo DetailView::widget([
-		'model' => $model,
-		'attributes' => [
-			'title',
-			'short_desc',
-			'content_html:ntext',
-			'tags:ntext',
-			'publish_time',
-			'published_by',
-		],
-	]); ?>
+    <?= HtmlPurifier::process($model->content_html) ?>
 
 </div>
