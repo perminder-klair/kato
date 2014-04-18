@@ -6,7 +6,7 @@ use backend\widgets\Media;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
-use kartik\markdown\MarkdownEditor;
+use ijackua\lepture\Markdowneditor;
 
 $tag = new Tag;
 
@@ -35,7 +35,9 @@ $tag = new Tag;
 
         <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
 
-        <?= $form->field($model, 'content')->widget(MarkdownEditor::classname()); ?>
+        <?= $form->field($model, 'content')->widget(Markdowneditor::classname(), [
+            'leptureOptions' => []
+        ]); ?>
 
         <?= $form->field($model, 'tags')->widget(Select2::classname(), [
             'language' => 'en',

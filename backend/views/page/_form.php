@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\markdown\MarkdownEditor;
+use yii\imperavi\Widget as ImperaviWidget;
 use backend\widgets\Media;
 use kato\sirtrevorjs\SirTrevor;
 
@@ -32,7 +32,7 @@ use kato\sirtrevorjs\SirTrevor;
 
             <?= $form->field($model, 'short_desc')->textInput(['maxlength' => 255]) ?>
 
-            <?= $form->field($model, 'content')->widget(MarkdownEditor::classname()); ?>
+            <?= $form->field($model, 'content')->widget(ImperaviWidget::classname()); ?>
 
             <?= $form->field($model, 'content_blocks')->widget(SirTrevor::classname(), [
                 'imageUploadUrl' => Yii::$app->urlManager->createAdminUrl(['block/upload']),
