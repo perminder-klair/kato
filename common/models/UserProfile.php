@@ -34,7 +34,7 @@ class UserProfile extends ActiveRecord
             [['user_id', 'create_time', 'update_time', 'full_name'], 'required'],
             [['user_id'], 'integer'],
             [['create_time', 'update_time'], 'safe'],
-            [['full_name'], 'string', 'max' => 255]
+            [['full_name', 'location', 'website', 'bio'], 'string', 'max' => 255]
         ];
     }
 
@@ -49,6 +49,9 @@ class UserProfile extends ActiveRecord
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
             'full_name' => 'Full Name',
+            'location' => 'Location',
+            'website' => 'Website',
+            'bio' => 'Bio',
         ];
     }
 

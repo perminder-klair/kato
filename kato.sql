@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.13)
 # Database: kato2
-# Generation Time: 2014-04-17 20:25:55 +0000
+# Generation Time: 2014-04-18 08:08:13 +0000
 # ************************************************************
 
 
@@ -18,6 +18,35 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table demo
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `demo`;
+
+CREATE TABLE `demo` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `description` text,
+  `tags` int(11) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `tags` (`tags`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `demo` WRITE;
+/*!40000 ALTER TABLE `demo` DISABLE KEYS */;
+
+INSERT INTO `demo` (`id`, `title`, `description`, `tags`, `create_time`, `update_time`, `active`, `deleted`)
+VALUES
+	(7,'Demo-1','nice\r\n**bold**',NULL,'2014-03-26 10:58:35','2014-03-26 21:40:10',1,0);
+
+/*!40000 ALTER TABLE `demo` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table kato_auth_assignment
@@ -105,35 +134,6 @@ CREATE TABLE `kato_auth_rule` (
 
 
 
-# Dump of table demo
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `demo`;
-
-CREATE TABLE `demo` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `description` text,
-  `tags` int(11) DEFAULT NULL,
-  `create_time` timestamp NULL DEFAULT NULL,
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `tags` (`tags`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-LOCK TABLES `demo` WRITE;
-/*!40000 ALTER TABLE `demo` DISABLE KEYS */;
-
-INSERT INTO `demo` (`id`, `title`, `description`, `tags`, `create_time`, `update_time`, `active`, `deleted`)
-VALUES
-	(7,'Demo-1','nice\r\n**bold**',NULL,'2014-03-26 10:58:35','2014-03-26 21:40:10',1,0);
-
-/*!40000 ALTER TABLE `demo` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
 # Dump of table kato_block
 # ------------------------------------------------------------
 
@@ -216,6 +216,15 @@ CREATE TABLE `kato_content_media` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `kato_content_media` WRITE;
+/*!40000 ALTER TABLE `kato_content_media` DISABLE KEYS */;
+
+INSERT INTO `kato_content_media` (`id`, `content_id`, `media_id`, `content_type`)
+VALUES
+	(1,15,45,'common\\models\\Blog');
+
+/*!40000 ALTER TABLE `kato_content_media` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table kato_media
@@ -243,7 +252,8 @@ LOCK TABLES `kato_media` WRITE;
 INSERT INTO `kato_media` (`id`, `filename`, `source`, `source_location`, `create_time`, `extension`, `mimeType`, `byteSize`, `status`, `media_type`)
 VALUES
 	(43,'57544110151582073170257518358037n-9G1a.jpg','files/2014-03-13/57544110151582073170257518358037n-9G1a.jpg',NULL,'2014-03-27 21:12:08','jpg','image/jpeg',110065,1,NULL),
-	(44,'57544110151582073170257518358037n-wBjE.jpg','files/2014-03-13/57544110151582073170257518358037n-wBjE.jpg',NULL,'2014-03-27 21:12:46','jpg','image/jpeg',110065,1,NULL);
+	(44,'57544110151582073170257518358037n-wBjE.jpg','files/2014-03-13/57544110151582073170257518358037n-wBjE.jpg',NULL,'2014-03-27 21:12:46','jpg','image/jpeg',110065,1,NULL),
+	(45,'221660101505779596202577028178n-GX8j.jpg','files/2014-04-16/221660101505779596202577028178n-GX8j.jpg',NULL,'2014-04-18 09:00:38','jpg','image/jpeg',147409,1,NULL);
 
 /*!40000 ALTER TABLE `kato_media` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -304,14 +314,14 @@ LOCK TABLES `kato_setting` WRITE;
 INSERT INTO `kato_setting` (`id`, `define`, `value`)
 VALUES
 	(1,'site_name','Kato'),
-	(2,'home_meta_description',NULL),
-	(3,'home_meta_keywords',NULL),
-	(4,'admin_email',NULL),
-	(5,'twitter',NULL),
-	(6,'facebook',NULL),
-	(7,'telephone',NULL),
-	(8,'mobile',NULL),
-	(9,'address',NULL);
+	(2,'home_meta_description',''),
+	(3,'home_meta_keywords',''),
+	(4,'admin_email',''),
+	(5,'twitter',''),
+	(6,'facebook',''),
+	(7,'telephone',''),
+	(8,'mobile',''),
+	(9,'address','');
 
 /*!40000 ALTER TABLE `kato_setting` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -384,15 +394,18 @@ CREATE TABLE `kato_user_profile` (
   `create_time` datetime NOT NULL,
   `update_time` datetime NOT NULL,
   `full_name` varchar(255) NOT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `bio` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `kato_user_profile` WRITE;
 /*!40000 ALTER TABLE `kato_user_profile` DISABLE KEYS */;
 
-INSERT INTO `kato_user_profile` (`id`, `user_id`, `create_time`, `update_time`, `full_name`)
+INSERT INTO `kato_user_profile` (`id`, `user_id`, `create_time`, `update_time`, `full_name`, `location`, `website`, `bio`)
 VALUES
-	(1,1,'2014-03-20 19:49:58','2014-03-20 19:49:58','Parminder');
+	(1,1,'2014-03-20 19:49:58','2014-04-18 09:07:45','Parminder','Birmingham','','');
 
 /*!40000 ALTER TABLE `kato_user_profile` ENABLE KEYS */;
 UNLOCK TABLES;
