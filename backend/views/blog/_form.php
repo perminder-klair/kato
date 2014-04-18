@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use backend\models\Tag;
 use backend\widgets\Media;
-use kartik\widgets\ActiveForm;
+use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use ijackua\lepture\Markdowneditor;

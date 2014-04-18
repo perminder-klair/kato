@@ -108,9 +108,13 @@ class Blog extends ActiveRecord
                 // These parameters are optional, default values presented here:
                 'sourceAttributeName' => 'title', // If you want to make a slug from another attribute, set it here
                 'slugAttributeName' => 'slug', // Name of the attribute containing a slug
-                'replacement' => '-', // The replacement to use for spaces in the slug
-                'lowercase' => true, // Whether to return the string in lowercase or not
-                'unique' => true, // Check if the slug value is unique, add number if not
+            ],
+            'slugUpdate' => [
+                'class' => 'kato\behaviors\Slug',
+                // These parameters are optional, default values presented here:
+                'sourceAttributeName' => 'slug', // If you want to make a slug from another attribute, set it here
+                'slugAttributeName' => 'slug', // Name of the attribute containing a slug
+                'onlyIfEmpty' => true
             ],
             'softDelete' => [
                'class' => 'kato\behaviors\SoftDelete',

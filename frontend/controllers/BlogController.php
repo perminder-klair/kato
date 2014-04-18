@@ -31,7 +31,11 @@ class BlogController extends \yii\web\Controller
         $model = new Blog();
 
         $searchModel = new BlogSearch;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $getQuery = Yii::$app->request->getQueryParams();
+        $getQuery['Blog']['status'] = Blog::STATUS_PUBLISHED;
+        //TODO by publish time
+
+        $dataProvider = $searchModel->search($getQuery);
 
         return $this->render('index', [
             'model' => $model,
