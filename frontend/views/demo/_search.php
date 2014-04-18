@@ -13,7 +13,6 @@ use yii\widgets\ActiveForm;
 <div class="demo-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
         'method' => 'get',
     ]); ?>
 

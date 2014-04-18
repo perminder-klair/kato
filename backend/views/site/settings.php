@@ -1,7 +1,7 @@
 <?php
 /**
  * @var yii\web\View $this
- * @var $settings
+ * @var backend\models\Setting $settings
  */
 $this->title = 'Settings';
 $this->params['breadcrumbs'][] = $this->title;
@@ -35,11 +35,15 @@ use yii\widgets\ActiveForm;
             <!-- END Blank Header -->
 
             <!-- Blank Content -->
-            <?php $form = ActiveForm::begin();
+            <?php $form = ActiveForm::begin([
+                'action' => 'site/settings'
+            ]);
 
-            foreach ($settings as $index => $setting) {
-                echo Html::encode($setting->define) . ': ' . $form->field($setting, "[$index]value");
-            }
+                foreach ($settings as $index => $setting) {
+                    echo $form->field($setting, "[$index]value")->label($setting->defineEncoded());
+                }
+
+                echo Html::submitButton('Submit', ['class' => 'btn btn-primary']);
 
             ActiveForm::end(); ?>
             <!-- END Blank Content -->

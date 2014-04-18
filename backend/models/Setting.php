@@ -43,4 +43,9 @@ class Setting extends ActiveRecord
 			'value' => 'Value',
 		];
 	}
+
+    public function defineEncoded()
+    {
+        return ucwords(str_replace('_', ' ', $this->define));
+    }
 }
