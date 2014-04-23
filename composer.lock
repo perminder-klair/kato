@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f3181c92c8fc286a0f25a776f904848d",
+    "hash": "4e75819393ce359bc3133d2565d1b299",
     "packages": [
         {
             "name": "asofter/yii2-imperavi-redactor",
@@ -347,60 +347,6 @@
             "time": "2014-04-05 10:50:03"
         },
         {
-            "name": "kartik-v/yii2-markdown",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kartik-v/yii2-markdown.git",
-                "reference": "6699c4f5b6c78a3d999cb6b65be8e25a40b2d379"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-markdown/zipball/6699c4f5b6c78a3d999cb6b65be8e25a40b2d379",
-                "reference": "6699c4f5b6c78a3d999cb6b65be8e25a40b2d379",
-                "shasum": ""
-            },
-            "require": {
-                "kartik-v/yii2-widgets": "*",
-                "michelf/php-markdown": "*",
-                "michelf/php-smartypants": "*",
-                "yiisoft/yii2": "*",
-                "yiisoft/yii2-bootstrap": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "kartik\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD 3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Kartik Visweswaran",
-                    "email": "kartikv2@gmail.com",
-                    "homepage": "http://www.krajee.com/"
-                }
-            ],
-            "description": "Advanced Markdown editing and conversion utilities for Yii Framework 2.0",
-            "homepage": "https://github.com/kartik-v/yii2-markdown",
-            "keywords": [
-                "bootstrap",
-                "converter",
-                "editor",
-                "extension",
-                "form",
-                "input",
-                "jquery",
-                "markdown",
-                "yii",
-                "yii2"
-            ],
-            "time": "2014-04-18 08:04:10"
-        },
-        {
             "name": "kartik-v/yii2-widgets",
             "version": "dev-master",
             "source": {
@@ -446,112 +392,6 @@
                 "yii2"
             ],
             "time": "2014-04-17 03:31:27"
-        },
-        {
-            "name": "michelf/php-markdown",
-            "version": "dev-lib",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/michelf/php-markdown.git",
-                "reference": "6f952ee180e9bd345f3dd6005aa11e0f5dcbd1b8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/6f952ee180e9bd345f3dd6005aa11e0f5dcbd1b8",
-                "reference": "6f952ee180e9bd345f3dd6005aa11e0f5dcbd1b8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-lib": "1.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Michelf": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Michel Fortin",
-                    "email": "michel.fortin@michelf.ca",
-                    "homepage": "http://michelf.ca/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "John Gruber",
-                    "homepage": "http://daringfireball.net/"
-                }
-            ],
-            "description": "PHP Markdown",
-            "homepage": "http://michelf.ca/projects/php-markdown/",
-            "keywords": [
-                "markdown"
-            ],
-            "time": "2013-11-29 21:49:31"
-        },
-        {
-            "name": "michelf/php-smartypants",
-            "version": "dev-lib",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/michelf/php-smartypants.git",
-                "reference": "e4a873d4a4e0f3dd6fbf5b9e017362f174eb28df"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-smartypants/zipball/e4a873d4a4e0f3dd6fbf5b9e017362f174eb28df",
-                "reference": "e4a873d4a4e0f3dd6fbf5b9e017362f174eb28df",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-lib": "1.6.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Michelf": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Michel Fortin",
-                    "email": "michel.fortin@michelf.ca",
-                    "homepage": "http://michelf.ca/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "John Gruber",
-                    "homepage": "http://daringfireball.net/"
-                }
-            ],
-            "description": "PHP SmartyPants",
-            "homepage": "http://michelf.ca/projects/php-smartypants/",
-            "keywords": [
-                "dashes",
-                "quotes",
-                "spaces",
-                "typographer",
-                "typography"
-            ],
-            "time": "2013-08-02 10:48:47"
         },
         {
             "name": "perminder-klair/kato-core",
@@ -735,12 +575,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "c8a8e768510cc1bd9e72d5cade23fba715efb59f"
+                "reference": "573ad10a9dba52e4a6f059e63b667f4034ad2b39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/c8a8e768510cc1bd9e72d5cade23fba715efb59f",
-                "reference": "c8a8e768510cc1bd9e72d5cade23fba715efb59f",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/573ad10a9dba52e4a6f059e63b667f4034ad2b39",
+                "reference": "573ad10a9dba52e4a6f059e63b667f4034ad2b39",
                 "shasum": ""
             },
             "type": "library",
@@ -775,7 +615,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2014-04-17 08:08:54"
+            "time": "2014-04-18 02:08:46"
         },
         {
             "name": "yiisoft/jquery",
@@ -832,12 +672,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "eb7cf7b75a12345201694eedc490708e6b7c4b38"
+                "reference": "f4521ed5379ad8217f4436d7b7cce6e670197b1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/eb7cf7b75a12345201694eedc490708e6b7c4b38",
-                "reference": "eb7cf7b75a12345201694eedc490708e6b7c4b38",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/f4521ed5379ad8217f4436d7b7cce6e670197b1e",
+                "reference": "f4521ed5379ad8217f4436d7b7cce6e670197b1e",
                 "shasum": ""
             },
             "require": {
@@ -902,7 +742,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-04-18 08:45:33"
+            "time": "2014-04-18 19:13:50"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -1261,7 +1101,6 @@
         "perminder-klair/yii2-dropzone": 20,
         "kartik-v/yii2-widgets": 20,
         "perminder-klair/yii2-sir-trevor-js": 20,
-        "kartik-v/yii2-markdown": 20,
         "ijackua/yii2-lepture-markdown-editor-widget": 20,
         "yiisoft/yii2-codeception": 20,
         "yiisoft/yii2-debug": 20,
