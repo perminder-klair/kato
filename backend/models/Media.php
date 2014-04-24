@@ -104,16 +104,24 @@ class Media extends ActiveRecord
     }
 
     /**
-     * TODO complete this properly
+     * Renders media images
+     * //TODO complete this properly
+     * @param bool $cache
+     * @param int $width
+     * @param int $height
      * @return string
      */
-    public function render()
+    public function render($cache = true, $width = 90, $height = 90)
     {
+        if ($cache === false || !file_exists($this->baseSource)) {
+            return '/' . $this->source;
+        }
+
         $cacheFile = Yii::$app->params['uploadPath'] . $this->cacheDir . '/' . $this->filename;
 
         //http://imagine.readthedocs.org/en/latest/
         // frame, rotate and save an image
-        Image::thumbnail($this->baseSource, 50, 50)
+        Image::thumbnail($this->baseSource, $width, $height)
             ->save($cacheFile);
 
         return '/files/' . $this->cacheDir . '/' . $this->filename;

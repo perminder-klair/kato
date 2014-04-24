@@ -15,11 +15,13 @@
     RewriteCond %{REQUEST_URI} ^/(admin)
     RewriteRule ^.*$ backend/web/index.php [L]
 
-    RewriteCond %{REQUEST_URI} ^/(assets|css)
+    RewriteCond %{REQUEST_URI} ^/(files|themes|assets|css)
+    RewriteRule ^files/(.*)$ frontend/web/files/$1 [L]
+    RewriteRule ^themes/(.*)$ frontend/web/themes/$1 [L]
     RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
     RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
 
-    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css|img)/
+    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(files|themes|assets|css|img)/
     RewriteCond %{REQUEST_URI} !index.php
     RewriteCond %{REQUEST_FILENAME} !-f [OR]
     RewriteCond %{REQUEST_FILENAME} !-d
