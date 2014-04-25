@@ -25,9 +25,6 @@ index
 # vagrant (virtual machine)
 .vagrant
 
-#ignore dev mockup dir
-dev
-
 # phpunit itself is not needed
 phpunit.phar
 # local phpunit config
