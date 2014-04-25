@@ -8,7 +8,6 @@ Read the [Documentation](docs/index.md) for information like installation, usage
 
 ## Admin Access
 Login to Admin Panel by visiting: www.yoursite.com/admin
-Login using: `admin / admin`
 
 ## DIRECTORY STRUCTURE
 

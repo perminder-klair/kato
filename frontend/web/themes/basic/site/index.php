@@ -2,7 +2,7 @@
 /**
  * @var yii\web\View $this
  */
-$this->title = 'My Yii Application';
+$this->title = 'My Kato Application';
 ?>
 <div class="site-index">
 
@@ -25,7 +25,7 @@ $this->title = 'My Yii Application';
 					ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
 					fugiat nulla pariatur.</p>
 
-				<p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+				<p><a class="btn btn-default" href="https://github.com/yiisoft/yii2/blob/master/docs/guide/index.md">Yii Documentation &raquo;</a></p>
 			</div>
 			<div class="col-lg-4">
 				<h2>Heading</h2>
