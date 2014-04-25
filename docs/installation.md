@@ -6,7 +6,11 @@ The minimum requirement by this application template that your Web server suppor
 
 * [Download the latest release](https://github.com/perminder-klair/kato/archive/master.zip).
 
-Get Yii2 Framework and other required components using Composer:
+Get Yii2 Framework and other required components using Composer.
+
+If you do not have [Composer](https://getcomposer.org), you may install it by following the instructions at [getcomposer.org](https://getcomposer.org/doc/00-intro.md#installation-nix).
+
+You can then install the application using the following command:
 
 Inside protected directory run:
 
