@@ -60,7 +60,7 @@ class SiteController extends \yii\web\Controller
     {
         $this->layout = 'fullWidth';
 
-        if (($exception = Yii::$app->exception) === null) {
+        if (($exception = Yii::$app->errorHandler->exception) === null) {
             return '';
         }
 

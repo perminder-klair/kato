@@ -84,7 +84,6 @@ class User extends ActiveRecord implements IdentityInterface
             ['role', 'default', 'value' => self::ROLE_USER],
             ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
 
-            ['username', 'default', 'value' => 'user-' . $this->getLastRow()->id],
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique'],
@@ -188,13 +187,28 @@ class User extends ActiveRecord implements IdentityInterface
 				$this->auth_key = Security::generateRandomKey();
 			} else {
                 //Update user role in auth
-                $this->updateRole($this->role);
+                if (!is_null($this->role)) {
+                    $this->updateRole($this->role);
+                }
             }
+
 
 			return true;
 		}
 		return false;
 	}
+
+    /**
+     * This method is called at the end of inserting or updating a record.
+     */
+    public function afterSave()
+    {
+        if (parent::afterSave(true)) {
+            $this->updateRole($this->role);
+            $this->save();
+        }
+    }
+
 
     /**
      * Creates a new user
@@ -352,12 +366,12 @@ class User extends ActiveRecord implements IdentityInterface
      * @param $key
      * @return bool
      */
-    public function createRole($key)
+    public static function createRole($key)
     {
         $auth = Yii::$app->authManager;
 
-        $admin = $auth->createRole($key);
-        if ($auth->add($admin)) {
+        $role = $auth->createRole($key);
+        if ($auth->add($role)) {
             return true;
         }
         return false;

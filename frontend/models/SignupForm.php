@@ -48,6 +48,13 @@ class SignupForm extends Model
                 //Create user profile
                 $profile = new UserProfile();
                 $profile->register($user->id);
+
+                if ($user->id == 1) {
+                    $user->role = 'admin';
+                } else {
+                    $user->role = 'user';
+                }
+                $user->save();
             }
 
             return $user;
