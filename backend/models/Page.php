@@ -113,24 +113,22 @@ class Page extends ActiveRecord
                 ],
                 'value' => new \yii\db\Expression('NOW()'),
             ],
-            'slug' => [
-                'class' => Slug::className(),
-                // These parameters are optional, default values presented here:
-                'sourceAttributeName' => 'title', // If you want to make a slug from another attribute, set it here
-                'slugAttributeName' => 'slug', // Name of the attribute containing a slug
-                'replacement' => '-', // The replacement to use for spaces in the slug
-                'lowercase' => true, // Whether to return the string in lowercase or not
-                'unique' => true, // Check if the slug value is unique, add number if not
-            ],
-            'softDelete' => [
-                'class' => SoftDelete::className(),
-                'attribute' => 'deleted',
-                'safeMode' => true,
-            ],
             'defaultTitle' => [
                 'class' => 'kato\behaviors\DefaultTitle',
                 'attribute' => 'title',
                 'defaultPrefix' => 'Page',
+            ],
+            'slug' => [
+                'class' => 'kato\behaviors\Slug',
+                // These parameters are optional, default values presented here:
+                'sourceAttributeName' => 'title', // If you want to make a slug from another attribute, set it here
+                'slugAttributeName' => 'slug', // Name of the attribute containing a slug
+                'onlyIfEmpty' => true,
+            ],
+            'softDelete' => [
+                'class' => 'kato\behaviors\SoftDelete',
+                'attribute' => 'deleted',
+                'safeMode' => true,
             ],
         ];
     }

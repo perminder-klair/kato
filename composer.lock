@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "82438d5cbe0973ce72a22f012db5ae49",
+    "hash": "189276d766461a29b5cbe9a31274c7b5",
     "packages": [
         {
             "name": "asofter/yii2-imperavi-redactor",
@@ -311,12 +311,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "228e505029c4e85298a0b17c5ab5f08dc502b64a"
+                "reference": "ba7c9810161d05e4a9ee891a30297ca11bde3864"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/228e505029c4e85298a0b17c5ab5f08dc502b64a",
-                "reference": "228e505029c4e85298a0b17c5ab5f08dc502b64a",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/ba7c9810161d05e4a9ee891a30297ca11bde3864",
+                "reference": "ba7c9810161d05e4a9ee891a30297ca11bde3864",
                 "shasum": ""
             },
             "type": "library",
@@ -344,7 +344,7 @@
                 "jquery",
                 "star"
             ],
-            "time": "2014-04-05 10:50:03"
+            "time": "2014-04-25 16:21:32"
         },
         {
             "name": "kartik-v/yii2-markdown",
@@ -406,12 +406,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widgets.git",
-                "reference": "fc792e8f4b27bab13146ee5819af2d27cff8d8d3"
+                "reference": "17e77e283fe5d620fa5438bb3a0c4c76ba93ba32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/fc792e8f4b27bab13146ee5819af2d27cff8d8d3",
-                "reference": "fc792e8f4b27bab13146ee5819af2d27cff8d8d3",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/17e77e283fe5d620fa5438bb3a0c4c76ba93ba32",
+                "reference": "17e77e283fe5d620fa5438bb3a0c4c76ba93ba32",
                 "shasum": ""
             },
             "require": {
@@ -445,7 +445,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-04-23 05:22:56"
+            "time": "2014-04-25 17:52:33"
         },
         {
             "name": "michelf/php-markdown",
@@ -832,12 +832,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "4caf106a9b06bfde42c8036d343f4f2beaf3a926"
+                "reference": "047b87249985afec29d949db0e8ca050bb6673be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/4caf106a9b06bfde42c8036d343f4f2beaf3a926",
-                "reference": "4caf106a9b06bfde42c8036d343f4f2beaf3a926",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/047b87249985afec29d949db0e8ca050bb6673be",
+                "reference": "047b87249985afec29d949db0e8ca050bb6673be",
                 "shasum": ""
             },
             "require": {
@@ -902,7 +902,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-04-25 02:06:07"
+            "time": "2014-04-25 14:10:51"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -1165,12 +1165,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "29c647914b3f2d55a6a754c1ee3310248650080c"
+                "reference": "1d0d2a02d9651978285013a9449cb54fc5842fa1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/29c647914b3f2d55a6a754c1ee3310248650080c",
-                "reference": "29c647914b3f2d55a6a754c1ee3310248650080c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/1d0d2a02d9651978285013a9449cb54fc5842fa1",
+                "reference": "1d0d2a02d9651978285013a9449cb54fc5842fa1",
                 "shasum": ""
             },
             "require": {
@@ -1201,7 +1201,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2014-04-23 01:25:11"
+            "time": "2014-04-25 19:04:39"
         },
         {
             "name": "yiisoft/yii2-gii",

@@ -73,8 +73,8 @@ class m140425_190132_init extends \yii\db\Migration
         $this->createTable('{{%kato_blog}}', [
             'id' => Schema::TYPE_PK,
             'title' => Schema::TYPE_STRING . '(70) NOT NULL',
-            'slug' => Schema::TYPE_STRING . '(70) NOT NULL',
-            'short_desc' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'slug' => Schema::TYPE_STRING . '(70)',
+            'short_desc' => Schema::TYPE_STRING . '(255)',
             'content' => Schema::TYPE_TEXT,
             'content_html' => Schema::TYPE_TEXT,
             'tags' => Schema::TYPE_TEXT,
@@ -85,6 +85,7 @@ class m140425_190132_init extends \yii\db\Migration
             'published_by' => Schema::TYPE_INTEGER,
             'create_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT CURRENT_TIMESTAMP',
             'update_time' => Schema::TYPE_TIMESTAMP . ' NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
+            'publish_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT CURRENT_TIMESTAMP',
             'is_revision' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
             'status' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
             'deleted' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
@@ -97,10 +98,23 @@ class m140425_190132_init extends \yii\db\Migration
             'content_type' => Schema::TYPE_STRING . '(50)',
         ], $tableOptions);
 
+        $this->createTable('{{%kato_media}}', [
+            'id' => Schema::TYPE_PK,
+            'filename' => Schema::TYPE_STRING . '(255) DEFAULT NULL',
+            'source' => Schema::TYPE_STRING . '(255) DEFAULT NULL',
+            'source_location' => Schema::TYPE_STRING,
+            'create_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT CURRENT_TIMESTAMP',
+            'extension' => Schema::TYPE_STRING . '(50)',
+            'mimeType' => Schema::TYPE_STRING . '(50)',
+            'byteSize' => Schema::TYPE_INTEGER,
+            'status' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 1',
+            'media_type' => Schema::TYPE_STRING . '(50)',
+        ], $tableOptions);
+
         $this->createTable('{{%kato_page}}', [
             'id' => Schema::TYPE_PK,
             'title' => Schema::TYPE_STRING . ' NOT NULL',
-            'slug' => Schema::TYPE_STRING . '(70) NOT NULL',
+            'slug' => Schema::TYPE_STRING . '(70)',
             'short_desc' => Schema::TYPE_STRING,
             'content' => Schema::TYPE_TEXT,
             'content_html' => Schema::TYPE_TEXT,
