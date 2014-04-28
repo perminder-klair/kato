@@ -33,7 +33,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<action>' => 'site/<action>',
+                '<action:(index|contact|error)>' => 'site/<action>',
                 'blog/<id:[0-9]+>/<title>' => 'blog/view',
                 'static/<slug>' => 'page/view',
             ]

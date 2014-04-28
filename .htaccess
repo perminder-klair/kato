@@ -5,26 +5,20 @@
 
 <IfModule mod_rewrite.c>
 
-    # deal with admin first
-    RewriteCond %{REQUEST_URI} ^/(admin)
+    # deal with backend
     RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
     RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
+    RewriteRule ^admin/js/(.*)$ backend/web/js/$1 [L]
     RewriteRule ^admin/img/(.*)$ backend/web/img/$1 [L]
-
-    RewriteCond %{REQUEST_URI} !^/backend/web/(assets|css)/
     RewriteCond %{REQUEST_URI} ^/(admin)
     RewriteRule ^.*$ backend/web/index.php [L]
 
-    RewriteCond %{REQUEST_URI} ^/(files|themes|assets|css)
+    # deal with frontend
     RewriteRule ^files/(.*)$ frontend/web/files/$1 [L]
     RewriteRule ^themes/(.*)$ frontend/web/themes/$1 [L]
     RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
     RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
-
-    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(files|themes|assets|css|img)/
-    RewriteCond %{REQUEST_URI} !index.php
-    RewriteCond %{REQUEST_FILENAME} !-f [OR]
-    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
     RewriteRule ^.*$ frontend/web/index.php
 
 </IfModule>
