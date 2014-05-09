@@ -27,11 +27,10 @@
         "yiisoft/yii2-imagine": "*",
         "perminder-klair/kato-core": "dev-master",
         "perminder-klair/yii2-dropzone": "dev-master",
+        "perminder-klair/yii2-sir-trevor-js": "dev-master",
         "kartik-v/yii2-widgets": "dev-master",
         "kartik-v/yii2-markdown": "dev-master",
-        "perminder-klair/yii2-sir-trevor-js": "dev-master",
-        "asofter/yii2-imperavi-redactor": "*",
-        "ijackua/yii2-lepture-markdown-editor-widget": "dev-master"
+        "asofter/yii2-imperavi-redactor": "*"
 
     },
     "require-dev": {
