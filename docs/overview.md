@@ -20,6 +20,9 @@ Please note: This list is not complete and is being added to on a regular basis.
 - Multiple roles
 - Permissions for roles
 
+### API
+- JSON API (Demo: site.com/api/demos)
+
 ### Gii (Automatic code generation tool)
 - Extended Yii2's Gii with Admin Panel
 - Smart Tags with selection instead of categories

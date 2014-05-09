@@ -5,6 +5,10 @@
 
 <IfModule mod_rewrite.c>
 
+    # deal with api
+    RewriteCond %{REQUEST_URI} ^/(api)
+    RewriteRule ^.*$ api/web/index.php [L]
+
     # deal with backend
     RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
     RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]

@@ -12,6 +12,11 @@ Login to Admin Panel by visiting: www.yoursite.com/admin
 ## DIRECTORY STRUCTURE
 
 ```
+api
+	config/				contains shared configurations
+	controllers/		contains API controller classes
+	runtime/			contains files generated during runtime
+	web/				contains the entry API resources
 common
 	config/				contains shared configurations
 	mail/				contains view files for e-mails
