@@ -1,15 +1,15 @@
 <?php
 
-namespace common\models\search;
+namespace backend\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Blog as BlogModel;
+use backend\models\Blog as BlogModel;
 
 /**
- * Blog represents the model behind the search form about `common\models\Blog`.
+ * Blog represents the model behind the search form about `backend\models\Blog`.
  */
-class Blog extends Model
+class BlogSearch extends Model
 {
     public $id;
     public $title;

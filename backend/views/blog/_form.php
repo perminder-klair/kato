@@ -6,7 +6,7 @@ use backend\widgets\Media;
 use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
-use ijackua\lepture\Markdowneditor;
+use kato\sirtrevorjs\SirTrevor;
 
 $tag = new Tag;
 
@@ -35,8 +35,8 @@ $tag = new Tag;
 
         <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
 
-        <?= $form->field($model, 'content')->widget(Markdowneditor::classname(), [
-            'leptureOptions' => []
+        <?= $form->field($model, 'content')->widget(SirTrevor::classname(), [
+            'imageUploadUrl' => Yii::$app->urlManager->createAdminUrl(['block/upload']),
         ]); ?>
 
         <?= $form->field($model, 'tags')->widget(Select2::classname(), [

@@ -4,7 +4,7 @@ namespace backend\models;
 
 use kato\ActiveRecord;
 use yii\helpers\Inflector;
-use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "kato_block".
@@ -114,7 +114,7 @@ class Block extends ActiveRecord
      * List all actions in site controller
      * @return array
      */
-    public function listParents()
+    /*public function listParents()
     {
         $help = new \yii\console\controllers\HelpController('', '');
         $actions = $help->getActions(new \frontend\controllers\SiteController('', ''));
@@ -125,15 +125,28 @@ class Block extends ActiveRecord
         }
 
         return $data;
-    }
+    }*/
 
-    public function renderParent()
+    /*public function renderParent()
     {
         if (!is_null($this->parent)) {
             return ucwords($this->parent);
         }
 
         return '-';
+    }*/
+
+    /**
+     * List all actions in site controller
+     * @return array
+     */
+    public function listParents()
+    {
+        $parents = self::find()
+            ->where('id != ' . $this->id)
+            ->all();
+
+        return ArrayHelper::map($parents, 'id', 'title');
     }
 
     public function render()

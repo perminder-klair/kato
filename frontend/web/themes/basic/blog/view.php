@@ -1,11 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\HtmlPurifier;
 
 /**
  * @var yii\web\View $this
- * @var common\models\Blog $model
+ * @var backend\models\Blog $model
  */
 
 $this->title = $model->title;
@@ -16,6 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<h1><?= Html::encode($this->title) ?></h1>
 
-    <?= HtmlPurifier::process($model->content_html) ?>
+    <?= $model->renderContent() ?>
 
 </div>

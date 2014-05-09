@@ -5,10 +5,9 @@ namespace backend\models;
 use Yii;
 use kartik\markdown\Markdown;
 use kato\helpers\KatoBase;
-use kato\behaviors\Slug;
-use kato\behaviors\SoftDelete;
 use kato\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "kato_page".
@@ -18,7 +17,6 @@ use yii\helpers\ArrayHelper;
  * @property string $short_desc
  * @property string $content
  * @property string $content_html
- * @property string $content_blocks
  * @property string $slug
  * @property string $create_time
  * @property integer $created_by
@@ -52,7 +50,7 @@ class Page extends ActiveRecord
 	public function rules()
 	{
 		return [
-			[['content', 'content_html', 'content_blocks'], 'string'],
+			[['content', 'content_html'], 'string'],
 			[['create_time', 'created_by', 'update_time'], 'required'],
 			[['create_time', 'update_time'], 'safe'],
 			[['created_by', 'updated_by', 'level', 'parent_id', 'type'], 'integer'],
@@ -81,7 +79,6 @@ class Page extends ActiveRecord
 			'short_desc' => 'Short Desc',
 			'content' => 'Content',
 			'content_html' => 'Content Html',
-            'content_blocks' => 'Content Blocks',
 			'slug' => 'Slug',
 			'create_time' => 'Create Time',
 			'created_by' => 'Created By',
@@ -141,12 +138,35 @@ class Page extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $this->content_html = Markdown::convert($this->content);
-            $this->short_desc = KatoBase::genShortDesc($this->content_html, 'p' , '20');
+            $this->createShortDesc();
 
             return true;
         }
         return false;
+    }
+
+    /**
+     * Render short_desc and content_html
+     * @return bool
+     */
+    public function createShortDesc()
+    {
+        $shortDescDone = false;
+        $this->content_html = '';
+        $content_decoded = Json::decode($this->content);
+
+        foreach ($content_decoded['data'] as $key => $value) {
+            if ($value['type'] === 'text' && $shortDescDone === false) {
+                $this->short_desc = KatoBase::limit_words($value['data']['text'], '20');
+                $shortDescDone = true;
+            }
+
+            $this->content_html .= $value['data']['text'] . ' ';
+        }
+
+        $this->content_html = Markdown::convert($this->content_html);
+
+        return true;
     }
 
     /**
@@ -181,8 +201,8 @@ class Page extends ActiveRecord
         return $files;
     }
 
-    public function renderBlocks()
+    public function renderContent()
     {
-        return \Yii::$app->kato->renderBlock($this->content_blocks);
+        return \Yii::$app->kato->renderBlock($this->content);
     }
 }

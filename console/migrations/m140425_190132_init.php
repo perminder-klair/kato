@@ -118,7 +118,6 @@ class m140425_190132_init extends \yii\db\Migration
             'short_desc' => Schema::TYPE_STRING,
             'content' => Schema::TYPE_TEXT,
             'content_html' => Schema::TYPE_TEXT,
-            'content_blocks' => Schema::TYPE_TEXT,
             'level' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 1',
             'layout' => Schema::TYPE_STRING . '(25) NOT NULL DEFAULT "default"',
             'parent_id' => Schema::TYPE_STRING,

@@ -6,7 +6,7 @@ use yii\widgets\ListView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var common\models\search\BlogSearch $searchModel
+ * @var backend\models\search\BlogSearch $searchModel
  */
 
 $this->title = 'Blogs';

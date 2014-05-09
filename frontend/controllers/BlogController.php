@@ -3,8 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Blog;
-use common\models\search\Blog as BlogSearch;
+use backend\models\Blog;
+use backend\models\search\BlogSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

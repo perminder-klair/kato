@@ -1,12 +1,14 @@
 <?php
 
-namespace common\models;
+namespace backend\models;
 
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\helpers\Url;
 use kartik\markdown\Markdown;
 use kato\helpers\KatoBase;
 use kato\ActiveRecord;
+use common\models\User;
 
 /**
  * This is the model class for table "kato_blog".
@@ -143,12 +145,35 @@ class Blog extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $this->content_html = Markdown::convert($this->content);
-            $this->short_desc = KatoBase::genShortDesc($this->content_html, 'p' , '20');
+            $this->createShortDesc();
 
             return true;
         }
         return false;
+    }
+
+    /**
+     * Render short_desc and content_html
+     * @return bool
+     */
+    public function createShortDesc()
+    {
+        $shortDescDone = false;
+        $this->content_html = '';
+        $content_decoded = Json::decode($this->content);
+
+        foreach ($content_decoded['data'] as $key => $value) {
+            if ($value['type'] === 'text' && $shortDescDone === false) {
+                $this->short_desc = KatoBase::limit_words($value['data']['text'], '20');
+                $shortDescDone = true;
+            }
+
+            $this->content_html .= $value['data']['text'] . ' ';
+        }
+
+        $this->content_html = Markdown::convert($this->content_html);
+
+        return true;
     }
 
     public function getUser()
@@ -206,4 +231,10 @@ class Blog extends ActiveRecord
 
         return Url::to(['blog/view', 'id' => $this->id, 'title' => Html::encode($title)]);
     }
+
+    public function renderContent()
+    {
+        return \Yii::$app->kato->renderBlock($this->content);
+    }
+
 }

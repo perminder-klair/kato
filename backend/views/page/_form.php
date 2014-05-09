@@ -30,11 +30,7 @@ use kato\sirtrevorjs\SirTrevor;
 
             <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
 
-            <?= $form->field($model, 'short_desc')->textInput(['maxlength' => 255]) ?>
-
-            <?= $form->field($model, 'content')->widget(ImperaviWidget::classname()); ?>
-
-            <?= $form->field($model, 'content_blocks')->widget(SirTrevor::classname(), [
+            <?= $form->field($model, 'content')->widget(SirTrevor::classname(), [
                 'imageUploadUrl' => Yii::$app->urlManager->createAdminUrl(['block/upload']),
             ]); ?>
 
