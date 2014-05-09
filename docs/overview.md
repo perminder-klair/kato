@@ -20,7 +20,7 @@ Please note: This list is not complete and is being added to on a regular basis.
 - Multiple roles
 - Permissions for roles
 
-### API
+### REST API
 - JSON API (Demo: site.com/api/demos)
 
 ### Gii (Automatic code generation tool)
