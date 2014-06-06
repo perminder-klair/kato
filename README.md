@@ -9,6 +9,9 @@ Read the [Documentation](docs/index.md) for information like installation, usage
 ## Admin Access
 Login to Admin Panel by visiting: www.yoursite.com/admin
 
+## REST API Demo
+By visiting: www.yoursite.com/api/demos
+
 ## DIRECTORY STRUCTURE
 
 ```
