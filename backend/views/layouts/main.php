@@ -17,6 +17,7 @@ AppAsset::register($this);
     <head>
         <title><?= Html::encode($this->title) ?></title>
 
+        <?= Html::csrfMetaTags() ?>
         <?php $this->registerTheme(); ?>
         <?php $this->head() ?>
 
