@@ -155,13 +155,15 @@ class Page extends ActiveRecord
         $this->content_html = '';
         $content_decoded = Json::decode($this->content);
 
-        foreach ($content_decoded['data'] as $key => $value) {
-            if ($value['type'] === 'text' && $shortDescDone === false) {
-                $this->short_desc = KatoBase::limit_words($value['data']['text'], '20');
-                $shortDescDone = true;
-            }
+        if (isset($content_decoded['data'])) {
+            foreach ($content_decoded['data'] as $key => $value) {
+                if ($value['type'] === 'text' && $shortDescDone === false) {
+                    $this->short_desc = KatoBase::limit_words($value['data']['text'], '20');
+                    $shortDescDone = true;
+                }
 
-            $this->content_html .= $value['data']['text'] . ' ';
+                $this->content_html .= $value['data']['text'] . ' ';
+            }
         }
 
         $this->content_html = Markdown::convert($this->content_html);

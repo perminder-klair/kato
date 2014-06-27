@@ -23,7 +23,7 @@
         "php": ">=5.4.0",
         "yiisoft/yii2": "dev-master",
         "yiisoft/yii2-swiftmailer": "dev-master",
-        "yiisoft/yii2-bootstrap": "dev-master",
+        "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-imagine": "*",
         "perminder-klair/kato-core": "dev-master",
         "perminder-klair/yii2-dropzone": "dev-master",
