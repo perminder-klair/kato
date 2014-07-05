@@ -203,7 +203,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function afterSave($insert = true)
     {
-        if (parent::afterSave($insert)) {
+        if (parent::afterSave($insert, [])) {
             $this->updateRole($this->role);
             $this->save();
         }
