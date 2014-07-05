@@ -4,10 +4,10 @@ var config = {
 	site_title: 'Kato CMS Documentation',
 
 	// The base URL of your site (can use %base_url% in Markdown files)
-	base_url: '',
+	base_url: 'http://getkato.com',
 
 	// Used for the "Get in touch" page footer link
-	support_email: '',
+	support_email: 'perminder.klair@gmail.com',
 
 	// Footer copyright content
 	copyright: 'Copyright &copy; '+ new Date().getFullYear() +' - <a href="http://getkato.com">Kato CMS</a>',
