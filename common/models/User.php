@@ -4,7 +4,6 @@ namespace common\models;
 
 use Yii;
 use kato\ActiveRecord;
-use yii\helpers\Security;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
 use yii\helpers\Inflector;
@@ -161,7 +160,7 @@ class User extends ActiveRecord implements IdentityInterface
 	 */
 	public function validatePassword($password)
 	{
-		return Security::validatePassword($password, $this->password_hash);
+		return Yii::$app->getSecurity()->validatePassword($password, $this->password_hash);
 	}
 
 	/*public function scenarios()
