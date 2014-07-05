@@ -201,9 +201,9 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * This method is called at the end of inserting or updating a record.
      */
-    public function afterSave($insert = true)
+    public function afterSave($insert = true, $changedAttributes = [])
     {
-        if (parent::afterSave($insert, [])) {
+        if (parent::afterSave($insert, $changedAttributes)) {
             $this->updateRole($this->role);
             $this->save();
         }
