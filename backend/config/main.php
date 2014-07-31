@@ -14,10 +14,11 @@ return [
 	'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
+            'loginUrl' => ['/admin/login'],
         ],
-		'errorHandler' => [
-			'errorAction' => 'site/error',
-		],
+	'errorHandler' => [
+		'errorAction' => 'site/error',
+	],
         'urlManager' => [
             'class' => 'kato\components\UrlManager',
             'adminUrl' => 'admin',
