@@ -14,7 +14,7 @@ return [
 	'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
-            'loginUrl' => ['/admin/login'],
+            'loginUrl' => ['/login'],
         ],
 	'errorHandler' => [
 		'errorAction' => 'site/error',
