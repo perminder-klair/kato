@@ -180,10 +180,10 @@ class User extends ActiveRecord implements IdentityInterface
 	{
 		if (parent::beforeSave($insert)) {
 			if (($this->isNewRecord || $this->getScenario() === 'resetPassword') || (!empty($this->password) || !is_null($this->password))) {
-				//$this->password_hash = Security::generatePasswordHash($this->password);
+				$this->password_hash = Yii::$app->security->generatePasswordHash($this->password);
 			}
 			if ($this->isNewRecord) {
-				//$this->auth_key = Security::generateRandomKey();
+				$this->auth_key = Yii::$app->security->generateRandomKey();
 			} else {
                 //Update user role in auth
                 if (!is_null($this->role)) {
