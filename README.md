@@ -1,4 +1,7 @@
 # Kato CMS
+
+[ ![Codeship Status for perminder-klair/kato](https://codeship.io/projects/27e66250-f320-0131-9544-4a285323a758/status)](https://codeship.io/projects/27806)
+
 Thank you for choosing Kato - a PHP CMS based on Yii2 Framework.
 
 To get started, check out [http://getkato.com](http://getkato.com)!

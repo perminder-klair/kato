@@ -71,16 +71,28 @@ class Media extends ActiveRecord
 	}
 
     /**
+     * Before deletion, remove media file from source and also delete from relation table
      * @inheritdoc
      */
-    public function afterDelete()
+    public function beforeDelete()
     {
-        //Remove file from system
-        if (file_exists($this->baseSource)) {
-            unlink($this->baseSource);
+        if (parent::beforeDelete()) {
+            //Remove file from system
+            if (file_exists($this->baseSource)) {
+                unlink($this->baseSource);
+            }
+
+            //Delete from relation table
+            if ($contentMedia = ContentMedia::find()->where(['media_id' => $this->id])->all()) {
+                foreach ($contentMedia as $data)  {
+                    $data->delete();
+                }
+            }
+
+            return true;
         }
 
-        parent::afterDelete();
+        return false;
     }
 
     /**

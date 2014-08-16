@@ -16,6 +16,7 @@ return [
 	'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
+            'loginUrl' => ['/account/login'],
         ],
         'request'=>[
             'class' => 'kato\components\Request',
