@@ -7,18 +7,18 @@ $params = array_merge(
 );
 
 return [
-	'id' => 'kato-backend',
-	'basePath' => dirname(__DIR__),
-	'bootstrap' => ['log'],
-	'controllerNamespace' => 'backend\controllers',
-	'components' => [
+    'id' => 'kato-backend',
+    'basePath' => dirname(__DIR__),
+    'bootstrap' => ['log'],
+    'controllerNamespace' => 'backend\controllers',
+    'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
             'loginUrl' => ['/login'],
         ],
-	'errorHandler' => [
-		'errorAction' => 'site/error',
-	],
+        'errorHandler' => [
+            'errorAction' => 'site/error',
+        ],
         'urlManager' => [
             'class' => 'kato\components\UrlManager',
             'adminUrl' => 'admin',
@@ -29,14 +29,14 @@ return [
                 'post/<id:[0-9]+>' => 'post/view'
             ]
         ],
-        'request'=>[
+        'request' => [
             'class' => 'kato\components\Request',
-            'web'=> '/backend/web',
+            'web' => '/backend/web',
             'adminUrl' => '/admin',
             //TODO enable this
-            'enableCsrfValidation'=>false,
-            'enableCookieValidation'=>true,
+            'enableCsrfValidation' => false,
+            'enableCookieValidation' => true,
         ],
-	],
-	'params' => $params,
+    ],
+    'params' => $params,
 ];
