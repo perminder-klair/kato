@@ -183,7 +183,7 @@ class User extends ActiveRecord implements IdentityInterface
 				$this->password_hash = Yii::$app->security->generatePasswordHash($this->password);
 			}
 			if ($this->isNewRecord) {
-				$this->auth_key = Yii::$app->security->generateRandomKey();
+                $this->generateAuthKey();
 			} else {
                 //Update user role in auth
                 if (!is_null($this->role)) {
@@ -202,8 +202,8 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function afterSave($insert = true, $changedAttributes = [])
     {
-        $this->updateRole($this->role);
-        $this->save();
+        //$this->updateRole($this->role);
+        //$this->save();
 
         parent::afterSave($insert, $changedAttributes);
     }
@@ -221,7 +221,6 @@ class User extends ActiveRecord implements IdentityInterface
         $user = new static();
         $user->setAttributes($attributes);
         $user->setPassword($attributes['password']);
-        $user->generateAuthKey();
         if ($user->save()) {
             return $user;
         } else {

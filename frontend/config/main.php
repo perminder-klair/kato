@@ -51,7 +51,7 @@ return [
         'view' => [
             'theme' => [
                 'pathMap' => [
-                    '@app/views' => '@webroot/themes/basic'
+                    '@app/views' => '@app/themes/basic'
                 ],
                 'baseUrl' => '@web/themes/basic',
                 'basePath' => '@web/themes/basic',

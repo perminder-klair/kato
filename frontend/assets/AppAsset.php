@@ -15,10 +15,10 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-	public $basePath = '@webroot';
-	public $baseUrl = '@web';
+    public $sourcePath = '@app/themes/basic';
+
 	public $css = [
-		'css/site.css',
+		'assets/css/site.css',
 	];
 	public $js = [
 	];

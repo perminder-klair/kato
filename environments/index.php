@@ -30,6 +30,8 @@ return [
             'backend/web/assets',
             'frontend/runtime',
             'frontend/web/assets',
+            'files',
+            'files/cache',
         ],
         'setExecutable' => [
             'yii',
@@ -46,6 +48,8 @@ return [
             'backend/web/assets',
             'frontend/runtime',
             'frontend/web/assets',
+            'files',
+            'files/cache',
         ],
         'setExecutable' => [
             'yii',
