@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use backend\models\Tag;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
@@ -14,7 +14,7 @@ $tag = new Tag;
 /**
  * @var yii\web\View $this
  * @var frontend\models\Demo $model
- * @var yii\widgets\ActiveForm $form
+ * @var yii\bootstrap\ActiveForm $form
  */
 ?>
 

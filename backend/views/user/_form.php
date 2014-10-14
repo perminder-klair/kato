@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /**
  * @var yii\web\View $this
  * @var common\models\User $model
  * @var common\models\UserProfile $profile
- * @var yii\widgets\ActiveForm $form
+ * @var yii\bootstrap\ActiveForm $form
  */
 ?>
 

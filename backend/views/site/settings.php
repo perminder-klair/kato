@@ -8,7 +8,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 use yii\widgets\Breadcrumbs;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 ?>
 <div id="page-container">
 

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use backend\models\Tag;
 use backend\widgets\Media;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use kato\sirtrevorjs\SirTrevor;
@@ -12,7 +12,7 @@ $tag = new Tag;
 
 /**
  * @var yii\web\View $this
- * @var common\models\Blog $model
+ * @var backend\models\Blog $model
  * @var backend\models\Media $media
  * @var yii\widgets\ActiveForm $form
  */

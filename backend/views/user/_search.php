@@ -1,12 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /**
  * @var yii\web\View $this
  * @var backend\models\search\User $model
- * @var yii\widgets\ActiveForm $form
+ * @var yii\bootstrap\ActiveForm $form
  */
 ?>
 

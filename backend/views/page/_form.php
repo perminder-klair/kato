@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use yii\imperavi\Widget as ImperaviWidget;
 use backend\widgets\Media;
 use kato\sirtrevorjs\SirTrevor;
@@ -9,7 +9,7 @@ use kato\sirtrevorjs\SirTrevor;
 /**
  * @var yii\web\View $this
  * @var backend\models\Page $model
- * @var yii\widgets\ActiveForm $form
+ * @var yii\bootstrap\ActiveForm $form
  */
 ?>
 
