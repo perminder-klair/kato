@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\NotFoundHttpException;
 use backend\models\Media;
 use yii\helpers\Url;
@@ -93,5 +94,29 @@ class MediaController extends \yii\web\Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionUpload()
+    {
+        $file = \Yii::$app->kato->mediaUpload('attachment', true);
+        dump($file);
+        exit;
+    }
+
+    public function actionListMedia()
+    {
+        $result = array();
+        if ($media = Media::find()->all()) {
+            foreach ($media as $data) {
+                $result[] = array(
+                    'thumb' => '/' . $data->source,
+                    'image' => '/' . $data->source,
+                    'title' => '/' . $data->filename,
+                    //'filelink' => '/' . $data->source,
+                );
+            }
+        }
+
+        echo Json::encode($result);
     }
 }

@@ -105,6 +105,12 @@ class PageController extends \yii\web\Controller
         $meta['description'] = 'Update page';
         $meta['pageIcon'] = $this->pageIcon;
 
+        //load blocks
+        $model->loadBlocks();
+
+        //update blocks
+        $model->updateBlocks();
+
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Page has been updated');
 			return $this->redirect(['update', 'id' => $model->id]);

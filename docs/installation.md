@@ -12,6 +12,7 @@ If you do not have [Composer](https://getcomposer.org), you may install it by fo
 
 You can then install required libraries using the following command:
 
+    php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta2"
     php composer.phar install
 
 

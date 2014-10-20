@@ -18,7 +18,7 @@
         "wiki": "https://github.com/perminder-klair/kato/wiki",
         "source": "https://github.com/perminder-klair/kato"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "*",
