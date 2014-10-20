@@ -36,6 +36,8 @@ class Page extends ActiveRecord
     const TYPE_STATIC = 0;
     const TYPE_NON_STATIC = 1;
 
+    public $pagesDir = null;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -190,7 +192,7 @@ class Page extends ActiveRecord
      */
     public function listLayouts()
     {
-        $dir = Yii::getAlias('@frontend') . '/web/themes/basic/page';
+        $this->pagesDir =  Yii::getAlias('@frontend') . '/themes/basic/page';
 
         $files = [];
         if ($viewFiles = \kato\helpers\KatoBase::get_files($dir)) {

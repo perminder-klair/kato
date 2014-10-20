@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
 /**
- * @var yii\web\View $this
+ * @var backend\components\View $this
  * @var backend\models\Blog $model
  * @var $meta
  * @var $controllerName

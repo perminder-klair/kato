@@ -179,8 +179,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function beforeSave($insert)
 	{
 		if (parent::beforeSave($insert)) {
-			if (($this->isNewRecord || $this->getScenario() === 'resetPassword') || (!empty($this->password) || !is_null($this->password))) {
-				$this->password_hash = Yii::$app->security->generatePasswordHash($this->password);
+			if (($this->isNewRecord || $this->getScenario() === 'resetPassword') || ($this->password != '')) {
+				$this->password_hash = Yii::$app->getSecurity()->generatePasswordHash($this->password);
 			}
 			if ($this->isNewRecord) {
                 $this->generateAuthKey();
