@@ -8,6 +8,7 @@ use kato\helpers\KatoBase;
 use kato\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii\web\BadRequestHttpException;
 use yii\web\HttpException;
 
 /**
@@ -108,6 +109,22 @@ class Page extends ActiveRecord
     {
         // Page has_many Block via Block.parent -> slug
         return $this->hasMany(Block::className(), ['parent' => 'slug']);
+    }
+
+    public function getChildren()
+    {
+        return $this->hasMany(self::className(), ['parent_id' => 'id']);
+    }
+
+    public function getMenuChildren()
+    {
+        return $this->hasMany(self::className(), ['parent_id' => 'id'])
+            ->where([
+                'menu_hidden' => Page::MENU_HIDDEN_NO,
+                'status' => Page::STATUS_PUBLISHED,
+                'deleted' => 0,
+            ])
+            ->orderBy('listing_order ASC');
     }
 
     public function getActiveBlocks()
@@ -268,12 +285,9 @@ class Page extends ActiveRecord
             $json_file = $layout = $this->layout;
         }
 
-        //dump(Yii::getAlias('@frontend') . str_replace('/admin','',Yii::$app->view->theme->basePath) . DIRECTORY_SEPARATOR . 'blocks' . DIRECTORY_SEPARATOR);exit;
         $pages_dir = Yii::getAlias('@frontend') . str_replace('/admin','',Yii::$app->view->theme->basePath) . DIRECTORY_SEPARATOR . 'blocks' . DIRECTORY_SEPARATOR;
         $page_json = $pages_dir . $json_file . '.json';
 
-        //dump($page_json);
-        //dump(file_exists($page_json));exit;
         if (file_exists($page_json)) {
 
             $string = file_get_contents($page_json);
@@ -340,5 +354,19 @@ class Page extends ActiveRecord
         }
 
         return false;
+    }
+
+    public function getPermalink()
+    {
+        if ($this->type == self::TYPE_NON_STATIC) {
+            return Yii::$app->urlManager->createUrl([str_replace("-", "/", $this->slug)]);
+        } else {
+
+            if (is_null($this->slug)) {
+                throw new BadRequestHttpException('Page slug not specified.');
+            }
+
+            return Yii::$app->urlManager->createUrl(['page/view', 'slug' => $this->slug]);
+        }
     }
 }

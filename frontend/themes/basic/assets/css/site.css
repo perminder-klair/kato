@@ -38,3 +38,7 @@ a.desc:after { content: /*"\e114"*/"\e152"; }
 
 .sort-ordinal a.asc:after { content: "\e155"; }
 .sort-ordinal a.desc:after { content: "\e156"; }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}

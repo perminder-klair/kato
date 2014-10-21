@@ -123,7 +123,7 @@ class m140425_190132_init extends \yii\db\Migration
             'content_html' => Schema::TYPE_TEXT,
             'layout' => Schema::TYPE_STRING . '(25) NOT NULL DEFAULT "default"',
             'parent_id' => Schema::TYPE_STRING,
-            'type' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 1',
+            'type' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
             'menu_title' => Schema::TYPE_STRING . '(70)',
             'menu_hidden' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 1',
             'created_by' => Schema::TYPE_INTEGER . ' NOT NULL',

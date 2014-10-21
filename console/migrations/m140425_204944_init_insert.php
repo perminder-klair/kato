@@ -52,7 +52,7 @@ class m140425_204944_init_insert extends \yii\db\Migration
         $this->insert('{{%kato_block}}', [
             'title' => 'details',
             'content' => '<p>' . $lorem . '</p>',
-            'parent' => 'homepage',
+            'parent' => 'index',
             'block_type' => 'text-area',
             'category' => 'general',
             'created_by' => 1,
@@ -65,6 +65,17 @@ class m140425_204944_init_insert extends \yii\db\Migration
             'content' => '<p>' . $lorem . '</p>',
             'parent' => 'about-us',
             'parent_layout' => 'basic',
+            'block_type' => 'text-area',
+            'category' => 'general',
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 1
+        ]);
+
+        $this->insert('{{%kato_block}}', [
+            'title' => 'contact-intro',
+            'content' => '<p>' . $lorem . '</p>',
+            'parent' => 'contact',
             'block_type' => 'text-area',
             'category' => 'general',
             'created_by' => 1,

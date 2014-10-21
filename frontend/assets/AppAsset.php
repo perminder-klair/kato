@@ -17,10 +17,15 @@ class AppAsset extends AssetBundle
 {
     public $sourcePath = '@app/themes/basic';
 
+    public $publishOptions = [
+        'forceCopy' => true //disable in live env
+    ];
+
 	public $css = [
 		'assets/css/site.css',
 	];
 	public $js = [
+        'assets/scripts/main.js',
 	];
 	public $depends = [
 		'yii\web\YiiAsset',

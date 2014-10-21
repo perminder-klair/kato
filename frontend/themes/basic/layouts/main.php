@@ -32,26 +32,22 @@ AppAsset::register($this);
 				'class' => 'navbar-inverse navbar-fixed-top',
 			],
 		]);
-		$menuItems = [
-			['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Blog', 'url' => ['/blog/index']],
-			['label' => 'About', 'url' => \kato\helpers\KatoHtml::page('about-us'), 'active' => Yii::$app->kato->pageSlug()==='about-us'?true:false],
-			['label' => 'Contact', 'url' => ['/site/contact']],
-		];
-		if (Yii::$app->user->isGuest) {
-			$menuItems[] = ['label' => 'Signup', 'url' => ['/account/signup']];
-			$menuItems[] = ['label' => 'Login', 'url' => ['/account/login']];
-		} else {
-            $menuItems[] = ['label' => 'Account', 'url' => ['/account/index']];
-            $menuItems[] = [
+        $items = \Yii::$app->kato->menuItems();
+        if (Yii::$app->user->isGuest) {
+            $items[] = ['label' => 'Signup', 'url' => ['/account/signup']];
+            $items[] = ['label' => 'Login', 'url' => ['/account/login']];
+        } else {
+            $items[] = ['label' => 'Account', 'url' => ['/account/index']];
+            $items[] = [
                 'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                 'url' => ['/account/logout'],
                 'linkOptions' => ['data-method' => 'post']
             ];
-		}
-		echo Nav::widget([
+        }
+
+    echo Nav::widget([
 			'options' => ['class' => 'navbar-nav navbar-right'],
-			'items' => $menuItems,
+			'items' => $items,
 		]);
 		NavBar::end();
 	?>
