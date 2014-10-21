@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -9,6 +10,7 @@ use kartik\markdown\Markdown;
 use kato\helpers\KatoBase;
 use kato\ActiveRecord;
 use common\models\User;
+use yii\web\HttpException;
 
 /**
  * This is the model class for table "kato_blog".
@@ -18,6 +20,7 @@ use common\models\User;
  * @property string $short_desc
  * @property string $content
  * @property string $content_html
+ * @property integer $revision_to
  * @property string $slug
  * @property string $tags
  * @property string $create_time
@@ -26,15 +29,11 @@ use common\models\User;
  * @property integer $updated_by
  * @property string $publish_time
  * @property string $published_by
- * @property integer $is_revision
- * @property integer $parent_id
  * @property integer $status
  * @property integer $deleted
  */
 class Blog extends ActiveRecord
 {
-    const IS_REVISION = 1;
-    const NOT_REVISION = 0;
     const STATUS_NOT_PUBLISHED = 0;
     const STATUS_PUBLISHED = 1;
 
@@ -56,15 +55,12 @@ class Blog extends ActiveRecord
             [['content', 'content_html', 'tags'], 'string'],
             [['create_time', 'created_by', 'update_time', 'publish_time'], 'required'],
             [['create_time', 'update_time', 'publish_time'], 'safe'],
-            [['created_by', 'updated_by', 'published_by', 'is_revision', 'parent_id', 'status', 'deleted'], 'integer'],
+            [['created_by', 'updated_by', 'published_by', 'revision_to', 'status', 'deleted'], 'integer'],
             [['title', 'slug'], 'string', 'max' => 70],
             [['short_desc'], 'string', 'max' => 255],
             ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
             ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
-            ['parent_id', 'default', 'value' => 0],
-            ['slug', 'default', 'value' => null],
-            ['is_revision', 'default', 'value' => self::NOT_REVISION],
-            ['is_revision', 'in', 'range' => [self::IS_REVISION, self::NOT_REVISION]],
+            //['slug', 'default', 'value' => null],
         ];
     }
 
@@ -87,10 +83,9 @@ class Blog extends ActiveRecord
             'updated_by' => 'Updated By',
             'publish_time' => 'Publish Time',
             'published_by' => 'Published By',
-            'is_revision' => 'Is Revision',
-            'parent_id' => 'Parent ID',
             'status' => 'Status',
             'deleted' => 'Deleted',
+            'revision_to ' => 'Revision To',
         ];
     }
 
@@ -145,6 +140,10 @@ class Blog extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+            if (!$this->isNewRecord) {
+                $this->createRevision();
+            }
+
             $this->createShortDesc();
 
             return true;
@@ -178,9 +177,22 @@ class Blog extends ActiveRecord
         return true;
     }
 
+    public function getRevisions()
+    {
+        return $this->hasMany(self::className(), ['revision_to' => 'id'])
+            ->orderBy('id DESC');
+    }
+
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    public function revisionsProvider()
+    {
+        return new ActiveDataProvider([
+            'query' => $this->getRevisions(),
+        ]);
     }
 
     public function getNewerLink()
@@ -217,7 +229,7 @@ class Blog extends ActiveRecord
 
     public function getAuthorName()
     {
-        return $this->user->username;
+        return $this->user->displayName;
     }
 
     /**
@@ -239,4 +251,35 @@ class Blog extends ActiveRecord
         return \Yii::$app->kato->renderBlock($this->content);
     }
 
+    private function createRevision()
+    {
+        $revision = new self();
+        $revision->attributes = $this->attributes;
+        unset($revision->id);
+        $revision->revision_to = $this->id;
+        if ($revision->save()) {
+            return true;
+        } else{
+            throw new HttpException(500, 'Unable to create blog post revision');
+        }
+    }
+
+    public function restore()
+    {
+        $blog = self::findOne($this->revision_to);
+
+        //set attributes
+        $blog->title = $this->title;
+        $blog->short_desc = $this->short_desc;
+        $blog->content = $this->content;
+        $blog->content_html = $this->content_html;
+        $blog->tags = $this->tags;
+        $blog->status = $this->status;
+
+        if ($blog->save()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

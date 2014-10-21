@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Blog;
 use backend\models\search\BlogSearch;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -130,6 +131,17 @@ class BlogController extends \yii\web\Controller
 			]);
 		}
 	}
+
+    public function actionRestore($id)
+    {
+        $revision = $this->findModel($id);
+
+        if ($revision->restore()) {
+            return $this->redirect(['update', 'id' => $revision->revision_to]);
+        } else {
+            throw new HttpException(500, 'Unable to restore blog.');
+        }
+    }
 
 	/**
 	 * Deletes an existing Blog model.

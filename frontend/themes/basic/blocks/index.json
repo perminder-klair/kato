@@ -1,0 +1,10 @@
+{
+    "blocks" : [
+        {
+            "name": "details",
+            "type": "text-area",
+            "comments": "This is demo comment",
+            "category": "General"
+        }
+    ]
+}

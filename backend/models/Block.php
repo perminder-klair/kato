@@ -2,9 +2,11 @@
 
 namespace backend\models;
 
+use backend\models\query\BlockQuery;
 use kato\ActiveRecord;
 use yii\helpers\Inflector;
 use yii\helpers\ArrayHelper;
+use yii\web\HttpException;
 
 /**
  * This is the model class for table "kato_block".
@@ -16,10 +18,15 @@ use yii\helpers\ArrayHelper;
  * @property integer $created_by
  * @property string $update_time
  * @property integer $updated_by
- * @property string $parent
+ * @property string $parent_layout
+ * @property string $block_type
+ * @property string $comments
+ * @property string $category
  * @property integer $listing_order
+ * @property integer $revision_to
  * @property integer $status
  * @property integer $deleted
+ * @property integer $parent
  */
 class Block extends ActiveRecord
 {
@@ -34,6 +41,15 @@ class Block extends ActiveRecord
 		return 'kato_block';
 	}
 
+    /**
+     * @inheritdoc
+     * @return BlockQuery
+     */
+    public static function find()
+    {
+        return new BlockQuery(get_called_class());
+    }
+
 	/**
 	 * @inheritdoc
 	 */
@@ -42,9 +58,11 @@ class Block extends ActiveRecord
 		return [
 			[['content'], 'string'],
 			[['create_time', 'update_time', 'content'], 'safe'],
-			[['created_by', 'updated_by', 'listing_order', 'status', 'deleted'], 'integer'],
-			[['title', 'parent'], 'string', 'max' => 70],
-            ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
+			[['created_by', 'updated_by', 'listing_order', 'status', 'deleted', 'parent'], 'integer'],
+			[['title'], 'string', 'max' => 70],
+            [['parent_layout', 'block_type', 'category'], 'string', 'max' => 50],
+            [['comments'], 'string', 'max' => 100],
+            ['status', 'default', 'value' => self::STATUS_PUBLISHED],
             ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
 		];
 	}
@@ -63,6 +81,10 @@ class Block extends ActiveRecord
 			'update_time' => 'Update Time',
 			'updated_by' => 'Updated By',
 			'parent' => 'Parent',
+            'block_type' => 'Block Type',
+            'parent_layout' => 'Parent Layout',
+            'comments' => 'Comments',
+            'category' => 'Category',
 			'listing_order' => 'Listing Order',
 			'status' => 'Status',
 			'deleted' => 'Deleted',
@@ -104,6 +126,8 @@ class Block extends ActiveRecord
             $this->parent = strtolower($this->parent);
 
             $this->title = Inflector::slug($this->title);
+
+            $this->category = Inflector::slug($this->category);
 
             return true;
         }
@@ -152,5 +176,50 @@ class Block extends ActiveRecord
     public function render()
     {
         return \Yii::$app->kato->renderBlock($this->content);
+    }
+
+    public function getLabel()
+    {
+        $label = ucwords(str_replace("-", " ", $this->title));
+
+        if ($this->comments) {
+            //$label = '<span data-toggle="tooltip" title="' . $this->comments . '" data-placement="top" data-trigger="hover" style="border-bottom: 1px dotted #000;">' .$label.'</span>';
+        }
+
+        return '<label class="col-sm-3 control-label">' . $label . '</label>';
+    }
+
+    public function createRevision($parentId = null)
+    {
+        $revision = new self();
+        $revision->attributes = $this->attributes;
+        unset($revision->id);
+        $revision->parent = $parentId;
+        $revision->revision_to = $this->id;
+        if (!$revision->save(false)) {
+            throw new HttpException(500, 'Unable to create block revision');
+        }
+
+        return true;
+    }
+
+    public function restore()
+    {
+        $block = self::findOne($this->revision_to);
+
+        //set attributes
+        $block->title = $this->title;
+        $block->content = $this->content;
+        $block->block_type = $this->block_type;
+        $block->parent_layout = $this->parent_layout;
+        $block->comments = $this->comments;
+        $block->category = $this->category;
+        $block->listing_order = $this->listing_order;
+
+        if ($block->save()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

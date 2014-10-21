@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use kato\sirtrevorjs\SirTrevor;
 
 /**
  * @var yii\web\View $this
  * @var backend\models\Block $model
- * @var yii\widgets\ActiveForm $form
+ * @var yii\bootstrap\ActiveForm $form
  */
 ?>
 

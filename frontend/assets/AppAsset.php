@@ -15,12 +15,17 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-	public $basePath = '@webroot';
-	public $baseUrl = '@web';
+    public $sourcePath = '@app/themes/basic';
+
+    public $publishOptions = [
+        'forceCopy' => true //disable in live env
+    ];
+
 	public $css = [
-		'css/site.css',
+		'assets/css/site.css',
 	];
 	public $js = [
+        'assets/scripts/main.js',
 	];
 	public $depends = [
 		'yii\web\YiiAsset',

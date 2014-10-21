@@ -144,11 +144,4 @@ class BlockController extends Controller
 			throw new NotFoundHttpException('The requested page does not exist.');
 		}
 	}
-
-    public function actionUpload()
-    {
-        $file = \Yii::$app->kato->mediaUpload('attachment', true);
-        dump($file);
-        exit;
-    }
 }

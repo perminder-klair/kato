@@ -15,11 +15,8 @@
     RewriteRule ^.*$ backend/web/index.php [L]
 
     # deal with frontend
-    RewriteRule ^files/(.*)$ frontend/web/files/$1 [L]
-    RewriteRule ^themes/(.*)$ frontend/web/themes/$1 [L]
+    RewriteRule ^files/(.*)$ files/$1 [L]
     RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
-    RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
-    RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
     RewriteRule ^.*$ frontend/web/index.php
 
 </IfModule>

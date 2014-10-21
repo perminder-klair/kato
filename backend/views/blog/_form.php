@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use backend\models\Tag;
 use backend\widgets\Media;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use kato\sirtrevorjs\SirTrevor;
@@ -12,7 +12,7 @@ $tag = new Tag;
 
 /**
  * @var yii\web\View $this
- * @var common\models\Blog $model
+ * @var backend\models\Blog $model
  * @var backend\models\Media $media
  * @var yii\widgets\ActiveForm $form
  */
@@ -21,7 +21,8 @@ $tag = new Tag;
 <div class="block-title">
     <ul class="nav nav-tabs" data-toggle="tabs">
         <li class="active"><a href="#form">Form</a></li>
-        <li class=""><a href="#media">Media</a></li>
+        <li><a href="#media">Media</a></li>
+        <li><a href="#revisions" data-toggle="tab">Revisions</a></li>
     </ul>
 </div>
 
@@ -77,6 +78,39 @@ $tag = new Tag;
             'model' => $model,
         ]); ?>
 
+    </div>
+
+    <div class="tab-pane" id="revisions">
+        <?php if ($model->revisions): ?>
+            <?= \yii\grid\GridView::widget([
+                'options' => ['class' => 'table-responsive'],
+                'tableOptions' => ['id' => 'general-table', 'class' => 'table table-striped table-hover'],
+                'showFooter' => true,
+                'dataProvider' => $model->revisionsProvider(),
+                'columns' => [
+                    'update_time',
+                    [
+                        'label' => 'Author',
+                        'format' => 'text',
+                        'value' => function ($data) {
+                            if ($data->user) {
+                                return $data->user->displayName;
+                            }
+                            return false;
+                        },
+                    ],
+                    [
+                        'label' => 'Actions',
+                        'format' => 'html',
+                        'value' => function ($data) {
+                            return Html::a('Restore', ['restore', 'id' => $data->id], ['class' => 'btn btn-warning btn-xs', 'target' => '_blank']);
+                        },
+                    ],
+                ],
+            ]); ?>
+        <?php else: ?>
+            <p>No revisions available!</p>
+        <?php endif; ?>
     </div>
 
 </div>

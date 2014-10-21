@@ -19,6 +19,7 @@ class PageController extends \yii\web\Controller
         if (!isset($_GET['slug'])) {
             throw new BadRequestHttpException('Page slug not set.');
         }
+
         $model = Page::find()
             ->where('slug = :slug', [':slug' => HtmlPurifier::process($_GET['slug'])])
             ->one();
@@ -27,7 +28,7 @@ class PageController extends \yii\web\Controller
             throw new BadRequestHttpException('Requested Page does not found.');
         }
 
-        return $this->render('view', [
+        return $this->render($model->layout, [
             'model' => $model,
         ]);
     }

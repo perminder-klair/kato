@@ -25,6 +25,13 @@ return [
         ],
         'view' => [
             'class' => 'backend\components\View',
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@app/themes/basic'
+                ],
+                'baseUrl' => '@web/themes/basic',
+                'basePath' => '@web/themes/basic',
+            ],
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
