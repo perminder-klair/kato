@@ -33,6 +33,7 @@ use backend\models\Page;
                     <li><a href="#media" data-toggle="tab">Media</a></li>
                     <li><a href="#meta" data-toggle="tab">Meta</a></li>
                     <li><a href="#menu" data-toggle="tab">Menu</a></li>
+                    <li><a href="#revisions" data-toggle="tab">Revisions</a></li>
                 </ul>
             </div>
             <div class="panel-body">
@@ -70,14 +71,45 @@ use backend\models\Page;
 
                         <?= $form->field($model, 'listing_order')->dropDownList($model->listingOrderArray) ?>
                     </div>
+
+                    <div class="tab-pane fade in" id="revisions">
+                        <?php if ($model->revisions): ?>
+                            <?= \yii\grid\GridView::widget([
+                                'options' => ['class' => 'table-responsive'],
+                                'tableOptions' => ['id' => 'general-table', 'class' => 'table table-striped table-hover'],
+                                'showFooter' => true,
+                                'dataProvider' => $model->revisionsProvider(),
+                                'columns' => [
+                                    'update_time',
+                                    [
+                                        'label' => 'Author',
+                                        'format' => 'text',
+                                        'value' => function ($data) {
+                                            if ($data->author) {
+                                                return $data->author->displayName;
+                                            }
+                                            return false;
+                                        },
+                                    ],
+                                    [
+                                        'label' => 'Actions',
+                                        'format' => 'html',
+                                        'value' => function ($data) {
+                                            return Html::a('Restore', ['restore', 'id' => $data->id], ['class' => 'btn btn-warning btn-xs', 'target' => '_blank']);
+                                        },
+                                    ],
+                                ],
+                            ]); ?>
+                        <?php else: ?>
+                            <p>No revisions available!</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
             <!-- /.panel-body -->
             <div class="panel-footer">
                 <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-                <!--                --><?php //if ($model->isStatic()): ?>
-                <!--                    <a class="btn btn-default" href="--><?php //echo $model->permalink; ?><!--" target="_blank">Preview</a>-->
-                <!--                --><?php //endif; ?>
+                <?= Html::a('Preview', [$model->permalink], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
             </div>
         </div>
         <?php ActiveForm::end(); ?>

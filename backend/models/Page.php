@@ -2,10 +2,13 @@
 
 namespace backend\models;
 
+use backend\models\query\PageQuery;
+use common\models\User;
 use Yii;
 use kartik\markdown\Markdown;
 use kato\helpers\KatoBase;
 use kato\ActiveRecord;
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\BadRequestHttpException;
@@ -17,8 +20,6 @@ use yii\web\HttpException;
  * @property integer $id
  * @property string $title
  * @property string $short_desc
- * @property string $content
- * @property string $content_html
  * @property string $slug
  * @property string $create_time
  * @property integer $created_by
@@ -32,6 +33,7 @@ use yii\web\HttpException;
  * @property string $menu_title
  * @property boolean $menu_hidden
  * @property integer $listing_order
+ * @property integer $revision_to
  */
 class Page extends ActiveRecord
 {
@@ -52,16 +54,24 @@ class Page extends ActiveRecord
 		return 'kato_page';
 	}
 
+    /**
+     * @inheritdoc
+     * @return PageQuery
+     */
+    public static function find()
+    {
+        return new PageQuery(get_called_class());
+    }
+
 	/**
 	 * @inheritdoc
 	 */
 	public function rules()
 	{
 		return [
-			[['content', 'content_html'], 'string'],
 			[['create_time', 'created_by', 'update_time'], 'required'],
 			[['create_time', 'update_time'], 'safe'],
-			[['created_by', 'updated_by', 'parent_id', 'type', 'listing_order', 'menu_hidden'], 'integer'],
+			[['created_by', 'updated_by', 'parent_id', 'type', 'listing_order', 'menu_hidden', 'revision_to'], 'integer'],
 			[['status', 'menu_hidden', 'deleted'], 'boolean'],
 			[['title', 'slug', 'menu_title'], 'string', 'max' => 70],
 			[['short_desc'], 'string', 'max' => 255],
@@ -72,7 +82,7 @@ class Page extends ActiveRecord
             ['type', 'in', 'range' => [self::TYPE_STATIC, self::TYPE_NON_STATIC]],
             ['parent_id', 'default', 'value' => 0],
             ['slug', 'default', 'value' => null],
-            [['title', 'slug'], 'unique'],
+            //[['slug'], 'unique'],
             ['menu_hidden', 'default', 'value' => 1],
             ['menu_hidden', 'in', 'range' => [self::MENU_HIDDEN_NO, self::MENU_HIDDEN_YES]],
 		];
@@ -87,8 +97,6 @@ class Page extends ActiveRecord
 			'id' => 'ID',
 			'title' => 'Title',
 			'short_desc' => 'Short Desc',
-			'content' => 'Content',
-			'content_html' => 'Content Html',
 			'slug' => 'Slug',
 			'create_time' => 'Create Time',
 			'created_by' => 'Created By',
@@ -102,13 +110,19 @@ class Page extends ActiveRecord
             'menu_title' => 'Menu Title',
             'menu_hidden' => 'Hidden in Menu',
             'listing_order' => 'Listing Order',
+            'revision_to' => 'Revision To',
 		];
 	}
 
     public function getBlocks()
     {
         // Page has_many Block via Block.parent -> slug
-        return $this->hasMany(Block::className(), ['parent' => 'slug']);
+        return $this->hasMany(Block::className(), ['parent' => 'id'])->live();
+    }
+
+    public function getRevisionBlocks()
+    {
+        return $this->hasMany(Block::className(), ['parent' => 'id']);
     }
 
     public function getChildren()
@@ -121,10 +135,27 @@ class Page extends ActiveRecord
         return $this->hasMany(self::className(), ['parent_id' => 'id'])
             ->where([
                 'menu_hidden' => Page::MENU_HIDDEN_NO,
+                'revision_to' => 0,
                 'status' => Page::STATUS_PUBLISHED,
                 'deleted' => 0,
             ])
             ->orderBy('listing_order ASC');
+    }
+
+    public function getRevisions()
+    {
+        return $this->hasMany(self::className(), ['revision_to' => 'id'])
+            ->orderBy('id DESC');
+    }
+
+    public function getAuthor($creator = false)
+    {
+        if ($creator) {
+            $by = 'created_by';
+        } else {
+            $by = 'updated_by';
+        }
+        return $this->hasOne(User::className(), ['id' => $by]);
     }
 
     public function getActiveBlocks()
@@ -151,6 +182,13 @@ class Page extends ActiveRecord
         }
 
         return $groups;
+    }
+
+    public function revisionsProvider()
+    {
+        return new ActiveDataProvider([
+            'query' => $this->getRevisions(),
+        ]);
     }
 
     public function behaviors()
@@ -206,38 +244,12 @@ class Page extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            //$this->createShortDesc();
-
+            if (!$this->isNewRecord) {
+            }
             return true;
         }
         return false;
     }
-
-    /**
-     * Render short_desc and content_html
-     * @return bool
-     */
-    /*public function createShortDesc()
-    {
-        $shortDescDone = false;
-        $this->content_html = '';
-        $content_decoded = Json::decode($this->content);
-
-        if (isset($content_decoded['data'])) {
-            foreach ($content_decoded['data'] as $key => $value) {
-                if ($value['type'] === 'text' && $shortDescDone === false) {
-                    $this->short_desc = KatoBase::limit_words($value['data']['text'], '20');
-                    $shortDescDone = true;
-                }
-
-                $this->content_html .= $value['data']['text'] . ' ';
-            }
-        }
-
-        $this->content_html = Markdown::convert($this->content_html);
-
-        return true;
-    }*/
 
     /**
      * Returns id, title of all parents
@@ -271,11 +283,6 @@ class Page extends ActiveRecord
         return $files;
     }
 
-    /*public function renderContent()
-    {
-        return \Yii::$app->kato->renderBlock($this->content);
-    }*/
-
     public function loadBlocks()
     {
         if ($this->type == self::TYPE_NON_STATIC) {
@@ -296,13 +303,13 @@ class Page extends ActiveRecord
                 foreach ($encoded_data->blocks as $data) {
                     if (($block = Block::findOne([
                             'title' => $data->name,
-                            'parent' => $this->slug,
+                            'parent' => $this->id,
                             'parent_layout' => $layout,
                         ]) === null)
                     ) {
                         //if not found, create it
                         $block = new Block();
-                        $block->parent = $this->slug;
+                        $block->parent = $this->id;
                         $block->title = $data->name;
                         $block->block_type = isset($data->type) ? $data->type : 'text-area';
                         $block->parent_layout = $layout;
@@ -311,7 +318,7 @@ class Page extends ActiveRecord
 
                         if (!$block->save()) {
                             //throw error
-                            throw new HttpException('Unable to load blocks to database');
+                            throw new HttpException(500, 'Unable to create blocks to database');
 
                         }
                     }
@@ -338,13 +345,13 @@ class Page extends ActiveRecord
 
                 if ($block = Block::findOne([
                     'title' => $key,
-                    'parent' => $this->slug,
+                    'parent' => $this->id,
                     'parent_layout' => $layout,
                 ])) {
                     $block->content = $val;
                     if (!$block->save()) {
                         //throw error
-                        throw new HttpException('Unable to load blocks to database');
+                        throw new HttpException(500, 'Unable to load blocks to database');
                     }
                 }
 
@@ -367,6 +374,62 @@ class Page extends ActiveRecord
             }
 
             return Yii::$app->urlManager->createUrl(['page/view', 'slug' => $this->slug]);
+        }
+    }
+
+    public function createRevision()
+    {
+        $revision = new self();
+        $revision->attributes = $this->attributes;
+        unset($revision->id);
+        $revision->revision_to = $this->id;
+        if ($revision->save()) {
+            //create revision for blocks also
+            if ($this->blocks) {
+                foreach ($this->blocks as $block) {
+                    /**
+                     * @var \backend\models\Block $block
+                     */
+                    $block->createRevision($revision->id);
+                }
+            }
+
+            return true;
+        } else{
+            throw new HttpException(500, 'Unable to create page revision');
+        }
+    }
+
+    public function restore()
+    {
+        $page = self::findOne($this->revision_to);
+
+        //set attributes
+        $page->title = $this->title;
+        $page->slug = $this->slug;
+        $page->short_desc = $this->short_desc;
+        $page->layout = $this->layout;
+        $page->parent_id = $this->parent_id;
+        $page->type = $this->type;
+        $page->menu_title = $this->menu_title;
+        $page->menu_hidden = $this->menu_hidden;
+        $page->listing_order = $this->listing_order;
+        $page->status = $this->status;
+
+        if ($page->save()) {
+            //also restore blocks
+            if ($this->revisionBlocks) {
+                foreach ($this->revisionBlocks as $block) {
+                    /**
+                     * @var \backend\models\Block $block
+                     */
+                    $block->restore();
+                }
+            }
+
+            return true;
+        } else {
+            return false;
         }
     }
 }

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Page;
 use backend\models\search\PageSearch;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -51,7 +52,8 @@ class PageController extends \yii\web\Controller
 	public function actionIndex()
 	{
 		$searchModel = new PageSearch;
-		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());$meta['title'] = $this->pageTitle;
+		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+
         $controllerName = $this->getUniqueId();
 
         $getColumns = [
@@ -111,6 +113,11 @@ class PageController extends \yii\web\Controller
         //update blocks
         $model->updateBlocks();
 
+        if (Yii::$app->request->post()) {
+            //create revision
+            $model->createRevision();
+        }
+
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Page has been updated');
 			return $this->redirect(['update', 'id' => $model->id]);
@@ -122,6 +129,17 @@ class PageController extends \yii\web\Controller
 			]);
 		}
 	}
+
+    public function actionRestore($id)
+    {
+        $revision = $this->findModel($id);
+
+        if ($revision->restore()) {
+            return $this->redirect(['update', 'id' => $revision->revision_to]);
+        } else {
+            throw new HttpException(500, 'Unable to restore page.');
+        }
+    }
 
 	/**
 	 * Deletes an existing Page model.
