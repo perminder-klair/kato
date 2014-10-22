@@ -28,9 +28,10 @@
         "perminder-klair/kato-core": "dev-master",
         "perminder-klair/yii2-dropzone": "dev-master",
         "perminder-klair/yii2-sir-trevor-js": "dev-master",
+        "michelf/php-smartypants": "1.6.0-beta1",
         "kartik-v/yii2-widgets": "dev-master",
         "kartik-v/yii2-markdown": "dev-master",
-        "asofter/yii2-imperavi-redactor": "*"
+        "asofter/yii2-imperavi-redactor": "dev-master"
 
     },
     "require-dev": {
