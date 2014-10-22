@@ -205,16 +205,16 @@
         },
         {
             "name": "bower-asset/punycode",
-            "version": "v1.3.1",
+            "version": "v1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bestiejs/punycode.js.git",
-                "reference": "de452f89aea23f126f7b219f576abda1c0823825"
+                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bestiejs/punycode.js/zipball/de452f89aea23f126f7b219f576abda1c0823825",
-                "reference": "de452f89aea23f126f7b219f576abda1c0823825",
+                "url": "https://api.github.com/repos/bestiejs/punycode.js/zipball/38c8d3131a82567bfef18da09f7f4db68c84f8a3",
+                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -416,16 +416,16 @@
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
-            "version": "v2.5.0",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "7a9161d1cb0db5cd25a63fd18ae5ef1397356e79"
+                "reference": "f8688265e3330b524882778dd16acacd0feca499"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/7a9161d1cb0db5cd25a63fd18ae5ef1397356e79",
-                "reference": "7a9161d1cb0db5cd25a63fd18ae5ef1397356e79",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/f8688265e3330b524882778dd16acacd0feca499",
+                "reference": "f8688265e3330b524882778dd16acacd0feca499",
                 "shasum": ""
             },
             "type": "library",
@@ -457,7 +457,7 @@
                 "preview",
                 "upload"
             ],
-            "time": "2014-10-13 18:52:56"
+            "time": "2014-10-22 14:31:58"
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
@@ -753,12 +753,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/perminder-klair/kato-core.git",
-                "reference": "96ffe8181fd3b4e9c618ede1918e1e16c9b89d5d"
+                "reference": "1ef67f963ea954f17c28ce85e26391cdecc61ec1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perminder-klair/kato-core/zipball/96ffe8181fd3b4e9c618ede1918e1e16c9b89d5d",
-                "reference": "96ffe8181fd3b4e9c618ede1918e1e16c9b89d5d",
+                "url": "https://api.github.com/repos/perminder-klair/kato-core/zipball/1ef67f963ea954f17c28ce85e26391cdecc61ec1",
+                "reference": "1ef67f963ea954f17c28ce85e26391cdecc61ec1",
                 "shasum": ""
             },
             "require": {
@@ -789,7 +789,7 @@
                 "kato",
                 "yii2"
             ],
-            "time": "2014-10-21 15:35:16"
+            "time": "2014-10-22 12:00:59"
         },
         {
             "name": "perminder-klair/yii2-dropzone",
@@ -797,12 +797,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/perminder-klair/yii2-dropzone.git",
-                "reference": "86d8f48dd663b9e50994653efaeae2d0f2f51471"
+                "reference": "27db248c6587347b1fc33fbf8e0d519b9a4b95f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perminder-klair/yii2-dropzone/zipball/86d8f48dd663b9e50994653efaeae2d0f2f51471",
-                "reference": "86d8f48dd663b9e50994653efaeae2d0f2f51471",
+                "url": "https://api.github.com/repos/perminder-klair/yii2-dropzone/zipball/27db248c6587347b1fc33fbf8e0d519b9a4b95f4",
+                "reference": "27db248c6587347b1fc33fbf8e0d519b9a4b95f4",
                 "shasum": ""
             },
             "type": "yii2-extension",
@@ -818,8 +818,7 @@
             "authors": [
                 {
                     "name": "Parminder Klair",
-                    "email": "perminder.klair@gmail.com",
-                    "homepage": "http://www.webonise.co.uk/"
+                    "email": "perminder.klair@gmail.com"
                 }
             ],
             "description": "DropzoneJs Extention for Yii2",
@@ -829,7 +828,7 @@
                 "upload",
                 "yii2"
             ],
-            "time": "2014-07-11 20:55:27"
+            "time": "2014-10-22 11:28:11"
         },
         {
             "name": "perminder-klair/yii2-sir-trevor-js",
@@ -837,12 +836,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/perminder-klair/yii2-sir-trevor-js.git",
-                "reference": "1c0c3f8ccfcc1f5323871a3b14fd28157b90599d"
+                "reference": "b8df6e1ab2a4cc8f15b11e4b60e5cca49f97f9cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perminder-klair/yii2-sir-trevor-js/zipball/1c0c3f8ccfcc1f5323871a3b14fd28157b90599d",
-                "reference": "1c0c3f8ccfcc1f5323871a3b14fd28157b90599d",
+                "url": "https://api.github.com/repos/perminder-klair/yii2-sir-trevor-js/zipball/b8df6e1ab2a4cc8f15b11e4b60e5cca49f97f9cd",
+                "reference": "b8df6e1ab2a4cc8f15b11e4b60e5cca49f97f9cd",
                 "shasum": ""
             },
             "type": "yii2-extension",
@@ -858,8 +857,7 @@
             "authors": [
                 {
                     "name": "Parminder Klair",
-                    "email": "perminder.klair@gmail.com",
-                    "homepage": "http://www.webonise.co.uk/"
+                    "email": "perminder.klair@gmail.com"
                 }
             ],
             "description": "Sir Trevor Editor for Yii2",
@@ -868,7 +866,7 @@
                 "sir-trevor-js",
                 "yii2"
             ],
-            "time": "2014-03-27 23:36:46"
+            "time": "2014-10-22 11:27:32"
         },
         {
             "name": "swiftmailer/swiftmailer",
