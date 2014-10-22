@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-contact">
 	<h1><?= Html::encode($this->title) ?></h1>
 
-    <?php echo \Yii::$app->kato->getBlock('contact-intro', 'contact'); ?>
+    <?php echo \Yii::$app->kato->getBlock('contact-intro', '3'); ?>
 
 	<div class="row">
 		<div class="col-lg-5">

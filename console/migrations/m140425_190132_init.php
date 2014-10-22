@@ -60,12 +60,11 @@ class m140425_190132_init extends \yii\db\Migration
             'id' => Schema::TYPE_PK,
             'title' => Schema::TYPE_STRING . '(70) NOT NULL',
             'content' => Schema::TYPE_TEXT,
-            'parent_id' => Schema::TYPE_INTEGER,
+            'parent' => Schema::TYPE_INTEGER,
             'block_type' => Schema::TYPE_STRING . '(50)',
             'parent_layout' => Schema::TYPE_STRING . '(50)',
             'comments' => Schema::TYPE_STRING . '(100)',
             'category' => Schema::TYPE_STRING . '(50)',
-            'listing_order' => Schema::TYPE_INTEGER,
             'revision_to' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
             'created_by' => Schema::TYPE_INTEGER . ' NOT NULL',
             'updated_by' => Schema::TYPE_INTEGER,
@@ -119,7 +118,7 @@ class m140425_190132_init extends \yii\db\Migration
             'title' => Schema::TYPE_STRING . ' NOT NULL',
             'slug' => Schema::TYPE_STRING . '(70)',
             'short_desc' => Schema::TYPE_STRING,
-            'layout' => Schema::TYPE_STRING . '(25) NOT NULL DEFAULT "default"',
+            'layout' => Schema::TYPE_STRING . '(25) NOT NULL DEFAULT "basic"',
             'parent_id' => Schema::TYPE_STRING,
             'type' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
             'menu_title' => Schema::TYPE_STRING . '(70)',
@@ -184,6 +183,7 @@ class m140425_190132_init extends \yii\db\Migration
         $this->dropTable('{{%kato_block}}');
         $this->dropTable('{{%kato_blog}}');
         $this->dropTable('{{%kato_content_media}}');
+        $this->dropTable('{{%kato_media}}');
         $this->dropTable('{{%kato_page}}');
         $this->dropTable('{{%kato_setting}}');
         $this->dropTable('{{%kato_tag}}');

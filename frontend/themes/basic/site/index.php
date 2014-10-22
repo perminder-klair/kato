@@ -9,7 +9,7 @@ $this->title = 'My Kato Application';
     <div class="jumbotron">
         <h1>Congratulations!</h1>
 
-        <?php echo \Yii::$app->kato->getBlock('details', '4'); ?>
+        <?php echo \Yii::$app->kato->getBlock('details', '1'); ?>
 
         <p class="lead">You have successfully created your Yii-powered Kato application.</p>
 

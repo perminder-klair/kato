@@ -16,8 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<h1><?= Html::encode($this->title) ?></h1>
 
-    <?php echo \Yii::$app->kato->getBlock('details', $model->slug, $model->layout); ?>
-
-    <?php echo \Yii::$app->kato->getBlock('demo-text', $model->slug, $model->layout); ?>
+    <?php echo \Yii::$app->kato->getBlock('details', $model->id, $model->layout); ?>
 
 </div>

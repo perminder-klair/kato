@@ -107,16 +107,16 @@ class PageController extends \yii\web\Controller
         $meta['description'] = 'Update page';
         $meta['pageIcon'] = $this->pageIcon;
 
-        //load blocks
-        $model->loadBlocks();
-
-        //update blocks
-        $model->updateBlocks();
-
         if (Yii::$app->request->post()) {
             //create revision
             $model->createRevision();
         }
+
+        //update blocks
+        $model->updateBlocks();
+
+        //load blocks
+        $model->loadBlocks();
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Page has been updated');

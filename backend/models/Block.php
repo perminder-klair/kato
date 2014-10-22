@@ -22,7 +22,6 @@ use yii\web\HttpException;
  * @property string $block_type
  * @property string $comments
  * @property string $category
- * @property integer $listing_order
  * @property integer $revision_to
  * @property integer $status
  * @property integer $deleted
@@ -58,7 +57,7 @@ class Block extends ActiveRecord
 		return [
 			[['content'], 'string'],
 			[['create_time', 'update_time', 'content'], 'safe'],
-			[['created_by', 'updated_by', 'listing_order', 'status', 'deleted', 'parent'], 'integer'],
+			[['created_by', 'updated_by', 'status', 'deleted', 'parent'], 'integer'],
 			[['title'], 'string', 'max' => 70],
             [['parent_layout', 'block_type', 'category'], 'string', 'max' => 50],
             [['comments'], 'string', 'max' => 100],
@@ -85,7 +84,6 @@ class Block extends ActiveRecord
             'parent_layout' => 'Parent Layout',
             'comments' => 'Comments',
             'category' => 'Category',
-			'listing_order' => 'Listing Order',
 			'status' => 'Status',
 			'deleted' => 'Deleted',
 		];
@@ -214,7 +212,6 @@ class Block extends ActiveRecord
         $block->parent_layout = $this->parent_layout;
         $block->comments = $this->comments;
         $block->category = $this->category;
-        $block->listing_order = $this->listing_order;
 
         if ($block->save()) {
             return true;
