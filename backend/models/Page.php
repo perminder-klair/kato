@@ -385,8 +385,12 @@ class Page extends ActiveRecord
         $revision->revision_to = $this->id;
         if ($revision->save()) {
             //create revision for blocks also
-            if ($this->blocks) {
-                foreach ($this->blocks as $block) {
+            //get blocks by cheat instead $this->blocks :(
+            $blocks = Block::find()
+                ->where(['parent' => $this->id])
+                ->all();
+            if ($blocks) {
+                foreach ($blocks as $block) {
                     /**
                      * @var \backend\models\Block $block
                      */

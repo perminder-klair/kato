@@ -26,8 +26,9 @@ class m140425_204944_init_insert extends \yii\db\Migration
         ]);
 
         $this->insert('{{%kato_page}}', [
-            'title' => 'HomePage',
-            'slug' => 'homepage',
+            'id' => 1,
+            'title' => 'Home',
+            'slug' => 'index',
             'parent_id' => 0,
             'type' => 1,
             'short_desc' => $lorem,
@@ -38,6 +39,7 @@ class m140425_204944_init_insert extends \yii\db\Migration
         ]);
 
         $this->insert('{{%kato_page}}', [
+            'id' => 2,
             'title' => 'About Us',
             'slug' => 'about-us',
             'short_desc' => $lorem,
@@ -49,10 +51,23 @@ class m140425_204944_init_insert extends \yii\db\Migration
             'status' => 1
         ]);
 
+        $this->insert('{{%kato_page}}', [
+            'id' => 3,
+            'title' => 'Contact',
+            'slug' => 'contact',
+            'parent_id' => 0,
+            'type' => 1,
+            'short_desc' => $lorem,
+            'menu_title' => 'Contact',
+            'menu_hidden' => 0,
+            'created_by' => 1,
+            'status' => 1
+        ]);
+
         $this->insert('{{%kato_block}}', [
             'title' => 'details',
             'content' => '<p>' . $lorem . '</p>',
-            'parent' => 'index',
+            'parent' => 1,
             'block_type' => 'text-area',
             'category' => 'general',
             'created_by' => 1,
@@ -63,7 +78,7 @@ class m140425_204944_init_insert extends \yii\db\Migration
         $this->insert('{{%kato_block}}', [
             'title' => 'details',
             'content' => '<p>' . $lorem . '</p>',
-            'parent' => 'about-us',
+            'parent' => 2,
             'parent_layout' => 'basic',
             'block_type' => 'text-area',
             'category' => 'general',
@@ -75,7 +90,7 @@ class m140425_204944_init_insert extends \yii\db\Migration
         $this->insert('{{%kato_block}}', [
             'title' => 'contact-intro',
             'content' => '<p>' . $lorem . '</p>',
-            'parent' => 'contact',
+            'parent' => 3,
             'block_type' => 'text-area',
             'category' => 'general',
             'created_by' => 1,
@@ -87,6 +102,7 @@ class m140425_204944_init_insert extends \yii\db\Migration
     public function down()
     {
         $this->truncateTable('{{%kato_page}}');
+        $this->truncateTable('{{%kato_block}}');
         $this->truncateTable('{{%kato_setting}}');
     }
 }
