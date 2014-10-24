@@ -22,5 +22,6 @@ class AppAsset extends AssetBundle
 		'yii\web\YiiAsset',
 		'yii\bootstrap\BootstrapAsset',
         'kato\KatoAsset',
+        'kato\BowerAsset',
 	];
 }

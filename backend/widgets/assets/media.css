@@ -1,0 +1,20 @@
+.dz-preview {
+    display: none !important;
+}
+.media-container {
+    margin-top: 20px;
+}
+.media-container .delete-btn {
+    position: absolute;
+    right: 0;
+    top: -15px;
+}
+.media-container h4 {
+    text-align: center;
+}
+.media-container .select2-container .select2-choice {
+    line-height: 15px;
+}
+.media-container .status {
+    text-align: right;
+}

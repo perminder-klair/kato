@@ -66,6 +66,19 @@ class MediaController extends \yii\web\Controller
         }
     }
 
+    public function actionUpdateData($id)
+    {
+        if ($post = Yii::$app->request->post()) {
+            $model = $this->findModel($id);
+            $model->$post['name'] = $post['value'];
+            if ($model->save(false)) {
+                echo 'true';
+                exit;
+            }
+        }
+        echo 'false';
+    }
+
     /**
      * Deletes an existing Media model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -75,6 +88,11 @@ class MediaController extends \yii\web\Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        if (Yii::$app->request->isAjax) {
+            echo 'true';
+            exit;
+        }
+
         Yii::$app->session->setFlash('success', 'Media has been deleted');
 
         return $this->redirect(Url::previous());
@@ -118,5 +136,18 @@ class MediaController extends \yii\web\Controller
         }
 
         echo Json::encode($result);
+    }
+
+    public function actionRenderRow($id)
+    {
+        $this->layout = false;
+
+        if ($media = $this->findModel($id)) {
+            return $this->render('mediaRow', [
+                'media' => $media,
+                'isNew' => true,
+            ]);
+        }
+        return '';
     }
 }
