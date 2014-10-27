@@ -17,6 +17,7 @@
     # deal with frontend
     RewriteRule ^files/(.*)$ files/$1 [L]
     RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
+    RewriteRule ^theme-assets/(.*)$ frontend/web/theme-assets/$1 [L]
     RewriteRule ^.*$ frontend/web/index.php
 
 </IfModule>
