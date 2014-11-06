@@ -31,7 +31,8 @@
         "michelf/php-smartypants": "1.6.0-beta1",
         "kartik-v/yii2-widgets": "dev-master",
         "kartik-v/yii2-markdown": "dev-master",
-        "asofter/yii2-imperavi-redactor": "dev-master"
+        "asofter/yii2-imperavi-redactor": "*",
+        "2amigos/yii2-editable-widget" : "*"
 
     },
     "require-dev": {

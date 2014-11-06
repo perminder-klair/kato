@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\helpers\Html;
 use yii\imagine\Image;
 use kato\ActiveRecord;
 
@@ -10,6 +11,7 @@ use kato\ActiveRecord;
  * This is the model class for table "kato_media".
  *
  * @property string $id
+ * @property string $title
  * @property string $filename
  * @property string $source
  * @property string $source_location
@@ -26,8 +28,15 @@ class Media extends ActiveRecord
     const STATUS_PUBLISHED = 1;
 
     public $file;
-    public $title;
     public $cacheDir = 'cache';
+
+    public function init()
+    {
+        parent::init();
+
+        Yii::setAlias('cacheDir', '/files/' . $this->cacheDir);
+        Yii::setAlias('cachePath', Yii::$app->params['uploadPath'] . $this->cacheDir);
+    }
 
 	/**
 	 * @inheritdoc
@@ -44,9 +53,9 @@ class Media extends ActiveRecord
 	{
 		return [
 			[['filename', 'source'], 'required'],
-			[['create_time', 'media_type'], 'safe'],
+			[['create_time', 'media_type', 'title'], 'safe'],
 			[['byteSize', 'status'], 'integer'],
-			[['filename', 'source', 'source_location'], 'string', 'max' => 255],
+			[['filename', 'source', 'source_location', 'title'], 'string', 'max' => 255],
 			[['extension', 'mimeType'], 'string', 'max' => 50]
 		];
 	}
@@ -58,6 +67,7 @@ class Media extends ActiveRecord
 	{
 		return [
 			'id' => 'ID',
+            'title' => 'Title',
 			'filename' => 'Filename',
 			'source' => 'Source',
 			'source_location' => 'Source Location',
@@ -69,6 +79,23 @@ class Media extends ActiveRecord
             'media_type' => 'Media Type',
 		];
 	}
+
+    /**
+     * Actions to be taken before saving the record.
+     * @param bool $insert
+     * @return bool whether the record can be saved
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->createTitle();
+            }
+
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Before deletion, remove media file from source and also delete from relation table
@@ -95,6 +122,15 @@ class Media extends ActiveRecord
         return false;
     }
 
+    private function createTitle()
+    {
+        $title_parts = pathinfo($this->filename);
+        $this->title = $title_parts['filename'];
+        $this->title = \kato\helpers\KatoBase::sanitizeFile($this->title);
+        $this->title = str_replace('_', ' ', str_replace('-', ' ', $this->title));
+        $this->title = ucwords($this->title);
+    }
+
     /**
      * Returns base path for file
      * @return string
@@ -115,28 +151,76 @@ class Media extends ActiveRecord
         return $types;
     }
 
-    /**
-     * Renders media images
-     * //TODO complete this properly
-     * @param bool $cache
-     * @param int $width
-     * @param int $height
-     * @return string
-     */
-    public function render($cache = true, $width = 90, $height = 90)
+    public function statusDropDownList()
     {
-        if ($cache === false || !file_exists($this->baseSource)) {
-            return '/' . $this->source;
+        $data = [];
+        if ($this->listStatus()) {
+            foreach ($this->listStatus() as $key => $value) {
+               $data[] = [
+                   'id' => $key,
+                   'text' => $value,
+               ];
+            }
         }
 
-        $cacheFile = Yii::$app->params['uploadPath'] . $this->cacheDir . '/' . $this->filename;
+        return $data;
+    }
 
-        //http://imagine.readthedocs.org/en/latest/
-        // frame, rotate and save an image
-        Image::thumbnail($this->baseSource, $width, $height)
-            ->save($cacheFile);
+    public function renderPdf($data = [])
+    {
+        if (isset($data['imgTag'])) {
+            $pdfPreview = Yii::$app->request->adminBaseUrl . '/img/pdf-preview.jpg';
 
-        return '/files/' . $this->cacheDir . '/' . $this->filename;
+            $options = [];
+            if (isset($data['width'])) $options['width'] = $data['width'];
+            if (isset($data['height'])) $options['height'] = $data['height'];
+            return Html::img($pdfPreview, $options);
+        }
+
+        return '/' . $this->source;
+    }
+
+    public function renderImage($data = [])
+    {
+        $cacheFile = Yii::getAlias('@cachePath/' . $this->filename);
+
+        if (!isset($data['width']) && !isset($data['height'])) {
+            $image = Image::getImagine();
+            $newImage = $image->open($this->baseSource);
+            $newImage->save($cacheFile);
+
+            return Yii::getAlias('@cacheDir/' . $this->filename);
+        } else {
+            $path_parts = pathinfo($cacheFile);
+            $newFileName = $path_parts['filename'] . '-' . $data['width'] . '-' . $data['height'] . '.' . $path_parts['extension'];
+            //http://imagine.readthedocs.org/en/latest/
+            //dump($newFileName);exit;
+            Image::thumbnail($this->baseSource, $data['width'], $data['height'])
+                ->save(Yii::getAlias('@cachePath/' . $newFileName));
+        }
+        if (isset($data['imgTag'])) {
+            return Html::img(Yii::getAlias('@cacheDir/' . $newFileName));
+        } else {
+            return Yii::getAlias('@cacheDir/' . $newFileName);
+        }
+    }
+
+    /**
+     * Renders media
+     */
+    public function render($data = [])
+    {
+        //if file exists
+        if (!file_exists($this->baseSource)) {
+            return false;
+        }
+
+        //check if it's pdf file
+        if ($this->mimeType === 'application/pdf') {
+            return $this->renderPdf($data);
+        } else {
+            return $this->renderImage($data);
+        }
     }
 
 }

@@ -17,6 +17,9 @@ return [
         ],
     ],
     'components' => [
+        'assetManager' => [
+            'linkAssets' => true,
+        ],
         'kato' => [
             'class' => 'kato\components\Kato',
         ],

@@ -102,6 +102,7 @@ class m140425_190132_init extends \yii\db\Migration
 
         $this->createTable('{{%kato_media}}', [
             'id' => Schema::TYPE_PK,
+            'title' => Schema::TYPE_STRING . '(255) DEFAULT NULL',
             'filename' => Schema::TYPE_STRING . '(255) DEFAULT NULL',
             'source' => Schema::TYPE_STRING . '(255) DEFAULT NULL',
             'source_location' => Schema::TYPE_STRING,
