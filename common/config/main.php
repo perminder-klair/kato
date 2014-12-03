@@ -1,5 +1,8 @@
 <?php
 return [
+    'bootstrap' => [
+        'media',
+    ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'extensions' => require(__DIR__ . '/../../vendor/yiisoft/extensions.php'),
     'modules' => [
@@ -14,6 +17,9 @@ return [
             ],
             // whether to use PHP SmartyPantsTypographer to process Markdown output
             'smartyPants' => false
+        ],
+        'media' => [
+            'class' => 'kato\modules\media\Media',
         ],
     ],
     'components' => [
@@ -52,6 +58,13 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'urlManagerFrontend' => [
+            // here is your frontend URL manager config
+            'class' => 'kato\components\UrlManager',
+            'baseUrl' => '/',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
         ],
     ],
 ];

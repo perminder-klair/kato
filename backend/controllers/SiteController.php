@@ -37,15 +37,6 @@ class SiteController extends \yii\web\Controller
 		];
 	}
 
-    public function actions()
-    {
-        return [
-            'upload' => [
-                'class' => 'kato\actions\UploadAction',
-            ],
-        ];
-    }
-
     public function actionIndex()
     {
         //controller $this->getUniqueId()

@@ -41,6 +41,15 @@ class BlockController extends Controller
 		];
 	}
 
+    public function actions()
+    {
+        return [
+            'upload' => [
+                'class' => 'kato\actions\SirTrevorUploadAction',
+            ],
+        ];
+    }
+
 	/**
 	 * Lists all Block models.
 	 * @return mixed

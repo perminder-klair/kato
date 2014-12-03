@@ -2,8 +2,8 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use backend\widgets\Media;
 use backend\models\Page;
+use kato\modules\media\widgets\Media;
 /**
  * @var yii\web\View $this
  * @var backend\models\Page $model
@@ -109,7 +109,7 @@ use backend\models\Page;
             <!-- /.panel-body -->
             <div class="panel-footer">
                 <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-                <?= Html::a('Preview', [$model->permalink], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
+                <a href="<?= $model->permalink ?>" class="btn btn-default" target="_blank">Preview</a>
             </div>
         </div>
         <?php ActiveForm::end(); ?>

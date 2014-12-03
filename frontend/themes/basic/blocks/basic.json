@@ -9,6 +9,10 @@
         {
             "name": "demo-text",
             "type": "text-field"
+        },
+        {
+            "name": "advanced-content",
+            "type": "sir-trevor"
         }
     ]
 }

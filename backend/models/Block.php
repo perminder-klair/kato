@@ -7,6 +7,7 @@ use kato\ActiveRecord;
 use yii\helpers\Inflector;
 use yii\helpers\ArrayHelper;
 use yii\web\HttpException;
+use kato\sirtrevorjs\SirTrevorConverter;
 
 /**
  * This is the model class for table "kato_block".
@@ -31,6 +32,10 @@ class Block extends ActiveRecord
 {
     const STATUS_NOT_PUBLISHED = 0;
     const STATUS_PUBLISHED = 1;
+
+    const TYPE_TEXT_AREA = 'text-area';
+    const TYPE_TEXT_FIELD = 'text-field';
+    const TYPE_SIR_TREVOR = 'sir-trevor';
 
 	/**
 	 * @inheritdoc
@@ -132,6 +137,13 @@ class Block extends ActiveRecord
         return false;
     }
 
+    public function renderSirTrevor()
+    {
+        $convertor = new SirTrevorConverter();
+        $convertor->textImageRenderClass = 'frontend\components\TextImageRender';
+        return $convertor->toHtml($this->content);
+    }
+
     /**
      * List all actions in site controller
      * @return array
@@ -173,7 +185,10 @@ class Block extends ActiveRecord
 
     public function render()
     {
-        return \Yii::$app->kato->renderBlock($this->content);
+        if ($this->block_type === self::TYPE_SIR_TREVOR) {
+            return $this->renderSirTrevor();
+        }
+        return $this->content;
     }
 
     public function getLabel()

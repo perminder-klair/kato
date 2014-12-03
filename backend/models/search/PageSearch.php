@@ -65,6 +65,7 @@ class PageSearch extends Model
 	public function search($params)
 	{
 		$query = Page::find();
+        $query->andWhere(['deleted' => 0, 'revision_to' => 0]);
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);
@@ -85,6 +86,7 @@ class PageSearch extends Model
 		$this->addCondition($query, 'slug', true);
 		$this->addCondition($query, 'layout');
 		$this->addCondition($query, 'layout', true);
+
 		return $dataProvider;
 	}
 

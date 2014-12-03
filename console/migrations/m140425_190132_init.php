@@ -59,7 +59,7 @@ class m140425_190132_init extends \yii\db\Migration
         $this->createTable('{{%kato_block}}', [
             'id' => Schema::TYPE_PK,
             'title' => Schema::TYPE_STRING . '(70) NOT NULL',
-            'content' => Schema::TYPE_TEXT,
+            'content' => 'LONGTEXT',
             'parent' => Schema::TYPE_INTEGER,
             'block_type' => Schema::TYPE_STRING . '(50)',
             'parent_layout' => Schema::TYPE_STRING . '(50)',

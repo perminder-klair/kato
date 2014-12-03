@@ -5,9 +5,8 @@ namespace backend\controllers;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use yii\helpers\Json;
 use yii\web\NotFoundHttpException;
-use backend\models\Media;
+use kato\modules\media\models\Media;
 use yii\helpers\Url;
 
 class MediaController extends \yii\web\Controller
@@ -66,38 +65,6 @@ class MediaController extends \yii\web\Controller
         }
     }
 
-    public function actionUpdateData($id)
-    {
-        if ($post = Yii::$app->request->post()) {
-            $model = $this->findModel($id);
-            $model->$post['name'] = $post['value'];
-            if ($model->save(false)) {
-                echo 'true';
-                exit;
-            }
-        }
-        echo 'false';
-    }
-
-    /**
-     * Deletes an existing Media model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-        if (Yii::$app->request->isAjax) {
-            echo 'true';
-            exit;
-        }
-
-        Yii::$app->session->setFlash('success', 'Media has been deleted');
-
-        return $this->redirect(Url::previous());
-    }
-
     /**
      * Finds the Media model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -112,42 +79,5 @@ class MediaController extends \yii\web\Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionUpload()
-    {
-        $file = \Yii::$app->kato->mediaUpload('attachment', true);
-        dump($file);
-        exit;
-    }
-
-    public function actionListMedia()
-    {
-        $result = array();
-        if ($media = Media::find()->all()) {
-            foreach ($media as $data) {
-                $result[] = array(
-                    'thumb' => '/' . $data->source,
-                    'image' => '/' . $data->source,
-                    'title' => '/' . $data->filename,
-                    //'filelink' => '/' . $data->source,
-                );
-            }
-        }
-
-        echo Json::encode($result);
-    }
-
-    public function actionRenderRow($id)
-    {
-        $this->layout = false;
-
-        if ($media = $this->findModel($id)) {
-            return $this->render('mediaRow', [
-                'media' => $media,
-                'isNew' => true,
-            ]);
-        }
-        return '';
     }
 }

@@ -46,13 +46,13 @@ class Page extends ActiveRecord
 
     public $pagesDir = null;
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function tableName()
-	{
-		return 'kato_page';
-	}
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'kato_page';
+    }
 
     /**
      * @inheritdoc
@@ -63,19 +63,19 @@ class Page extends ActiveRecord
         return new PageQuery(get_called_class());
     }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules()
-	{
-		return [
-			[['create_time', 'created_by', 'update_time'], 'required'],
-			[['create_time', 'update_time'], 'safe'],
-			[['created_by', 'updated_by', 'parent_id', 'type', 'listing_order', 'menu_hidden', 'revision_to'], 'integer'],
-			[['status', 'menu_hidden', 'deleted'], 'boolean'],
-			[['title', 'slug', 'menu_title'], 'string', 'max' => 70],
-			[['short_desc'], 'string', 'max' => 255],
-			[['layout'], 'string', 'max' => 25],
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['create_time', 'created_by', 'update_time'], 'required'],
+            [['create_time', 'update_time'], 'safe'],
+            [['created_by', 'updated_by', 'parent_id', 'type', 'listing_order', 'menu_hidden', 'revision_to'], 'integer'],
+            [['status', 'menu_hidden', 'deleted'], 'boolean'],
+            [['title', 'slug', 'menu_title'], 'string', 'max' => 70],
+            [['short_desc'], 'string', 'max' => 255],
+            [['layout'], 'string', 'max' => 25],
             ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
             ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
             ['type', 'default', 'value' => self::TYPE_STATIC],
@@ -85,34 +85,34 @@ class Page extends ActiveRecord
             //[['slug'], 'unique'],
             ['menu_hidden', 'default', 'value' => 1],
             ['menu_hidden', 'in', 'range' => [self::MENU_HIDDEN_NO, self::MENU_HIDDEN_YES]],
-		];
-	}
+        ];
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function attributeLabels()
-	{
-		return [
-			'id' => 'ID',
-			'title' => 'Title',
-			'short_desc' => 'Short Desc',
-			'slug' => 'Slug',
-			'create_time' => 'Create Time',
-			'created_by' => 'Created By',
-			'update_time' => 'Update Time',
-			'updated_by' => 'Updated By',
-			'layout' => 'Layout',
-			'parent_id' => 'Parent',
-			'type' => 'Page Type',
-			'status' => 'Status',
-			'deleted' => 'Deleted',
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'title' => 'Title',
+            'short_desc' => 'Short Desc',
+            'slug' => 'Slug',
+            'create_time' => 'Create Time',
+            'created_by' => 'Created By',
+            'update_time' => 'Update Time',
+            'updated_by' => 'Updated By',
+            'layout' => 'Layout',
+            'parent_id' => 'Parent',
+            'type' => 'Page Type',
+            'status' => 'Status',
+            'deleted' => 'Deleted',
             'menu_title' => 'Menu Title',
             'menu_hidden' => 'Hidden in Menu',
             'listing_order' => 'Listing Order',
             'revision_to' => 'Revision To',
-		];
-	}
+        ];
+    }
 
     public function getBlocks()
     {
@@ -259,6 +259,7 @@ class Page extends ActiveRecord
     {
         $parents = self::find()
             ->where('id != ' . $this->id)
+            ->andWhere(['deleted' => 0, 'revision_to' => 0])
             ->all();
 
         return ArrayHelper::map($parents, 'id', 'title');
@@ -273,7 +274,7 @@ class Page extends ActiveRecord
         $this->pagesDir =  Yii::getAlias('@frontend') . str_replace('/admin','',Yii::$app->view->theme->basePath) . DIRECTORY_SEPARATOR. 'page';
 
         $files = [];
-        if ($viewFiles = \kato\helpers\KatoBase::get_files($dir)) {
+        if ($viewFiles = \kato\helpers\KatoBase::get_files($this->pagesDir)) {
             foreach ($viewFiles as $key => $value) {
                 $fileName = basename($value, ".php");
                 $files[$fileName] = ucfirst($fileName);
@@ -302,7 +303,7 @@ class Page extends ActiveRecord
             if (count($encoded_data->blocks) !== 0) {
                 foreach ($encoded_data->blocks as $data) {
                     if (($block = Block::findOne([
-                            'title' => $data->name,
+                            'title' => str_replace(' ', '-', strtolower($data->name)),
                             'parent' => $this->id,
                             'parent_layout' => $layout,
                         ]) === null)
@@ -354,7 +355,6 @@ class Page extends ActiveRecord
                         throw new HttpException(500, 'Unable to load blocks to database');
                     }
                 }
-
             }
 
             return true;
@@ -366,14 +366,14 @@ class Page extends ActiveRecord
     public function getPermalink()
     {
         if ($this->type == self::TYPE_NON_STATIC) {
-            return Yii::$app->urlManager->createUrl([str_replace("-", "/", $this->slug)]);
+            return Yii::$app->urlManagerFrontend->createUrl([str_replace("-", "/", $this->slug)]);
         } else {
 
             if (is_null($this->slug)) {
                 throw new BadRequestHttpException('Page slug not specified.');
             }
 
-            return Yii::$app->urlManager->createUrl(['page/view', 'slug' => $this->slug]);
+            return Yii::$app->urlManagerFrontend->createUrl(['/page/view', 'slug' => $this->slug]);
         }
     }
 

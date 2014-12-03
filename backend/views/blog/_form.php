@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use backend\models\Tag;
-use backend\widgets\Media;
+use kato\modules\media\widgets\Media;
 use yii\bootstrap\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;

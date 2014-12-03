@@ -2,7 +2,9 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use backend\models\Block;
 use yii\imperavi\Widget as ImperaviWidget;
+use kato\sirtrevorjs\SirTrevor;
 
 /**
  * @var yii\web\View $this
@@ -29,8 +31,8 @@ use yii\imperavi\Widget as ImperaviWidget;
                     'fieldConfig' => [
                         'horizontalCssClasses' => [
                             'label' => 'col-sm-4',
-                            'offset' => 'col-sm-offset-4',
-                            'wrapper' => 'col-sm-8',
+                            'offset' => 'col-sm-offset-0',
+                            'wrapper' => 'col-sm-12',
                             'error' => '',
                             'hint' => '',
                         ],
@@ -48,7 +50,8 @@ use yii\imperavi\Widget as ImperaviWidget;
                                     <?php echo $block->label; ?>
                                     <div class="col-sm-9">
                                         <?php
-                                        if ($block->block_type == 'text-area') {
+                                        if ($block->block_type == Block::TYPE_TEXT_AREA) {
+
                                             echo ImperaviWidget::widget([
                                                 'attribute' => 'Block['.$block->title.']',
                                                 'value' => $block->content,
@@ -79,8 +82,21 @@ use yii\imperavi\Widget as ImperaviWidget;
                                                     'imagemanager',
                                                 ],
                                             ]);
-                                        } elseif ($block->block_type == 'text-field') {
-                                            echo $form->field($block, 'content')->textInput(['name' => 'Block['.$block->title.']', 'class' => 'form-control']);
+
+                                        } elseif ($block->block_type == Block::TYPE_TEXT_FIELD) {
+
+                                            echo $form->field($block, 'content')->label(false)->textInput(['name' => 'Block['.$block->title.']', 'class' => 'form-control']);
+
+                                        } elseif ($block->block_type == Block::TYPE_SIR_TREVOR) {
+
+                                            echo SirTrevor::widget([
+                                                'name' => 'Block['.$block->title.']',
+                                                'debug' => true,
+                                                'value' => $block->content,
+                                                'imageUploadUrl' => Yii::$app->urlManager->createAdminUrl(['block/upload']),
+                                                'blockTypes' => ["Heading", "List", "Quote", "Image", "Video", "Textimage", "Redactor"],
+                                            ]);
+
                                         }
                                         ?>
                                     </div>

@@ -14,8 +14,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="page-view">
 
-	<h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?php echo \Yii::$app->kato->getBlock('details', $model->id, $model->layout); ?>
+
+    <?php echo \Yii::$app->kato->getBlock('demo-text', $model->id, $model->layout); ?>
+
+    <?php echo \Yii::$app->kato->getBlock('sir-trevor', $model->id, $model->layout); ?>
 
 </div>
