@@ -21,6 +21,9 @@ return [
         'media' => [
             'class' => 'kato\modules\media\Media',
         ],
+        'tag' => [
+            'class' => 'kato\modules\Tag',
+        ],
     ],
     'components' => [
         'assetManager' => [
