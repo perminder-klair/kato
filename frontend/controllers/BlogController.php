@@ -32,7 +32,7 @@ class BlogController extends \yii\web\Controller
 
         $searchModel = new BlogSearch;
         $getQuery = Yii::$app->request->getQueryParams();
-        $getQuery['Blog']['status'] = Blog::STATUS_PUBLISHED;
+        $getQuery['BlogSearch']['status'] = Blog::STATUS_PUBLISHED;
         //TODO by publish time
 
         $dataProvider = $searchModel->search($getQuery);
