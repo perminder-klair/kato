@@ -236,8 +236,7 @@
                 {
                     "name": "Edward Z. Yang",
                     "email": "admin@htmlpurifier.org",
-                    "homepage": "http://ezyang.com",
-                    "role": "Developer"
+                    "homepage": "http://ezyang.com"
                 }
             ],
             "description": "Standards compliant HTML filter written in PHP",
@@ -309,12 +308,12 @@
             "version": "3.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ivaynberg/select2.git",
+                "url": "https://github.com/select2/select2.git",
                 "reference": "6ef7155df756837e1378230193d95fce1180a7cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ivaynberg/select2/zipball/6ef7155df756837e1378230193d95fce1180a7cb",
+                "url": "https://api.github.com/repos/select2/select2/zipball/6ef7155df756837e1378230193d95fce1180a7cb",
                 "reference": "6ef7155df756837e1378230193d95fce1180a7cb",
                 "shasum": ""
             },
