@@ -16,3 +16,4 @@
 - [Blog](blog.md)
 - [Pages](pages.md)
 - [Helpers](helpers.md)
+- [Model](model.md)

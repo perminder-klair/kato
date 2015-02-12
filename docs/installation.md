@@ -35,3 +35,4 @@ To login into the application, you need to first sign up, with any of your email
 
 To update assets like css and images: `/frontend/web/`
 To change/update layout and views of site: `/frontend/web/themes/basic`
+TO change theme: in file `/common/config/bootstrap.php` change var `$frontendTheme`

@@ -1,6 +1,9 @@
 <IfModule mod_rewrite.c>
     #Options +FollowSymlinks
     RewriteEngine On
+    
+    # dev deals
+    RewriteRule ^phpmyadmin/(.*)$ phpmyadmin/$1 [L]
 
     # deal with api
     RewriteCond %{REQUEST_URI} ^/(api)

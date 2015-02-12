@@ -7,7 +7,7 @@ use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use yii\imperavi\Widget as ImperaviWidget;
 use kartik\widgets\SwitchInput;
-use backend\widgets\Media;
+use kato\modules\media\widgets\Media;
 
 $tag = new Tag;
 

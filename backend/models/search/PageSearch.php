@@ -66,6 +66,7 @@ class PageSearch extends Model
 	{
 		$query = Page::find();
         $query->andWhere(['deleted' => 0, 'revision_to' => 0]);
+        $query->orderBy('id DESC');
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);

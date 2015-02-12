@@ -66,7 +66,7 @@ class BlockController extends Controller
             'parent',
             'update_time',
             'status',
-            ['class' => 'backend\components\ActionColumn'],
+            ['class' => 'kato\modules\media\ActionColumn'],
         ];
 
         $meta['title'] = $this->pageTitle;
@@ -90,6 +90,7 @@ class BlockController extends Controller
 	public function actionCreate()
 	{
 		$model = new Block;
+        $model->block_type = Block::TYPE_SIR_TREVOR;
 
         if ($model->save(false)) {
             return $this->redirect(['update', 'id' => $model->id]);

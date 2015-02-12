@@ -10,6 +10,7 @@ return [
     'maxUploadSize' => 2097152,
     'uploadPath' => dirname(dirname(__DIR__)) . '/files/',
     'mediaTypes' => ['featured', 'other'],
+    'createRevisions' => false,
     'acceptedUploadTypes' => [
         'image/gif',
         'image/jpeg',

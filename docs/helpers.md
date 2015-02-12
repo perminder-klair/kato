@@ -23,3 +23,7 @@ Returns post data
 Returns GET data
 
     Yii::$app->request->getQueryParams()
+    
+Create Frontend URL
+
+    Yii::$app->urlManagerFrontend->createUrl(['update', 'id' => $model->id]

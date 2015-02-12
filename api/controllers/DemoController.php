@@ -4,8 +4,9 @@ namespace api\controllers;
 
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
+use yii\rest\ActiveController;
 
-class DemoController extends \yii\rest\ActiveController
+class DemoController extends ActiveController
 {
     public $modelClass = 'frontend\models\Demo';
 

@@ -1,0 +1,24 @@
+--- backend/views/layouts/main.php
++++ backend/views/layouts/main.php
+@@ -40,7 +40,7 @@
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+             </button>
+-            <a class="navbar-brand" href="<?= \Yii::$app->urlManager->createUrl('site/index'); ?>"><?= \Yii::$app->kato->setting('site_name'); ?></a>
++            <a class="navbar-brand" href="<?= \Yii::$app->urlManagerBackend->createUrl(['site/index']); ?>"><?= \Yii::$app->kato->setting('site_name'); ?></a>
+         </div>
+         <!-- /.navbar-header -->
+ 
+@@ -51,10 +51,10 @@
+                     <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                 </a>
+                 <ul class="dropdown-menu dropdown-user">
+-                    <li><a href="<?= \Yii::$app->urlManager->createAdminUrl('site/settings'); ?>"><i class="fa fa-gear fa-fw"></i> Settings</a>
++                    <li><a href="<?= \Yii::$app->urlManagerBackend->createUrl(['site/settings']); ?>"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                     </li>
+                     <li class="divider"></li>
+-                    <li><a href="<?= \Yii::$app->urlManager->createAdminUrl('site/logout'); ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
++                    <li><a href="<?= \Yii::$app->urlManagerBackend->createUrl(['site/logout']); ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                     </li>
+                 </ul>
+                 <!-- /.dropdown-user -->

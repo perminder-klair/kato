@@ -73,36 +73,9 @@ use kato\modules\media\widgets\Media;
                     </div>
 
                     <div class="tab-pane fade in" id="revisions">
-                        <?php if ($model->revisions): ?>
-                            <?= \yii\grid\GridView::widget([
-                                'options' => ['class' => 'table-responsive'],
-                                'tableOptions' => ['id' => 'general-table', 'class' => 'table table-striped table-hover'],
-                                'showFooter' => true,
-                                'dataProvider' => $model->revisionsProvider(),
-                                'columns' => [
-                                    'update_time',
-                                    [
-                                        'label' => 'Author',
-                                        'format' => 'text',
-                                        'value' => function ($data) {
-                                            if ($data->author) {
-                                                return $data->author->displayName;
-                                            }
-                                            return false;
-                                        },
-                                    ],
-                                    [
-                                        'label' => 'Actions',
-                                        'format' => 'html',
-                                        'value' => function ($data) {
-                                            return Html::a('Restore', ['restore', 'id' => $data->id], ['class' => 'btn btn-warning btn-xs', 'target' => '_blank']);
-                                        },
-                                    ],
-                                ],
-                            ]); ?>
-                        <?php else: ?>
-                            <p>No revisions available!</p>
-                        <?php endif; ?>
+                        <?= $this->render('_revisions', [
+                            'model' => $model,
+                        ]); ?>
                     </div>
                 </div>
             </div>

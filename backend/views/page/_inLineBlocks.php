@@ -61,11 +61,11 @@ use kato\sirtrevorjs\SirTrevor;
                                                     'minHeight' => 300,
                                                     'autoresize' => true,
                                                     //'convertVideoLinks' => true,
-                                                    'imageUpload' => Yii::$app->urlManager->createAdminUrl(['media/upload']),
+                                                    'imageUpload' => Yii::$app->urlManagerBackend->createUrl(['media/upload']),
                                                     //'imageUploadParam' => 'qqfile',
                                                     //'uploadFields' => array('editorUpload' => true),
                                                     'focus' => true,
-                                                    'imageManagerJson' => Yii::$app->urlManager->createAdminUrl(['media/list-media']),
+                                                    'imageManagerJson' => Yii::$app->urlManagerBackend->createUrl(['media/list-media']),
                                                     //'imageGetJson' => Yii::$app->urlManager->createAdminUrl(['media/list-media']),
                                                 ],
                                                 'plugins' => [
@@ -93,7 +93,7 @@ use kato\sirtrevorjs\SirTrevor;
                                                 'name' => 'Block['.$block->title.']',
                                                 'debug' => true,
                                                 'value' => $block->content,
-                                                'imageUploadUrl' => Yii::$app->urlManager->createAdminUrl(['block/upload']),
+                                                'imageUploadUrl' => Yii::$app->urlManagerBackend->createUrl(['block/upload']),
                                                 'blockTypes' => ["Heading", "List", "Quote", "Image", "Video", "Textimage", "Redactor"],
                                             ]);
 

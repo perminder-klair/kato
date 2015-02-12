@@ -37,7 +37,8 @@ $tag = new Tag;
         <?= $form->field($model, 'slug')->textInput(['maxlength' => 70]) ?>
 
         <?= $form->field($model, 'content')->widget(SirTrevor::classname(), [
-            'imageUploadUrl' => Yii::$app->urlManager->createAdminUrl(['block/upload']),
+            'imageUploadUrl' => Yii::$app->urlManagerBackend->createUrl(['block/upload']),
+            'blockTypes' => ["Heading", "Text", "List", "Quote", "Image", "Video", "Textimage", "Redactor"],
         ]); ?>
 
         <?= $form->field($model, 'tags')->widget(Select2::classname(), [

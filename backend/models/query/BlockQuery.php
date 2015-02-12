@@ -17,4 +17,13 @@ class BlockQuery extends ActiveQuery
 
         return $this;
     }
+
+    public function fromParent($layout)
+    {
+        $this->andWhere([
+            'parent_layout' => $layout,
+        ]);
+        //dump($this);exit;
+        return $this;
+    }
 }

@@ -1,0 +1,69 @@
+--- common/widgets/views/adminMenu.php
++++ common/widgets/views/adminMenu.php
+@@ -17,7 +17,7 @@
+     'items' => array_merge([
+         [
+             'label' => '<i class="fa fa-dashboard fa-fw"></i> Dashboard',
+-            'url' => ['site/index'],
++            'url' => \Yii::$app->urlManagerBackend->createUrl(['site/index']),
+         ],
+         [
+             'label' => '<i class="fa fa-bullhorn fa-fw"></i> Blog',
+@@ -25,11 +25,11 @@
+             'items' => [
+                 [
+                     'label' => 'All Posts',
+-                    'url' => ['blog/index'],
++                    'url' => \Yii::$app->urlManagerBackend->createUrl(['blog/index']),
+                 ],
+                 [
+                     'label' => 'Add New',
+-                    'url' => ['blog/create'],
++                    'url' => \Yii::$app->urlManagerBackend->createUrl(['blog/create']),
+                 ],
+             ],
+         ],
+@@ -39,15 +39,15 @@
+             'items' => [
+                 [
+                     'label' => 'All Pages',
+-                    'url' => ['page/index'],
++                    'url' => \Yii::$app->urlManagerBackend->createUrl(['page/index']),
+                 ],
+                 [
+                     'label' => 'Add New',
+-                    'url' => ['page/create'],
++                    'url' => \Yii::$app->urlManagerBackend->createUrl(['page/create']),
+                 ],
+                 [
+                     'label' => 'All Text Blocks',
+-                    'url' => ['block/index'],
++                    'url' => \Yii::$app->urlManagerBackend->createUrl(['block/index']),
+                 ],
+             ],
+         ],
+@@ -57,17 +57,21 @@
+             'items' => [
+                 [
+                     'label' => 'All Users',
+-                    'url' => ['user/index'],
++                    'url' => \Yii::$app->urlManagerBackend->createUrl(['user/index']),
+                 ],
+                 [
+                     'label' => 'Add New',
+-                    'url' => ['user/create'],
++                    'url' => \Yii::$app->urlManagerBackend->createUrl(['user/create']),
+                 ],
+             ],
+         ],
+         [
++            'label' => '<i class="fa fa-camera-retro fa-fw"></i> Media',
++            'url' => \Yii::$app->urlManagerFrontend->createUrl(['media/default/index']),
++        ],
++        [
+             'label' => '<i class="fa fa-building fa-fw"></i> Companies',
+-            'url' => ['company/admin'],
++            'url' => \Yii::$app->urlManagerBackend->createUrl(['company/admin']),
+         ],
+     ], $otherItems)
+ ]); ?>

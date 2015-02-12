@@ -4,17 +4,20 @@ use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 
 /**
- * @var yii\web\View $this
+ * @var kato\web\View $this
  * @var yii\bootstrap\ActiveForm $form
  * @var frontend\models\ContactForm $model
  */
 $this->title = 'Contact';
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['block'] = [
+    'slug' => 'contact',
+];
 ?>
 <div class="site-contact">
 	<h1><?= Html::encode($this->title) ?></h1>
 
-    <?php echo \Yii::$app->kato->getBlock('contact-intro', '3'); ?>
+    <?php echo $this->loadBlock('details'); ?>
 
 	<div class="row">
 		<div class="col-lg-5">

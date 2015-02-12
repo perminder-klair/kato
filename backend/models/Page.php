@@ -2,15 +2,12 @@
 
 namespace backend\models;
 
+use Yii;
 use backend\models\query\PageQuery;
 use common\models\User;
-use Yii;
-use kartik\markdown\Markdown;
-use kato\helpers\KatoBase;
 use kato\ActiveRecord;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Json;
 use yii\web\BadRequestHttpException;
 use yii\web\HttpException;
 
@@ -114,17 +111,29 @@ class Page extends ActiveRecord
         ];
     }
 
+    /**
+     * Returns all page blocks
+     * @return mixed
+     */
     public function getBlocks()
     {
         // Page has_many Block via Block.parent -> slug
         return $this->hasMany(Block::className(), ['parent' => 'id'])->live();
     }
 
+    /**
+     * Returns all page block's revisions
+     * @return mixed
+     */
     public function getRevisionBlocks()
     {
         return $this->hasMany(Block::className(), ['parent' => 'id']);
     }
 
+    /**
+     * Return all children of model
+     * @return \yii\db\ActiveQuery
+     */
     public function getChildren()
     {
         return $this->hasMany(self::className(), ['parent_id' => 'id']);
@@ -142,12 +151,21 @@ class Page extends ActiveRecord
             ->orderBy('listing_order ASC');
     }
 
+    /**
+     * Returns all page revisions
+     * @return static
+     */
     public function getRevisions()
     {
         return $this->hasMany(self::className(), ['revision_to' => 'id'])
             ->orderBy('id DESC');
     }
 
+    /**
+     * Returns name of owner / updater of page
+     * @param bool $creator
+     * @return \yii\db\ActiveQuery
+     */
     public function getAuthor($creator = false)
     {
         if ($creator) {
@@ -158,6 +176,10 @@ class Page extends ActiveRecord
         return $this->hasOne(User::className(), ['id' => $by]);
     }
 
+    /**
+     * Returns active blocks grouped by categories
+     * @return array
+     */
     public function getActiveBlocks()
     {
         $groups = array(
@@ -165,25 +187,34 @@ class Page extends ActiveRecord
             'blocks' => array(),
         );
 
-        foreach ($this->blocks as $block) {
+
+        if ($this->type == self::TYPE_STATIC) {
+            $blocks = $this->getBlocks()->fromParent($this->layout)->all();
+        } else {
+            $blocks = $this->getBlocks()->all();
+        }
+
+        foreach ($blocks as $block) {
             //get categories
             if (!in_array($block->category, $groups['categories'])) {
                 $groups['categories'][] = $block->category;
             }
 
             //get blocks
-            if ($this->layout == $block->parent_layout || $this->type == self::TYPE_NON_STATIC) {
-                $group = $block->category;
-                if (!isset($groups['blocks'][$group])) {
-                    $groups['blocks'][$group] = array();
-                }
-                $groups['blocks'][$group][] = $block;
+            $group = $block->category;
+            if (!isset($groups['blocks'][$group])) {
+                $groups['blocks'][$group] = array();
             }
+            $groups['blocks'][$group][] = $block;
         }
 
         return $groups;
     }
 
+    /**
+     * Returns Active data of revisions for admin panel
+     * @return ActiveDataProvider
+     */
     public function revisionsProvider()
     {
         return new ActiveDataProvider([
@@ -191,6 +222,9 @@ class Page extends ActiveRecord
         ]);
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -271,7 +305,7 @@ class Page extends ActiveRecord
      */
     public function listLayouts()
     {
-        $this->pagesDir =  Yii::getAlias('@frontend') . str_replace('/admin','',Yii::$app->view->theme->basePath) . DIRECTORY_SEPARATOR. 'page';
+        $this->pagesDir = Yii::getAlias('@theme') . DIRECTORY_SEPARATOR . 'page';
 
         $files = [];
         if ($viewFiles = \kato\helpers\KatoBase::get_files($this->pagesDir)) {
@@ -284,6 +318,12 @@ class Page extends ActiveRecord
         return $files;
     }
 
+    /**
+     * Load blocks from related JSON file
+     * if block does not exists then create new
+     * @return bool
+     * @throws HttpException
+     */
     public function loadBlocks()
     {
         if ($this->type == self::TYPE_NON_STATIC) {
@@ -293,7 +333,7 @@ class Page extends ActiveRecord
             $json_file = $layout = $this->layout;
         }
 
-        $pages_dir = Yii::getAlias('@frontend') . str_replace('/admin','',Yii::$app->view->theme->basePath) . DIRECTORY_SEPARATOR . 'blocks' . DIRECTORY_SEPARATOR;
+        $pages_dir = Yii::getAlias('@theme') . DIRECTORY_SEPARATOR . 'blocks' . DIRECTORY_SEPARATOR;
         $page_json = $pages_dir . $json_file . '.json';
 
         if (file_exists($page_json)) {
@@ -331,6 +371,11 @@ class Page extends ActiveRecord
         return true;
     }
 
+    /**
+     * Updates blocks sent via $_POST['Block'] data.
+     * @return bool
+     * @throws HttpException
+     */
     public function updateBlocks()
     {
         $post = Yii::$app->request->post();
@@ -363,6 +408,11 @@ class Page extends ActiveRecord
         return false;
     }
 
+    /**
+     * Generates permalink for page
+     * @return string
+     * @throws BadRequestHttpException
+     */
     public function getPermalink()
     {
         if ($this->type == self::TYPE_NON_STATIC) {
@@ -377,6 +427,10 @@ class Page extends ActiveRecord
         }
     }
 
+    /**
+     * Before saving creates revision of page and all it's related blocks
+     * @throws HttpException
+     */
     public function createRevision()
     {
         $revision = new self();
@@ -404,6 +458,10 @@ class Page extends ActiveRecord
         }
     }
 
+    /**
+     * Restore page and all it's related block data
+     * @return bool
+     */
     public function restore()
     {
         $page = self::findOne($this->revision_to);

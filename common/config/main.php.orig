@@ -29,10 +29,6 @@ return [
         'menu' => [
             'class' => 'kato\modules\Menu',
         ],
-        'setting' => [
-            'class' => 'kato\modules\setting\Setting',
-            'adminLayout' => '@backend/views/layouts/main',
-        ],
     ],
     'components' => [
         'assetManager' => [

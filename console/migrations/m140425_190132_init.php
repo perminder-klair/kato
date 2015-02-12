@@ -13,17 +13,6 @@ class m140425_190132_init extends \yii\db\Migration
 
         $schema = $this->db->schema;
 
-        $this->createTable('{{%demo}}', [
-            'id' => Schema::TYPE_PK,
-            'title' => Schema::TYPE_STRING . ' NOT NULL',
-            'description' => Schema::TYPE_TEXT,
-            'tags' => Schema::TYPE_TEXT,
-            'create_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT 0',
-            'update_time' => Schema::TYPE_TIMESTAMP . ' NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
-            'active' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 1',
-            'deleted' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
-        ], $tableOptions);
-
         $this->createTable('{{%kato_auth_assignment}}', array(
             'item_name' => Schema::TYPE_STRING . '(64) NOT NULL REFERENCES ' . $schema->quoteTableName('{{%kato_auth_item}}') . ' (name) ON DELETE CASCADE ON UPDATE CASCADE',
             'user_id' => Schema::TYPE_STRING . '(64) NOT NULL REFERENCES ' . $schema->quoteTableName('{{%kato_user}}') . ' (id) ON DELETE CASCADE ON UPDATE CASCADE',
@@ -137,7 +126,10 @@ class m140425_190132_init extends \yii\db\Migration
         $this->createTable('{{%kato_setting}}', [
             'id' => Schema::TYPE_PK,
             'define' => Schema::TYPE_STRING . '(50) NOT NULL',
-            'value' => Schema::TYPE_STRING . '(255)',
+            'value' => Schema::TYPE_TEXT,
+            'category' => Schema::TYPE_STRING . '(50) NOT NULL DEFAULT "general"',
+            'type' => Schema::TYPE_STRING . '(50) NOT NULL DEFAULT "text-field"',
+            'options' => Schema::TYPE_TEXT,
         ], $tableOptions);
 
         $this->createTable('{{%kato_tag}}', [
@@ -176,7 +168,6 @@ class m140425_190132_init extends \yii\db\Migration
 
     public function down()
     {
-        $this->dropTable('{{%demo}}');
         $this->dropTable('{{%kato_auth_assignment}}');
         $this->dropTable('{{%kato_auth_item}}');
         $this->dropTable('{{%kato_auth_item_child}}');

@@ -6,8 +6,6 @@ use Yii;
 use common\models\LoginForm;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use backend\models\Setting;
-use yii\base\Model;
 use yii\base\Exception;
 use yii\base\UserException;
 use yii\web\HttpException;
@@ -19,10 +17,10 @@ class SiteController extends \yii\web\Controller
 		return [
 			'access' => [
 				'class' => AccessControl::className(),
-                'only' => ['index', 'settings', 'logout'],
+                'only' => ['index', 'logout'],
 				'rules' => [
 					[
-						'actions' => ['index', 'settings', 'logout'],
+						'actions' => ['index', 'logout'],
 						'allow' => true,
 						'roles' => ['admin'],
 					],
@@ -108,20 +106,5 @@ class SiteController extends \yii\web\Controller
     {
         Yii::$app->user->logout();
         return $this->goHome();
-    }
-
-    public function actionSettings()
-    {
-        $settings = Setting::find()->indexBy('id')->all();
-
-        if (Model::loadMultiple($settings, Yii::$app->request->post()) && Model::validateMultiple($settings)) {
-            foreach ($settings as $setting) {
-                $setting->save(false);
-            }
-
-            return $this->redirect('settings');
-        }
-
-        return $this->render('settings', ['settings' => $settings]);
     }
 }

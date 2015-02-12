@@ -20,13 +20,10 @@ return [
             'errorAction' => 'site/error',
         ],
         'urlManager' => [
-            'class' => 'kato\components\UrlManager',
-            'adminUrl' => 'admin',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
                 '<action:(login|logout|index|settings)>' => 'site/<action>',
-                'post/<id:[0-9]+>' => 'post/view'
             ]
         ],
         'request' => [
@@ -36,6 +33,9 @@ return [
             //TODO enable this
             'enableCsrfValidation' => false,
             'enableCookieValidation' => true,
+        ],
+        'view' => [
+            'class' => 'kato\web\View',
         ],
     ],
     'params' => $params,

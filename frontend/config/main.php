@@ -25,21 +25,10 @@ return [
             'enableCsrfValidation'=>false,
             'enableCookieValidation'=>true,
         ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
-        ],
 		'errorHandler' => [
 			'errorAction' => 'site/error',
 		],
         'urlManager' => [
-            'class' => 'kato\components\UrlManager',
-            'adminUrl' => 'admin',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
@@ -47,6 +36,16 @@ return [
                 'blog/<id:[0-9]+>/<title>' => 'blog/view',
                 'static/<slug>' => 'page/view',
             ]
+        ],
+        'view' => [
+            'class' => 'kato\web\View',
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@app/themes/basic'
+                ],
+                'baseUrl' => '@web/themes/basic',
+                'basePath' => '@web/themes/basic',
+            ],
         ],
 	],
 	'params' => $params,

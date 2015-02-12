@@ -3,7 +3,7 @@ use backend\assets\AppAsset;
 use yii\helpers\Html;
 
 /**
- * @var \backend\components\View $this
+ * @var \kato\web\View $this
  * @var string $content
  */
 AppAsset::register($this);
@@ -19,7 +19,6 @@ AppAsset::register($this);
 
         <title><?= Html::encode($this->title) ?></title>
 
-        <?php $this->registerTheme(); ?>
         <?php $this->head() ?>
     </head>
 

@@ -31,6 +31,7 @@ use yii\web\HttpException;
  * @property string $published_by
  * @property integer $status
  * @property integer $deleted
+ * @property string $permalink
  */
 class Blog extends ActiveRecord
 {
@@ -248,7 +249,7 @@ class Blog extends ActiveRecord
 
     public function renderContent()
     {
-        return \Yii::$app->kato->renderBlock($this->content);
+        return $this->content_html;//\Yii::$app->kato->renderBlock($this->content);
     }
 
     private function createRevision()

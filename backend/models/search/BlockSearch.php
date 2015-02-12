@@ -58,7 +58,13 @@ class BlockSearch extends Model
 	public function search($params)
 	{
 		$query = Block::find();
-        $query->andWhere(['deleted' => 0]);
+        $query->andWhere([
+            'revision_to' => 0,
+            'deleted' => 0,
+            'parent' => null,
+            'parent_layout' => null,
+        ]);
+        $query->orderBy('id DESC');
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);

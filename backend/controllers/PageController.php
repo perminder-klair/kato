@@ -5,10 +5,12 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Page;
 use backend\models\search\PageSearch;
+use yii\grid\DataColumn;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\widgets\Block;
 
 /**
  * PageController implements the CRUD actions for Page model.
@@ -49,47 +51,38 @@ class PageController extends \yii\web\Controller
 	 * Lists all Page models.
 	 * @return mixed
 	 */
+	/**
+	 * Lists all Page models.
+	 * @return mixed
+	 */
 	public function actionIndex()
 	{
-		$searchModel = new PageSearch;
-		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
         $controllerName = $this->getUniqueId();
-
-        $getColumns = [
-            ['class' => 'yii\grid\SerialColumn'],
-            'title',
-            'slug',
-            'update_time',
-            'status:boolean',
-            ['class' => 'backend\components\ActionColumn'],
-        ];
 
         $meta['title'] = $this->pageTitle;
         $meta['description'] = 'List all pages';
         $meta['pageIcon'] = $this->pageIcon;
 
-		return $this->render('/global/index', [
-			'dataProvider' => $dataProvider,
-			'searchModel' => $searchModel,
+		return $this->render('index', [
             'controllerName' => $controllerName,
             'meta' => $meta,
-            'getColumns' => $getColumns,
 		]);
 	}
 
-	/**
-	 * Creates a new Page model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return mixed
-	 */
+    /**
+     * Creates a new Page model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @throws HttpException
+     */
 	public function actionCreate()
 	{
 		$model = new Page;
 
 		if ($model->save(false)) {
 			return $this->redirect(['update', 'id' => $model->id]);
-		}
+		} else {
+            throw new HttpException(500, 'Unable to insert page.');
+        }
 	}
 
 	/**
@@ -107,7 +100,7 @@ class PageController extends \yii\web\Controller
         $meta['description'] = 'Update page';
         $meta['pageIcon'] = $this->pageIcon;
 
-        if (Yii::$app->request->post()) {
+        if (Yii::$app->request->post() && Yii::$app->params['createRevisions']) {
             //create revision
             $model->createRevision();
         }
