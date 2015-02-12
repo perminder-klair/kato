@@ -2,12 +2,12 @@
     <!-- Right Header Navigation -->
     <ul class="nav header-nav pull-right">
         <li class="dropdown">
-            <a href="<?= \Yii::$app->urlManager->createAdminUrl('site/settings'); ?>">
+            <a href="<?= \Yii::$app->urlManagerBackend->createUrl('site/settings'); ?>">
                 <i class="fa fa-cogs"></i>
             </a>
         </li>
         <li>
-            <a href="<?= \Yii::$app->urlManager->createAdminUrl('site/logout'); ?>" data-method="post">
+            <a href="<?= \Yii::$app->urlManagerBackend->createUrl('site/logout'); ?>" data-method="post">
                 <i class="fa fa-power-off"></i>
             </a>
         </li>
@@ -25,8 +25,8 @@
     <!-- END Left Header Navigation -->
 
     <!-- Header Brand -->
-    <a href="<?= \Yii::$app->urlManager->createUrl('site/index'); ?>" class="navbar-brand">
-        <img src="<?= Yii::$app->request->adminBaseUrl ?>/img/drop.png" alt="Kato">
+    <a href="<?= \Yii::$app->urlManagerBackend->createUrl('site/index'); ?>" class="navbar-brand">
+        <img src="<?= Yii::$app->request->baseUrl ?>/img/drop.png" alt="Kato">
         <span><?= \Yii::$app->kato->setting('site_name'); ?></span>
     </a>
     <!-- END Header Brand -->

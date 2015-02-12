@@ -11,15 +11,17 @@ use backend\models\Page;
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->params['block'] = [
+    'id' => $model->id,
+    'layout' => $model->layout,
+];
 ?>
 <div class="page-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php echo \Yii::$app->kato->getBlock('details', $model->id, $model->layout); ?>
-
-    <?php echo \Yii::$app->kato->getBlock('demo-text', $model->id, $model->layout); ?>
-
-    <?php echo \Yii::$app->kato->getBlock('sir-trevor', $model->id, $model->layout); ?>
-
+    <?= $this->loadBlock('details'); ?>
+    <?= $this->loadBlock('demo-text'); ?>
+    <?= $this->loadBlock('sir-trevor'); ?>
 </div>

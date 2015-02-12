@@ -4,7 +4,7 @@
         <!-- User Info -->
         <div class="user-info">
             <div class="user-details"><a href="#">Webonise</a><br><em>Web Designer</em></div>
-            <img src="<?= \Yii::$app->request->adminBaseUrl; ?>/img/avatar.png" alt="Avatar">
+            <img src="<?= \Yii::$app->request->baseUrl; ?>/img/avatar.png" alt="Avatar">
         </div>
         <!-- END User Info -->
     </div>

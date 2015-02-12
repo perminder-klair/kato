@@ -21,24 +21,24 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
-        "yiisoft/yii2": "*",
-        "yiisoft/yii2-swiftmailer": "*",
-        "yiisoft/yii2-bootstrap": "*",
-        "yiisoft/yii2-imagine": "*",
+        "yiisoft/yii2": "dev-master",
+        "yiisoft/yii2-swiftmailer": "dev-master",
+        "yiisoft/yii2-bootstrap": "dev-master",
+        "yiisoft/yii2-imagine": "dev-master",
         "perminder-klair/kato-core": "dev-master",
         "perminder-klair/yii2-sir-trevor-js": "dev-master",
         "michelf/php-smartypants": "1.6.0-beta1",
         "kartik-v/yii2-widgets": "dev-master",
         "kartik-v/yii2-markdown": "dev-master",
-        "asofter/yii2-imperavi-redactor": "*",
-        "2amigos/yii2-editable-widget" : "*"
+        "asofter/yii2-imperavi-redactor": "dev-master",
+        "2amigos/yii2-editable-widget" : "dev-master"
 
     },
     "require-dev": {
-        "yiisoft/yii2-codeception": "*",
-        "yiisoft/yii2-debug": "*",
-        "yiisoft/yii2-gii": "*",
-        "yiisoft/yii2-faker": "*"
+        "yiisoft/yii2-codeception": "dev-master",
+        "yiisoft/yii2-debug": "dev-master",
+        "yiisoft/yii2-gii": "dev-master",
+        "yiisoft/yii2-faker": "dev-master"
     },
     "config": {
         "process-timeout": 1800
