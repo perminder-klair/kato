@@ -1,5 +1,7 @@
 # Kato CMS
 
+[![Join the chat at https://gitter.im/perminder-klair/kato](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/perminder-klair/kato?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [ ![Codeship Status for perminder-klair/kato](https://codeship.io/projects/27e66250-f320-0131-9544-4a285323a758/status)](https://codeship.io/projects/27806)
 
 Thank you for choosing Kato - a PHP CMS based on Yii2 Framework.
