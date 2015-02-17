@@ -10,7 +10,7 @@ To get started, check out [http://getkato.com](http://getkato.com)!
 Read the [Documentation](docs/index.md) for information like installation, usage, examples and more.
 
 ## Admin Access
-Login to Admin Panel by visiting: www.mysite.com/admin
+Login to Admin Panel by visiting: www.yoursite.com/admin
 
 ## REST API Demo
 By visiting: www.yoursite.com/api/demos
