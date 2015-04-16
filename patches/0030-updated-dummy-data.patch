@@ -1,0 +1,135 @@
+From 70ed195d47993df1f1b5b3dab8cbb58781d9e76b Mon Sep 17 00:00:00 2001
+From: Parminder Klair <perminder.klair@gmail.com>
+Date: Mon, 30 Mar 2015 16:14:18 +0100
+Subject: [PATCH] updated dummy data
+
+---
+ console/migrations/m140425_204944_init_insert.php | 28 +++++++++++++++++++++--
+ frontend/themes/basic/blocks/contact.json         |  9 ++++++++
+ frontend/themes/basic/blocks/index.json           |  3 +--
+ frontend/themes/basic/site/contact.php            |  2 +-
+ frontend/themes/basic/site/index.php              |  4 +++-
+ 5 files changed, 40 insertions(+), 6 deletions(-)
+ create mode 100644 frontend/themes/basic/blocks/contact.json
+
+diff --git a/console/migrations/m140425_204944_init_insert.php b/console/migrations/m140425_204944_init_insert.php
+index cac2151..6792464 100644
+--- a/console/migrations/m140425_204944_init_insert.php
++++ b/console/migrations/m140425_204944_init_insert.php
+@@ -14,7 +14,7 @@ class m140425_204944_init_insert extends \yii\db\Migration
+         $lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis diam leo, vulputate porttitor sodales consequat, consequat a dui.';
+ 
+         $this->batchInsert('{{%kato_setting}}', ['define', 'value'], [
+-            ['site_name', 'Kato'],
++            ['site_name', 'Scorch CMS'],
+             ['home_meta_description', ''],
+             ['home_meta_keywords', ''],
+             ['admin_email', ''],
+@@ -65,7 +65,7 @@ class m140425_204944_init_insert extends \yii\db\Migration
+         ]);
+ 
+         $this->insert('{{%kato_block}}', [
+-            'title' => 'details',
++            'title' => 'intro',
+             'content' => '<p>' . $lorem . '</p>',
+             'parent' => 1,
+             'block_type' => 'text-area',
+@@ -88,6 +88,30 @@ class m140425_204944_init_insert extends \yii\db\Migration
+         ]);
+ 
+         $this->insert('{{%kato_block}}', [
++            'title' => 'demo-text',
++            'content' => $lorem,
++            'parent' => 2,
++            'parent_layout' => 'basic',
++            'block_type' => 'text-field',
++            'category' => 'general',
++            'created_by' => 1,
++            'updated_by' => 1,
++            'status' => 1
++        ]);
++
++        $this->insert('{{%kato_block}}', [
++            'title' => 'sir-trevor',
++            'content' => '{"data":[{"type":"redactor","data":{"redactor":"<p>' + $lorem + '</p>"}}]}',
++            'parent' => 2,
++            'parent_layout' => 'basic',
++            'block_type' => 'sir-trevor',
++            'category' => 'general',
++            'created_by' => 1,
++            'updated_by' => 1,
++            'status' => 1
++        ]);
++
++        $this->insert('{{%kato_block}}', [
+             'title' => 'contact-intro',
+             'content' => '<p>' . $lorem . '</p>',
+             'parent' => 3,
+diff --git a/frontend/themes/basic/blocks/contact.json b/frontend/themes/basic/blocks/contact.json
+new file mode 100644
+index 0000000..81c05fa
+--- /dev/null
++++ b/frontend/themes/basic/blocks/contact.json
+@@ -0,0 +1,9 @@
++{
++  "blocks" : [
++    {
++      "name": "contact-intro",
++      "type": "text-area",
++      "category": "General"
++    }
++  ]
++}
+\ No newline at end of file
+diff --git a/frontend/themes/basic/blocks/index.json b/frontend/themes/basic/blocks/index.json
+index ad66d9a..f24a086 100644
+--- a/frontend/themes/basic/blocks/index.json
++++ b/frontend/themes/basic/blocks/index.json
+@@ -1,9 +1,8 @@
+ {
+     "blocks" : [
+         {
+-            "name": "details",
++            "name": "intro",
+             "type": "text-area",
+-            "comments": "This is demo comment",
+             "category": "General"
+         }
+     ]
+diff --git a/frontend/themes/basic/site/contact.php b/frontend/themes/basic/site/contact.php
+index 5c3f647..1b6a3d1 100644
+--- a/frontend/themes/basic/site/contact.php
++++ b/frontend/themes/basic/site/contact.php
+@@ -17,7 +17,7 @@ $this->params['block'] = [
+ <div class="site-contact">
+ 	<h1><?= Html::encode($this->title) ?></h1>
+ 
+-    <?php echo $this->loadBlock('details'); ?>
++    <?php echo $this->loadBlock('contact-intro'); ?>
+ 
+ 	<div class="row">
+ 		<div class="col-lg-5">
+diff --git a/frontend/themes/basic/site/index.php b/frontend/themes/basic/site/index.php
+index 1daa8db..5d7cd0f 100644
+--- a/frontend/themes/basic/site/index.php
++++ b/frontend/themes/basic/site/index.php
+@@ -1,6 +1,6 @@
+ <?php
+ /**
+- * @var yii\web\View $this
++ * @var kato\web\View $this
+  */
+ $this->title = 'My Kato Application';
+ ?>
+@@ -9,6 +9,8 @@ $this->title = 'My Kato Application';
+ 	<div class="jumbotron">
+ 		<h1>Congratulations!</h1>
+ 
++        <?= $this->loadBlock('intro'); ?>
++
+ 		<p class="lead">You have successfully created your Yii2-powered Scorch CMS application.</p>
+ 
+ 		<p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+-- 
+1.9.5 (Apple Git-50.3)
+

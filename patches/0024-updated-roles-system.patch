@@ -1,0 +1,114 @@
+From f7590bf780267287430eb920f19c3372c65a941f Mon Sep 17 00:00:00 2001
+From: Parminder Klair <perminder.klair@gmail.com>
+Date: Wed, 18 Feb 2015 10:40:46 +0000
+Subject: [PATCH] updated roles system
+
+---
+ common/models/User.php                 | 27 ++++++---------------------
+ console/controllers/RbacController.php | 21 +++++++++++++++++++++
+ docs/users.md                          |  9 +++++++--
+ 3 files changed, 34 insertions(+), 23 deletions(-)
+ create mode 100644 console/controllers/RbacController.php
+
+diff --git a/common/models/User.php b/common/models/User.php
+index 8b198e9..7e43bdd 100644
+--- a/common/models/User.php
++++ b/common/models/User.php
+@@ -38,9 +38,6 @@ class User extends ActiveRecord implements IdentityInterface
+ 	const STATUS_ACTIVE = 1;
+     const STATUS_NOT_ACTIVE = 0;
+ 
+-    const ROLE_ADMIN = 'admin';
+-	const ROLE_USER = 'user';
+-
+     /**
+      * @inheritdoc
+      */
+@@ -81,8 +78,7 @@ class User extends ActiveRecord implements IdentityInterface
+             ['status', 'default', 'value' => self::STATUS_ACTIVE],
+             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE]],
+ 
+-            ['role', 'default', 'value' => self::ROLE_USER],
+-            ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
++            ['role', 'default', 'value' => 'user'],
+ 
+             ['username', 'filter', 'filter' => 'trim'],
+             ['username', 'required'],
+@@ -361,23 +357,12 @@ class User extends ActiveRecord implements IdentityInterface
+      */
+     public function listRoles()
+     {
+-        static $data;
+-        if ($data === null) {
+-
+-            // create a reflection class to get constants
+-            $refl = new ReflectionClass(get_called_class());
+-            $constants = $refl->getConstants();
+-
+-            // check for status constants (e.g., STATUS_ACTIVE)
+-            foreach ($constants as $constantName => $constantValue) {
++        $auth = Yii::$app->authManager;
++        $roles = array_keys($auth->getRoles());
+ 
+-                // add prettified name to dropdown
+-                if (strpos($constantName, "ROLE_") === 0) {
+-                    $prettyName = str_replace("ROLE_", "", $constantName);
+-                    $prettyName = Inflector::humanize(strtolower($prettyName));
+-                    $data[$constantValue] = $prettyName;
+-                }
+-            }
++        $data = [];
++        foreach ($roles as $key => $value) {
++            $data[$value] = Inflector::humanize(strtolower($value));
+         }
+ 
+         return $data;
+diff --git a/console/controllers/RbacController.php b/console/controllers/RbacController.php
+new file mode 100644
+index 0000000..9c5fbde
+--- /dev/null
++++ b/console/controllers/RbacController.php
+@@ -0,0 +1,21 @@
++<?php
++namespace console\controllers;
++
++use Yii;
++use yii\console\Controller;
++
++class RbacController extends Controller
++{
++    /**
++     * Create a role
++     * Execute in console by: yii rbac/create-role your-role-name-here
++     * @param $name
++     */
++    public function actionCreateRole($name)
++    {
++        $auth = Yii::$app->authManager;
++
++        $author = $auth->createRole($name);
++        $auth->add($author);
++    }
++}
+diff --git a/docs/users.md b/docs/users.md
+index b7248b5..b12adb4 100644
+--- a/docs/users.md
++++ b/docs/users.md
+@@ -1,5 +1,10 @@
+ # User Management
+ 
+-To get user details (eg: email)
++## Create Role
+ 
+-    -
+\ No newline at end of file
++In console, execute following:
++
++```
++yii rbac/create-role your-role-name-here
++
++```
+\ No newline at end of file
+-- 
+1.9.3 (Apple Git-50)
+

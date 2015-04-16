@@ -1,0 +1,131 @@
+From 6be168e12ad6a6a08babf8d5dce96a1192710bfc Mon Sep 17 00:00:00 2001
+From: Parminder Klair <perminder.klair@gmail.com>
+Date: Mon, 2 Mar 2015 12:49:40 +0000
+Subject: [PATCH] added sitemap module
+
+---
+ backend/models/Blog.php  | 18 ++++++++++++++++++
+ backend/models/Page.php  | 17 +++++++++++++++++
+ frontend/config/main.php | 18 ++++++++++++++++--
+ 3 files changed, 51 insertions(+), 2 deletions(-)
+
+diff --git a/backend/models/Blog.php b/backend/models/Blog.php
+index 5281f22..98c8b6d 100644
+--- a/backend/models/Blog.php
++++ b/backend/models/Blog.php
+@@ -13,8 +13,10 @@ use kartik\markdown\Markdown;
+ use kato\helpers\KatoBase;
+ use common\components\ActiveRecord;
+ use common\models\User;
++use yii\helpers\Url;
+ use yii\web\HttpException;
+ use kato\modules\media\models\Media;
++use kato\modules\sitemap\behaviors\SitemapBehavior;
+ 
+ /**
+  * This is the model class for table "kato_blog".
+@@ -154,6 +156,22 @@ class Blog extends ActiveRecord
+                 ],
+                 'replaceText' => '/',
+             ],
++            'sitemap' => [
++                'class' => SitemapBehavior::className(),
++                'scope' => function ($model) {
++                    /** @var \yii\db\ActiveQuery $model */
++                    $model->andWhere(['deleted' => 0, 'status' => 1, 'revision_to' => 0]);
++                },
++                'dataClosure' => function ($model) {
++                    /** @var self $model */
++                    return [
++                        'loc' => $model->permalink,
++                        'lastmod' => strtotime($model->update_time),
++                        'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
++                        'priority' => 0.8
++                    ];
++                }
++            ],
+         ];
+     }
+ 
+diff --git a/backend/models/Page.php b/backend/models/Page.php
+index 62dd411..50b7527 100644
+--- a/backend/models/Page.php
++++ b/backend/models/Page.php
+@@ -16,6 +16,7 @@ use yii\helpers\Json;
+ use yii\web\BadRequestHttpException;
+ use yii\web\HttpException;
+ use kato\modules\media\models\Media;
++use kato\modules\sitemap\behaviors\SitemapBehavior;
+ 
+ /**
+  * This is the model class for table "kato_page".
+@@ -299,6 +300,22 @@ class Page extends ActiveRecord
+                 'class' => 'kato\behaviors\ListingOrder',
+                 'attribute' => 'listing_order',
+             ],
++            'sitemap' => [
++                'class' => SitemapBehavior::className(),
++                'scope' => function ($model) {
++                    /** @var \yii\db\ActiveQuery $model */
++                    $model->andWhere(['deleted' => 0, 'status' => 1, 'revision_to' => 0]);
++                },
++                'dataClosure' => function ($model) {
++                    /** @var self $model */
++                    return [
++                        'loc' => $model->permalink,
++                        'lastmod' => strtotime($model->update_time),
++                        'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
++                        'priority' => 0.8
++                    ];
++                }
++            ],
+         ];
+     }
+ 
+diff --git a/frontend/config/main.php b/frontend/config/main.php
+index a007967..7204226 100644
+--- a/frontend/config/main.php
++++ b/frontend/config/main.php
+@@ -16,7 +16,17 @@ return [
+     },
+     'bootstrap' => ['log'],
+     'controllerNamespace' => 'frontend\controllers',
+-    'modules' => [],
++    'modules' => [
++        'sitemap' => [
++            'class' => 'kato\modules\sitemap\Sitemap',
++            'models' => [
++                'backend\models\Blog',
++                'backend\models\Page',
++            ],
++            'enableGzip' => true, // default is false
++            'cacheExpire' => 1, // 1 second. Default is 24 hours
++        ],
++    ],
+     'components' => [
+         'user' => [
+             'identityClass' => 'common\models\User',
+@@ -36,8 +46,9 @@ return [
+             'enablePrettyUrl' => true,
+             'showScriptName' => false,
+             'rules' => [
+-                '<action:(index|contact|error|search|sitemap)>' => 'site/<action>',
++                '<action:(index|contact|error|search)>' => 'site/<action>',
+                 'files/<directory>/<file>' => 'site/file-check',
++                ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                 'resources' => 'resource/index',
+                 'resources/<slug>' => 'resource/view',
+                 'blog' => 'blog/index',
+@@ -56,6 +67,9 @@ return [
+                 'basePath' => '@web/themes/' . $frontendTheme,
+             ],
+         ],
++        'cache' => [
++            'class' => 'yii\caching\FileCache',
++        ],
+     ],
+     'params' => $params,
+ ];
+-- 
+1.9.3 (Apple Git-50)
+

@@ -1,0 +1,42 @@
+From 3e29c736e67558a0ab447cd2d3093f9411f73688 Mon Sep 17 00:00:00 2001
+From: Parminder Klair <perminder.klair@gmail.com>
+Date: Thu, 16 Apr 2015 11:03:52 +0100
+Subject: [PATCH] page controller more secure
+
+---
+ frontend/controllers/PageController.php | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/frontend/controllers/PageController.php b/frontend/controllers/PageController.php
+index a9a522a..e394a5d 100644
+--- a/frontend/controllers/PageController.php
++++ b/frontend/controllers/PageController.php
+@@ -43,8 +43,24 @@ class PageController extends \yii\web\Controller
+             throw new BadRequestHttpException('Page slug not set.');
+         }
+ 
++        $where = [
++            'slug' => HtmlPurifier::process($_GET['slug']),
++            'type' => 0,
++            'revision_to' => 0,
++            'deleted' => 0,
++        ];
++
++        if (!isset($_GET['preview'])) {
++            $where['status'] = Page::STATUS_PUBLISHED;
++        } else {
++            //if preview, check if guest, throw error.
++            if (\Yii::$app->user->isGuest) {
++                throw new BadRequestHttpException('Requested Page does not found.');
++            }
++        }
++
+         $model = Page::find()
+-            ->where('slug = :slug', [':slug' => HtmlPurifier::process($_GET['slug'])])
++            ->where($where)
+             ->one();
+ 
+         if (is_null($model)) {
+-- 
+2.3.2 (Apple Git-55)
+

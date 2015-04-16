@@ -1,0 +1,53 @@
+From b6d18dfcf7ed9a30cf1a4f0ac31a01d7808992c2 Mon Sep 17 00:00:00 2001
+From: Parminder Klair <perminder.klair@gmail.com>
+Date: Thu, 19 Feb 2015 11:40:48 +0000
+Subject: [PATCH] added media componenet
+
+---
+ common/config/main.php |  3 +++
+ docs/media.md          | 18 ++++++++++++++++++
+ 2 files changed, 21 insertions(+)
+ create mode 100644 docs/media.md
+
+diff --git a/common/config/main.php b/common/config/main.php
+index 87b0bae..93620fe 100644
+--- a/common/config/main.php
++++ b/common/config/main.php
+@@ -44,6 +44,9 @@ return [
+         'kato' => [
+             'class' => 'kato\components\Kato',
+         ],
++        'media' => [
++            'class' => 'kato\modules\media\components\MediaRender',
++        ],
+         'cache' => [
+             'class' => 'yii\caching\FileCache',
+         ],
+diff --git a/docs/media.md b/docs/media.md
+new file mode 100644
+index 0000000..2626708
+--- /dev/null
++++ b/docs/media.md
+@@ -0,0 +1,18 @@
++#Model
++
++## Render Remote Images
++
++-- Make sure to initialize media component in your config file:
++```php
++'components' => [
++    'media' => [
++        'class' => 'kato\modules\media\components\MediaRender',
++    ],
++........
++],
++```
++
++Then to render remote URLs:
++```php
++echo Yii::$app->media->render('HTTP://URL_TO_IMAGE_HERE.JPG')
++```
+\ No newline at end of file
+-- 
+1.9.3 (Apple Git-50)
+

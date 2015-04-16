@@ -1,0 +1,253 @@
+From 63c9ea66c443395086cc22d3ae680cadbb607d24 Mon Sep 17 00:00:00 2001
+From: Parminder Klair <perminder.klair@gmail.com>
+Date: Mon, 30 Mar 2015 14:49:00 +0100
+Subject: [PATCH] blog fixes
+
+---
+ backend/models/Blog.php                    | 32 +++++++++++++++++++++++++-----
+ backend/models/Page.php                    | 21 +++++++++++++++++---
+ backend/views/blog/_form.php               |  3 +++
+ backend/views/page/_form.php               |  4 ++++
+ console/migrations/m140425_190132_init.php |  2 ++
+ frontend/themes/basic/blog/_view.php       | 16 +++++++++++----
+ 6 files changed, 66 insertions(+), 12 deletions(-)
+
+diff --git a/backend/models/Blog.php b/backend/models/Blog.php
+index 185278d..397075c 100644
+--- a/backend/models/Blog.php
++++ b/backend/models/Blog.php
+@@ -10,6 +10,7 @@ use yii\helpers\Json;
+ use kato\helpers\KatoBase;
+ use kato\ActiveRecord;
+ use common\models\User;
++use yii\i18n\Formatter;
+ use yii\web\HttpException;
+ use kato\modules\media\models\Media;
+ use kato\modules\sitemap\behaviors\SitemapBehavior;
+@@ -34,6 +35,7 @@ use kato\modules\sitemap\behaviors\SitemapBehavior;
+  * @property integer $status
+  * @property integer $deleted
+  * @property string $permalink
++ * @property integer $featured_image
+  */
+ class Blog extends ActiveRecord
+ {
+@@ -57,13 +59,12 @@ class Blog extends ActiveRecord
+             [['title'], 'required'],
+             [['content', 'content_html', 'tags'], 'string'],
+             [['create_time', 'created_by', 'update_time', 'publish_time'], 'required'],
+-            [['create_time', 'update_time', 'publish_time'], 'safe'],
+-            [['created_by', 'updated_by', 'published_by', 'revision_to', 'status', 'deleted'], 'integer'],
++            [['create_time', 'update_time', 'publish_time', 'featured_image'], 'safe'],
++            [['created_by', 'updated_by', 'published_by', 'revision_to', 'status', 'deleted', 'featured_image'], 'integer'],
+             [['title', 'slug'], 'string', 'max' => 70],
+             [['short_desc'], 'string', 'max' => 255],
+             ['status', 'default', 'value' => self::STATUS_NOT_PUBLISHED],
+             ['status', 'in', 'range' => [self::STATUS_PUBLISHED, self::STATUS_NOT_PUBLISHED]],
+-            //['slug', 'default', 'value' => null],
+         ];
+     }
+ 
+@@ -89,6 +90,7 @@ class Blog extends ActiveRecord
+             'status' => 'Status',
+             'deleted' => 'Deleted',
+             'revision_to ' => 'Revision To',
++            'featured_image' => 'Featured Image',
+         ];
+     }
+ 
+@@ -154,8 +156,15 @@ class Blog extends ActiveRecord
+     public function beforeSave($insert)
+     {
+         if (parent::beforeSave($insert)) {
+-            if (!$this->isNewRecord && Yii::$app->params['createRevisions']) {
+-                $this->createRevision();
++            if (!$this->isNewRecord) {
++                if (Yii::$app->params['createRevisions']) {
++                    $this->createRevision();
++                }
++
++                //set publish time
++                if (($this->oldAttributes['status'] == self::STATUS_NOT_PUBLISHED) && ($this->status == self::STATUS_PUBLISHED) && ($this->publish_time == '0000-00-00 00:00:00')) {
++                    $this->publish_time = date('Y-m-d H:i:s');
++                }
+             }
+ 
+             $this->createShortDesc();
+@@ -317,4 +326,17 @@ class Blog extends ActiveRecord
+         }
+     }
+ 
++    /**
++     * Returns media data of Featured Image
++     * @return bool|null|static
++     */
++    public function getFeaturedImage()
++    {
++        if ($image = Media::findOne($this->featured_image)) {
++            return $image;
++        }
++
++        return false;
++    }
++
+ }
+diff --git a/backend/models/Page.php b/backend/models/Page.php
+index 66474db..b6ec19d 100644
+--- a/backend/models/Page.php
++++ b/backend/models/Page.php
+@@ -3,6 +3,7 @@
+ namespace backend\models;
+ 
+ use kato\helpers\KatoBase;
++use kato\modules\media\models\Media;
+ use Yii;
+ use backend\models\query\PageQuery;
+ use common\models\User;
+@@ -40,6 +41,7 @@ use kato\modules\sitemap\behaviors\SitemapBehavior;
+  * @property string $allowed_groups
+  * @property integer $active_revision
+  *  @property string $meta_keywords
++ * @property integer $featured_image
+  */
+ class Page extends ActiveRecord
+ {
+@@ -76,8 +78,8 @@ class Page extends ActiveRecord
+     {
+         return [
+             [['create_time', 'created_by', 'update_time'], 'required'],
+-            [['create_time', 'update_time'], 'safe'],
+-            [['created_by', 'updated_by', 'parent_id', 'type', 'listing_order', 'menu_hidden', 'revision_to', 'type'], 'integer'],
++            [['create_time', 'update_time', 'featured_image'], 'safe'],
++            [['created_by', 'updated_by', 'parent_id', 'type', 'listing_order', 'menu_hidden', 'revision_to', 'type', 'featured_image'], 'integer'],
+             [['status', 'menu_hidden', 'deleted'], 'boolean'],
+             [['title', 'slug', 'menu_title'], 'string', 'max' => 70],
+             [['short_desc'], 'string', 'max' => 255],
+@@ -88,7 +90,6 @@ class Page extends ActiveRecord
+             ['type', 'in', 'range' => [self::TYPE_STATIC, self::TYPE_NON_STATIC]],
+             ['parent_id', 'default', 'value' => 0],
+             ['slug', 'default', 'value' => null],
+-            //[['slug'], 'unique'],
+             ['menu_hidden', 'default', 'value' => 1],
+             ['menu_hidden', 'in', 'range' => [self::MENU_HIDDEN_NO, self::MENU_HIDDEN_YES]],
+         ];
+@@ -117,6 +118,7 @@ class Page extends ActiveRecord
+             'menu_hidden' => 'Hidden in Menu',
+             'listing_order' => 'Listing Order',
+             'revision_to' => 'Revision To',
++            'featured_image' => 'Featured Image',
+         ];
+     }
+ 
+@@ -583,4 +585,17 @@ class Page extends ActiveRecord
+             return false;
+         }
+     }
++
++    /**
++     * Returns media data of Featured Image
++     * @return bool|null|static
++     */
++    public function getFeaturedImage()
++    {
++        if ($image = Media::findOne($this->featured_image)) {
++            return $image;
++        }
++
++        return false;
++    }
+ }
+diff --git a/backend/views/blog/_form.php b/backend/views/blog/_form.php
+index c396ba4..49da37f 100644
+--- a/backend/views/blog/_form.php
++++ b/backend/views/blog/_form.php
+@@ -7,6 +7,7 @@ use yii\bootstrap\ActiveForm;
+ use kartik\widgets\Select2;
+ use kartik\widgets\DatePicker;
+ use kato\sirtrevorjs\SirTrevor;
++use kato\helpers\KatoHtml;
+ 
+ $tag = new Tag;
+ 
+@@ -77,6 +78,8 @@ $tag = new Tag;
+                             ],
+                         ]); ?>
+ 
++                        <?= $form->field($model, 'featured_image')->dropDownList(KatoHtml::listData($model->media, 'id', 'title'), ['prompt'=>'Select Media']) ?>
++
+                         <?= $form->field($model, 'status')->dropDownList($model->listStatus()); ?>
+ 
+                         <div class="form-group">
+diff --git a/backend/views/page/_form.php b/backend/views/page/_form.php
+index 75f7670..93ee85a 100644
+--- a/backend/views/page/_form.php
++++ b/backend/views/page/_form.php
+@@ -4,6 +4,8 @@ use yii\helpers\Html;
+ use yii\bootstrap\ActiveForm;
+ use backend\models\Page;
+ use kato\modules\media\widgets\Media;
++use kato\helpers\KatoHtml;
++
+ /**
+  * @var yii\web\View $this
+  * @var backend\models\Page $model
+@@ -50,6 +52,8 @@ use kato\modules\media\widgets\Media;
+                         <?= $form->field($model, 'layout')->dropDownList($model->listLayouts()); ?>
+ 
+                         <?= $form->field($model, 'type')->dropDownList([Page::TYPE_STATIC => 'Static', Page::TYPE_NON_STATIC => 'Dynamic']); ?>
++
++                        <?= $form->field($model, 'featured_image')->dropDownList(KatoHtml::listData($model->media, 'id', 'title'), ['prompt'=>'Select Media']) ?>
+                     </div>
+ 
+                     <div class="tab-pane fade in" id="media">
+diff --git a/console/migrations/m140425_190132_init.php b/console/migrations/m140425_190132_init.php
+index 7059178..52214d6 100644
+--- a/console/migrations/m140425_190132_init.php
++++ b/console/migrations/m140425_190132_init.php
+@@ -79,6 +79,7 @@ class m140425_190132_init extends \yii\db\Migration
+             'update_time' => Schema::TYPE_TIMESTAMP . ' NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
+             'publish_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT 0',
+             'tags' => Schema::TYPE_TEXT,
++            'featured_image' => Schema::TYPE_INTEGER,
+             'status' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
+             'deleted' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
+         ], $tableOptions);
+@@ -120,6 +121,7 @@ class m140425_190132_init extends \yii\db\Migration
+             'updated_by' => Schema::TYPE_INTEGER,
+             'create_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT 0',
+             'update_time' => Schema::TYPE_TIMESTAMP . ' NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
++            'featured_image' => Schema::TYPE_INTEGER,
+             'status' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
+             'deleted' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
+         ], $tableOptions);
+diff --git a/frontend/themes/basic/blog/_view.php b/frontend/themes/basic/blog/_view.php
+index 0c65c95..227cdef 100644
+--- a/frontend/themes/basic/blog/_view.php
++++ b/frontend/themes/basic/blog/_view.php
+@@ -1,10 +1,18 @@
+ <?php
++
+ use yii\helpers\Html;
++
++/**
++ * @var yii\web\View $this
++ * @var backend\models\Blog $model
++ */
+ ?>
+-<a class="pull-left" href="#">
+-    <img class="media-object" src="http://placehold.it/64x64" alt="...">
+-</a>
++<?php if ($image = $model->featuredImage): ?>
++    <a class="pull-left" href="#">
++        <img class="media-object" src="<?= $image->render(['height' => 90, 'width' => 90]) ?>" alt="...">
++    </a>
++<?php endif; ?>
+ <div class="media-body">
+     <h4 class="media-heading"><?= Html::a(Html::encode($model->title), $model->permalink); ?></h4>
+     <p><?= Html::encode($model->short_desc); ?></p>
+-</div>
+\ No newline at end of file
++</div>
+-- 
+1.9.5 (Apple Git-50.3)
+

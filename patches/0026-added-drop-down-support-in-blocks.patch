@@ -1,0 +1,157 @@
+From a9d403b35b1e926685d9b0f9cbbcd8aa4ce97f06 Mon Sep 17 00:00:00 2001
+From: Parminder Klair <perminder.klair@gmail.com>
+Date: Wed, 25 Feb 2015 10:12:21 +0000
+Subject: [PATCH] added drop down support in blocks
+
+---
+ backend/models/Block.php                   | 21 ++++++++++++++++++++-
+ backend/models/Page.php                    |  1 +
+ backend/views/page/_inLineBlocks.php       |  7 ++++++-
+ console/migrations/m140425_190132_init.php |  1 +
+ frontend/themes/basic/blocks/basic.json    | 10 +++++++++-
+ 5 files changed, 37 insertions(+), 3 deletions(-)
+
+diff --git a/backend/models/Block.php b/backend/models/Block.php
+index 9989a3e..4f9858b 100644
+--- a/backend/models/Block.php
++++ b/backend/models/Block.php
+@@ -26,6 +26,7 @@ use yii\web\HttpException;
+  * @property integer $status
+  * @property integer $deleted
+  * @property integer $parent
++ * @property string $options
+  */
+ class Block extends ActiveRecord
+ {
+@@ -33,9 +34,25 @@ class Block extends ActiveRecord
+     const STATUS_PUBLISHED = 1;
+ 
+     const TYPE_TEXT_AREA = 'text-area';
++
+     const TYPE_TEXT_FIELD = 'text-field';
++
+     const TYPE_SIR_TREVOR = 'sir-trevor';
+ 
++    /**
++     * Example:
++     * {
++        "name": "show-children",
++        "type": "drop-down",
++        "options": {
++        "no": "No",
++        "yes": "Yes"
++        },
++        "category": "general"
++        }
++     */
++    const TYPE_DROP_DOWN = 'drop-down';
++
+ 	/**
+ 	 * @inheritdoc
+ 	 */
+@@ -60,7 +77,7 @@ class Block extends ActiveRecord
+ 	{
+ 		return [
+ 			[['content'], 'string'],
+-			[['create_time', 'update_time', 'content'], 'safe'],
++			[['create_time', 'update_time', 'content', 'options'], 'safe'],
+ 			[['created_by', 'updated_by', 'status', 'deleted', 'parent'], 'integer'],
+ 			[['title'], 'string', 'max' => 70],
+             [['parent_layout', 'block_type', 'category'], 'string', 'max' => 50],
+@@ -90,6 +107,7 @@ class Block extends ActiveRecord
+             'category' => 'Category',
+ 			'status' => 'Status',
+ 			'deleted' => 'Deleted',
++            'options' => 'Options',
+ 		];
+ 	}
+ 
+@@ -245,6 +263,7 @@ class Block extends ActiveRecord
+         $block->parent_layout = $this->parent_layout;
+         $block->comments = $this->comments;
+         $block->category = $this->category;
++        $block->options = $this->options;
+ 
+         if ($block->save()) {
+             return true;
+diff --git a/backend/models/Page.php b/backend/models/Page.php
+index 736afe2..11878b8 100644
+--- a/backend/models/Page.php
++++ b/backend/models/Page.php
+@@ -464,6 +464,7 @@ class Page extends ActiveRecord
+                         $block->parent_layout = $layout;
+                         if (isset($data->comments)) $block->comments = $data->comments;
+                         $block->category = isset($data->category) ? $data->category : 'General';
++                        if (isset($data->options)) $block->options = Json::encode($data->options);
+ 
+                         if (!$block->save()) {
+                             //throw error
+diff --git a/backend/views/page/_inLineBlocks.php b/backend/views/page/_inLineBlocks.php
+index 4b41464..d4a3d52 100644
+--- a/backend/views/page/_inLineBlocks.php
++++ b/backend/views/page/_inLineBlocks.php
+@@ -5,6 +5,7 @@ use yii\bootstrap\ActiveForm;
+ use backend\models\Block;
+ use yii\imperavi\Widget as ImperaviWidget;
+ use kato\sirtrevorjs\SirTrevor;
++use yii\helpers\Json;
+ 
+ /**
+  * @var yii\web\View $this
+@@ -73,7 +74,11 @@ use kato\sirtrevorjs\SirTrevor;
+ 
+                                         } elseif ($block->block_type == Block::TYPE_TEXT_FIELD) {
+ 
+-                                            echo $form->field($block, 'content')->label(false)->textInput(['name' => 'Block['.$block->title.']', 'class' => 'form-control']);
++                                            echo $form->field($block, 'content')->label(false)->textInput(['name' => 'Block[' . $block->title . ']', 'class' => 'form-control']);
++
++                                        } elseif ($block->block_type == Block::TYPE_DROP_DOWN) {
++
++                                            echo $form->field($block, 'content')->label(false)->dropDownList(Json::decode($block->options), ['name' => 'Block[' . $block->title . ']', 'class' => 'form-control']);
+ 
+                                         } elseif ($block->block_type == Block::TYPE_SIR_TREVOR) {
+ 
+diff --git a/console/migrations/m140425_190132_init.php b/console/migrations/m140425_190132_init.php
+index 6d3eb74..9c896ad 100644
+--- a/console/migrations/m140425_190132_init.php
++++ b/console/migrations/m140425_190132_init.php
+@@ -51,6 +51,7 @@ class m140425_190132_init extends \yii\db\Migration
+             'content' => 'LONGTEXT',
+             'parent' => Schema::TYPE_INTEGER,
+             'block_type' => Schema::TYPE_STRING . '(50)',
++            'options' => Schema::TYPE_TEXT,
+             'parent_layout' => Schema::TYPE_STRING . '(50)',
+             'comments' => Schema::TYPE_STRING . '(100)',
+             'category' => Schema::TYPE_STRING . '(50)',
+diff --git a/frontend/themes/basic/blocks/basic.json b/frontend/themes/basic/blocks/basic.json
+index 8063758..cd6289c 100644
+--- a/frontend/themes/basic/blocks/basic.json
++++ b/frontend/themes/basic/blocks/basic.json
+@@ -8,7 +8,6 @@
+         {
+             "name": "details",
+             "type": "sir-trevor",
+-            "comments": "This is demo comment",
+             "category": "General"
+         },
+         {
+@@ -34,6 +33,15 @@
+             "name": "cta-link-url",
+             "type": "text-field",
+             "category": "CTA"
++        },
++        {
++            "name": "show-children",
++            "type": "drop-down",
++            "options": {
++                "no": "No",
++                "yes": "Yes"
++            },
++            "category": "general"
+         }
+     ]
+ }
+\ No newline at end of file
+-- 
+1.9.3 (Apple Git-50)
+
